@@ -1,0 +1,4768 @@
+<html>
+
+<HTML>
+<HEAD>
+
+ <TITLE>PokemonMaker</TITLE>
+
+
+ <HTA:APPLICATION
+         ID="oMNF"
+         APPLICATIONNAME="PokemonMaker"
+         CAPTION="yes"
+         SHOWINTASKBAR="yes"
+         SINGLEINSTANCE="yes"
+         WINDOWSTATE="maximize"
+ >
+   </HTA:APPLICATION>
+
+ <script src="Utilities.js"></script>
+ <script src="Stats.js"></script>
+ <script src="Flags.js"></script>
+ <script src="Encrypt.js"></script>
+ <script src="Forms.js"></script>
+ <script src="Thanks.js"></script>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ <link rel="stylesheet" href="styles.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+ <script language="Javascript">
+
+function init() {
+ var pokeForm = getDefaultForm();
+ pokeForm.Code.focus()
+ dum = NewPoke();
+ pokeForm.LogC.value="Done Loading.\r\n";
+}
+
+  </script>
+
+</HEAD>
+
+<body onload="init()">
+
+<div class="main-header bg-primary jumbotron jumbotron-fluid">
+ <div class="container">
+   <h1 class="display-4">Pokemon Maker</h1>
+   <a href="https://www.ocf.berkeley.edu/~jdonald/pokemon/kpdavatar/PokemonMakerHelp.txt">
+    Help
+   </a>
+ </div>
+</div>
+
+<div class="container">
+
+ <form name="PokemonForm">
+
+  <div class="form-group">
+   <div class="panel panel-primary">
+   <div class="panel-heading">
+    <h4 class="panel-title">
+     <a data-toggle="collapse" href="#cCode">Code</a>
+    </h4>
+   </div>
+   <div id="cCode" class="panel-collapse">
+    <div class="panel-body">
+     <table class="table">
+      <tbody>
+
+      <tr>
+        <td>
+          <input onclick="Copy('C')" type=button class="btn btn-default" value="Copy Code">
+          <input onclick="Paste('C')" type=button class="btn btn-default" value="Paste Code">
+        </td>
+        <td>
+          <input onclick="Copy('L')" type=button class="btn btn-default" value="Copy Log">
+        </td>
+      </tr>
+
+      <tr>
+       <td>
+        <div class="form-group">
+         <textarea name="Code" ROWS=15 class="form-control">
+        Only use ONE Pokemon Code at a time.
+        Use at your own risk.
+        10/09/2004 Fixed Japanese Emerald (m) code
+         added Fire/Leaf for US v1.1/Spanish/German/French/Italian
+        10/15/2004 Japanese Emerald PC Addr fix Mirage Island Code
+        10/21/2004 Fixed "Ulist"
+        Added Move Sort by TMs/HMs,vs 2 Moves
+        11/11/2004 Added CB type 5 codes(Thanks Kenobi)
+        Added Move Sort by Cool/Beauty/Cute/Smart/Tough
+        01/29/2005 changed Pokerus to list/Fix CB/GSv3+type5 (m)
+         </textarea>
+        </div>
+       </td>
+       <td>
+        <div class="form-group">
+         <textarea name="LogC" ROWS=15 class="form-control">
+        Loading....
+         </textarea>
+         </div>
+       </td>
+      </tr>
+
+      <tr>
+       <td colspan=2>
+        <input onclick="codeout(-1)" type=button class="btn btn-primary" value="Settings >>> Code">
+        <input onclick="codein()" type=button class="btn btn-default" value="Settings <<< Code">
+       </td>
+      </tr>
+
+      <tr>
+       <td>
+        <div class="form-group">
+         <label>Game:</label>
+         <select name="Game" onChange="codeout(-1)" class="form-control">
+          <option selected value="0">0907 (U/UK) Ruby
+          <option value="1">0898 (U/UK) Sapphire
+          <option value="2">1114 (F) Rubis
+          <option value="3">1111 (F) Saphir
+          <option value="4">1106 (G) Rubin
+          <option value="5">1092 (G) Saphir
+          <option value="6">1110 (S) Rubi
+          <option value="7">1109 (S) Zafiro
+          <option value="8">1104 (I) Rubino
+          <option value="9">1105 (I) Zaffiro
+          <option value="10">1242 (E) Ruby
+          <option value="11">1237 (E) Sapphire
+          <option value="12">0760 (J) Ruby
+          <option value="13">0757 (J) Sapphire
+          <option value="14">1360 (J) Fire Red
+          <option value="15">1362 (J) Leaf Green
+          <option value="16">1636 (U) Red Fire v1.0
+          <option value="17">1637 (U) Green Leaf v1.0
+          <option value="18">1649 (J) Emerald
+          <option value="19">1695 (U) Red Fire v1.1
+          <option value="20">1691 (U) Green Leaf v1.1
+          <option value="21">1675 (S) Rojo Fuego
+          <option value="22">1676 (S) Verde Hoja
+          <option value="23">1677 (G) Blattgrune Edition
+          <option value="24">1678 (G) Feuerrote Edition
+          <option value="25">1679 (F) Rouge Feu
+          <option value="26">1680 (F) Vert Feuille
+          <option value="27">1685 (I) Versione Rosso Fuoco
+          <option value="28">1686 (I) Versione Verde Foglia
+          <option value="29">???? (U/UK) Emerald
+         </select>
+        </div>
+
+        <div class="form-check">
+         <label class="form-check-label" for="MCode">Output Anti-DMA Code</label>
+         <input class="form-check-input" type=checkbox value="0" name="MCode">
+        </div>
+
+       </td>
+       <td>
+        <div class="form-check form-check-inline">
+         <input class="form-check-input" type="radio" value="VBA" name=RCode onclick="codeout(0)">
+         <label class="form-check-label" for="RCode">VBA</label>
+         <input class="form-check-input" type="radio" value="ARv1" name=RCode onclick="codeout(1)">
+         <label class="form-check-label" for="RCode">ARv1-2/GSv1-2</label>
+         <input class="form-check-input" type="radio" value="ARv3" name=RCode onclick="codeout(2)" CHECKED>
+         <label class="form-check-label" for="RCode">ARv3</label>
+        </div>
+        <div class="form-check form-check-inline">
+         <input class="form-check-input" type="radio" value="CB" name=RCode onclick="codeout(3)">
+         <label class="form-check-label" for="RCode">CB/GSv3+Type8</label>
+         <input class="form-check-input" type="radio" value="Hex" name=RCode onclick="codeout(4)">
+         <label class="form-check-label" for="RCode">80-Bytes</label>
+        </div>
+        <div class="form-check form-check-inline">
+         <input class="form-check-input" type="radio" value="CB5" name=RCode onclick="codeout(5)">
+         <label class="form-check-label" for="RCode">CB/GSv3+Type5</label>
+        </div>
+       </td>
+      </tr>
+
+      </tbody>
+     </table>
+    </div>
+   </div>
+  </div>
+  </div>
+
+  <div class="form-group">
+   <div class="panel panel-default">
+    <div class="panel-heading">
+     <h4 class="panel-title">
+      <a data-toggle="collapse" href="#cCInf">Code Information</a>
+     </h4>
+    </div>
+    <div id="cCInf" class="panel-collapse collapse">
+     <div class="panel-body">
+
+      <table class="table">
+       <tbody>
+
+        <tr>
+         <td>
+          <input onclick="Sample(-1)" type=button class="btn btn-default" value="All Samples">
+         </td>
+         <td>
+          <input onclick="Sample(32)" type=button class="btn btn-default" value="All ABCD">
+          <input name=ABCD size=5 value="ABCD" maxLength=5 type="text">
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(0)" type=radio value="00000000" CHECKED>
+           <label class="form-check-label" for="RDNA">Code Sample 0</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RA onclick="Sample(20)" type=radio value="00000000" CHECKED>
+           <label class="form-check-label" for="RA">A Structure 0</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(1)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 1</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RA onclick="Sample(21)" type=radio value="00000000">
+           <label class="form-check-label" for="RA">A Structure 1</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(2)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 2</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RA onclick="Sample(22)" type=radio value="00000000">
+           <label class="form-check-label" for="RA">A Structure 2</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(3)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 3</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RB onclick="Sample(23)" type=radio value="00000000" CHECKED>
+           <label class="form-check-label" for="RB">B Structure 0</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(4)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 4</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RB onclick="Sample(24)" type=radio value="00000000">
+           <label class="form-check-label" for="RB">B Structure 1</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(5)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 5</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RB onclick="Sample(25)" type=radio value="00000000">
+           <label class="form-check-label" for="RB">B Structure 2</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(6)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 6</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RC onclick="Sample(26)" type=radio value="00000000" CHECKED>
+           <label class="form-check-label" for="RC">C Structure 0</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(7)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 7</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RC onclick="Sample(27)" type=radio value="00000000">
+           <label class="form-check-label" for="RC">C Structure 1</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(8)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 8</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RC onclick="Sample(28)" type=radio value="00000000">
+           <label class="form-check-label" for="RC">C Structure 2</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(9)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 9</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RD onclick="Sample(29)" type=radio value="00000000" CHECKED>
+           <label class="form-check-label" for="RD">D Structure 0</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(10)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 10</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RD onclick="Sample(30)" type=radio value="00000000">
+           <label class="form-check-label" for="RD">D Structure 1</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(11)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 11</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RD onclick="Sample(31)" type=radio value="00000000">
+           <label class="form-check-label" for="RD">D Structure 2</label>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(12)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 12</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-group">
+            <label for="CS">CS:</label>
+            <input name=CS size=10 value="" maxLength=10 type="text" class="form-control" style="width:100px;">
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(13)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 13</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-group">
+           <label for="XKey">XKey:</label>
+           <input name=XKey size=10 value="" maxLength=10 type="text" class="form-control" style="width:100px;">
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(14)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 14</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-group">
+           <label for="PFont">Font:</label>
+           <input name=PFont size=4 value="0202" maxLength=4 type="text" class="form-control" style="width:100px;">
+           <div class="form-check form-check-inline">
+            <label class="form-check-label" for="FCo">Code:</label>
+            <input class="form-check-input" name=FCo type=checkbox value="0">
+           </div>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(15)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 15</label>
+          </div>
+         </td>
+         <td></td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(16)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 16</label>
+          </div>
+         </td>
+         <td></td>
+        </tr>
+
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(17)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 17</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-group">
+           <div class="form-check form-check-inline">
+            <label class="form-check-label" for="RPID">Use Random PIDS:</label>
+            <input class="form-check-input" name=RPID type=checkbox value="0" CHECKED>
+           </div>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(18)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 18</label>
+          </div>
+         </td>
+         <td>
+           <div class="form-group">
+            <label for="PID">Player ID:</label>
+            <input name=PID size=20 value="" maxLength=10 type="text" class="form-control" placeholder="Player ID">
+           </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-check form-check-inline">
+           <input class="form-check-input" name=RDNA onclick="Sample(19)" type=radio value="00000000">
+           <label class="form-check-label" for="RDNA">Code Sample 19</label>
+          </div>
+         </td>
+         <td>
+          <div class="form-group">
+            <label for="DNA">80-Bytes:</label>
+            <input name=DNA value="0" type="text" class="form-control" placeholder="80-Bytes">
+          </div>
+         </td>
+        </tr>
+
+       </tbody>
+      </table>
+
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="form-group">
+   <div class="panel panel-default">
+   <div class="panel-heading">
+    <h4 class="panel-title">
+     <a data-toggle="collapse" href="#cTrainer">Trainer</a>
+    </h4>
+   </div>
+   <div id="cTrainer" class="panel-collapse collapse">
+    <div class="panel-body">
+
+      <table class="table">
+       <tbody>
+
+        <tr>
+         <td>
+          <div class="form-group">
+             <label for="TName">OT Player Name:</label>
+             <input name=TName size=21 value="" maxLength=21 type="text" class="form-control" placeholder="Player Name">
+            <div class="form-check form-check-inline">
+             <label class="form-check-label" for="CTN">Encode:</label>
+             <input class="form-check-input" name=CTN type=checkbox value="0">
+            </div>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-group">
+            <label for="TName">OT Gender:</label>
+            <select name="TGender">
+             <option value="Boy">Boy
+             <option value="Girl" selected>Girl
+            </select>
+            <div class="form-check form-check-inline">
+             <label class="form-check-label" for="CTG">Encode:</label>
+             <input class="form-check-input" name=CTG type=checkbox value="0">
+            </div>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-group">
+            <label for="STID">OT SecretID:</label>
+            <input name=STID size=7 value=0 maxLength=7 class="form-control" placeholder="SecretID">
+            <div class="form-check form-check-inline">
+             <label class="form-check-label" for="CTSID">Encode:</label>
+             <input class="form-check-input" name=CTSID type=checkbox value="0">
+            </div>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <div class="form-group">
+            <label for="TID">OT ID:</label>
+            <input name=TID size=7 value=0 maxLength=7 class="form-control" placeholder="ID">
+            <div class="form-check form-check-inline">
+             <label class="form-check-label" for="CTID">Encode:</label>
+             <input class="form-check-input" name=CTID type=checkbox value="0">
+            </div>
+          </div>
+         </td>
+        </tr>
+
+       </tbody>
+      </table>
+
+     </div>
+   </div>
+  </div>
+  </div>
+
+  <div class="form-group">
+   <div class="panel panel-default">
+   <div class="panel-heading">
+    <h4 class="panel-title">
+     <a data-toggle="collapse" href="#collapse-pkmn">Pokemon</a>
+    </h4>
+   </div>
+   <div id="collapse-pkmn" class="panel-collapse collapse">
+    <div class="panel-body">
+
+     <table class="table">
+      <tbody>
+
+       <tr>
+        <td>
+         <div class="form-group">
+           <label for="PName">Name:</label>
+           <input name="PName" size=30 value="" maxLength=30 class="form-control" placeholder="Pokemon Name">
+           <div class="form-check form-check-inline">
+            <label class="form-check-label" for="COPN">Encode:</label>
+            <input class="form-check-input" name=COPN type=checkbox value="0">
+           </div>
+         </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+          <label for="Box">Write To:</label>
+          <select name="Box" onChange="codeout(-1)" class="form-control">
+           <option selected value="0">Box 1
+           <option value="1">Box 2
+           <option value="2">Box 3
+           <option value="3">Box 4
+           <option value="4">Box 5
+           <option value="5">Box 6
+           <option value="6">Box 7
+           <option value="7">Box 8
+           <option value="8">Box 9
+           <option value="9">Box 10
+           <option value="10">Box 11
+           <option value="11">Box 12
+           <option value="12">Box 13
+           <option value="13">Box 14
+          </select>
+          <select name="Spot" onChange="codeout(-1)" class="form-control">
+           <option selected value="0">Spot 1
+           <option value="1">Spot 2
+           <option value="2">Spot 3
+           <option value="3">Spot 4
+           <option value="4">Spot 5
+           <option value="5">Spot 6
+           <option value="6">Spot 7
+           <option value="7">Spot 8
+           <option value="8">Spot 9
+           <option value="9">Spot 10
+           <option value="10">Spot 11
+           <option value="11">Spot 12
+           <option value="12">Spot 13
+           <option value="13">Spot 14
+           <option value="14">Spot 15
+           <option value="15">Spot 16
+           <option value="16">Spot 17
+           <option value="17">Spot 18
+           <option value="18">Spot 19
+           <option value="19">Spot 20
+           <option value="20">Spot 21
+           <option value="21">Spot 22
+           <option value="22">Spot 23
+           <option value="23">Spot 24
+           <option value="24">Spot 25
+           <option value="25">Spot 26
+           <option value="26">Spot 27
+           <option value="27">Spot 28
+           <option value="28">Spot 29
+           <option value="29">Spot 30
+          </select>
+         </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+           <label for="Ball">Ball Used:</label>
+           <select name="Ball" class="form-control">
+            <option value="1">Master Ball
+            <option value="2">Ultra Ball
+            <option value="3">Great Ball
+            <option selected value="4">Poke Ball
+            <option value="5">Safari Ball
+            <option value="6">Net Ball
+            <option value="7">Dive Ball
+            <option value="8">Nest Ball
+            <option value="9">Repeat Ball
+            <option value="A">Timer Ball
+            <option value="B">Luxury Ball
+            <option value="C">Premier Ball
+          </select>
+         </div>
+        </td>
+       </tr>
+
+       <tr>
+        <td>
+         <div class="form-group">
+          <label for="Dex">PokeDex:</label>
+          <select name="Dex" onChange="NewDex()"class="form-control">
+           <option selected value="N">National
+           <option value="H">Hoen
+           <option value="G">Game
+          </select>
+          <div class="form-check form-check-inline">
+           <label class="form-check-label d-inline" for="PNum">#:</label>
+           <input name="PNum" size=3 value="1" maxLength=3 class="form-control d-inline" type="text" placeholder="ID No." onChange="NewPoke()">
+          </div>
+          <label for="P1O">Sort by:</label>
+          <select name="P1O" onchange="NPO()" class="form-control">
+           <option selected>Number
+           <option>Alpha
+           <option>Fighting
+           <option>Flying
+           <option>Poison
+           <option>Ground
+           <option>Rock
+           <option>Bug
+           <option>Ghost
+           <option>Steel
+           <option>Fire
+           <option>Water
+           <option>Grass
+           <option>Electric
+           <option>Psychic
+           <option>Ice
+           <option>Dragon
+           <option>Dark
+           <option>Normal
+           <option>Hoen Dex
+           <option>Kanto Dex
+           <option>National Dex
+          </select>
+         </div>
+        </td>
+        <td>
+
+         <div class="form-group">
+          <label for="Species">Pokemon:</label>
+          <select name="Species" class="form-control" onChange="NewPoke()">
+          <option selected value="001">BULBASAUR
+          <option value="002">IVYSAUR
+          <option value="003">VENUSAUR
+          <option value="004">CHARMANDER
+          <option value="005">CHARMELEON
+          <option value="006">CHARIZARD
+          <option value="007">SQUIRTLE
+          <option value="008">WARTORTLE
+          <option value="009">BLASTOISE
+          <option value="010">CATERPIE
+          <option value="011">METAPOD
+          <option value="012">BUTTERFREE
+          <option value="013">WEEDLE
+          <option value="014">KAKUNA
+          <option value="015">BEEDRILL
+          <option value="016">PIDGEY
+          <option value="017">PIDGEOTTO
+          <option value="018">PIDGEOT
+          <option value="019">RATTATA
+          <option value="020">RATICATE
+          <option value="021">SPEAROW
+          <option value="022">FEAROW
+          <option value="023">EKANS
+          <option value="024">ARBOK
+          <option value="025">PIKACHU
+          <option value="026">RAICHU
+          <option value="027">SANDSHREW
+          <option value="028">SANDSLASH
+          <option value="029">NIDORAN Female
+          <option value="030">NIDORINA
+          <option value="031">NIDOQUEEN
+          <option value="032">NIDORAN Male
+          <option value="033">NIDORINO
+          <option value="034">NIDOKING
+          <option value="035">CLEFAIRY
+          <option value="036">CLEFABLE
+          <option value="037">VULPIX
+          <option value="038">NINETALES
+          <option value="039">JIGGLYPUFF
+          <option value="040">WIGGLYTUFF
+          <option value="041">ZUBAT
+          <option value="042">GOLBAT
+          <option value="043">ODDISH
+          <option value="044">GLOOM
+          <option value="045">VILEPLUME
+          <option value="046">PARAS
+          <option value="047">PARASECT
+          <option value="048">VENONAT
+          <option value="049">VENOMOTH
+          <option value="050">DIGLETT
+          <option value="051">DUGTRIO
+          <option value="052">MEOWTH
+          <option value="053">PERSIAN
+          <option value="054">PSYDUCK
+          <option value="055">GOLDUCK
+          <option value="056">MANKEY
+          <option value="057">PRIMEAPE
+          <option value="058">GROWLITHE
+          <option value="059">ARCANINE
+          <option value="060">POLIWAG
+          <option value="061">POLIWHIRL
+          <option value="062">POLIWRATH
+          <option value="063">ABRA
+          <option value="064">KADABRA
+          <option value="065">ALAKAZAM
+          <option value="066">MACHOP
+          <option value="067">MACHOKE
+          <option value="068">MACHAMP
+          <option value="069">BELLSPROUT
+          <option value="070">WEEPINBELL
+          <option value="071">VICTREEBEL
+          <option value="072">TENTACOOL
+          <option value="073">TENTACRUEL
+          <option value="074">GEODUDE
+          <option value="075">GRAVELER
+          <option value="076">GOLEM
+          <option value="077">PONYTA
+          <option value="078">RAPIDASH
+          <option value="079">SLOWPOKE
+          <option value="080">SLOWBRO
+          <option value="081">MAGNEMITE
+          <option value="082">MAGNETON
+          <option value="083">FARFETCH'D
+          <option value="084">DODUO
+          <option value="085">DODRIO
+          <option value="086">SEEL
+          <option value="087">DEWGONG
+          <option value="088">GRIMER
+          <option value="089">MUK
+          <option value="090">SHELLDER
+          <option value="091">CLOYSTER
+          <option value="092">GASTLY
+          <option value="093">HAUNTER
+          <option value="094">GENGAR
+          <option value="095">ONIX
+          <option value="096">DROWZEE
+          <option value="097">HYPNO
+          <option value="098">KRABBY
+          <option value="099">KINGLER
+          <option value="100">VOLTORB
+          <option value="101">ELECTRODE
+          <option value="102">EXEGGCUTE
+          <option value="103">EXEGGUTOR
+          <option value="104">CUBONE
+          <option value="105">MAROWAK
+          <option value="106">HITMONLEE
+          <option value="107">HITMONCHAN
+          <option value="108">LICKITUNG
+          <option value="109">KOFFING
+          <option value="110">WEEZING
+          <option value="111">RHYHORN
+          <option value="112">RHYDON
+          <option value="113">CHANSEY
+          <option value="114">TANGELA
+          <option value="115">KANGASKHAN
+          <option value="116">HORSEA
+          <option value="117">SEADRA
+          <option value="118">GOLDEEN
+          <option value="119">SEAKING
+          <option value="120">STARYU
+          <option value="121">STARMIE
+          <option value="122">MR.MIME
+          <option value="123">SCYTHER
+          <option value="124">JYNX
+          <option value="125">ELECTABUZZ
+          <option value="126">MAGMAR
+          <option value="127">PINSIR
+          <option value="128">TAUROS
+          <option value="129">MAGIKARP
+          <option value="130">GYARADOS
+          <option value="131">LAPRAS
+          <option value="132">DITTO
+          <option value="133">EEVEE
+          <option value="134">VAPOREON
+          <option value="135">JOLTEON
+          <option value="136">FLAREON
+          <option value="137">PORYGON
+          <option value="138">OMANYTE
+          <option value="139">OMASTAR
+          <option value="140">KABUTO
+          <option value="141">KABUTOPS
+          <option value="142">AERODACTYL
+          <option value="143">SNORLAX
+          <option value="144">ARTICUNO
+          <option value="145">ZAPDOS
+          <option value="146">MOLTRES
+          <option value="147">DRATINI
+          <option value="148">DRAGONAIR
+          <option value="149">DRAGONITE
+          <option value="150">MEWTWO
+          <option value="151">MEW
+          <option value="152">CHIKORITA
+          <option value="153">BAYLEEF
+          <option value="154">MEGANIUM
+          <option value="155">CYNDAQUIL
+          <option value="156">QUILAVA
+          <option value="157">TYPHLOSION
+          <option value="158">TOTODILE
+          <option value="159">CROCONAW
+          <option value="160">FERALIGATR
+          <option value="161">SENTRET
+          <option value="162">FURRET
+          <option value="163">HOOTHOOT
+          <option value="164">NOCTOWL
+          <option value="165">LEDYBA
+          <option value="166">LEDIAN
+          <option value="167">SPINARAK
+          <option value="168">ARIADOS
+          <option value="169">CROBAT
+          <option value="170">CHINCHOU
+          <option value="171">LANTURN
+          <option value="172">PICHU
+          <option value="173">CLEFFA
+          <option value="174">IGGLYBUFF
+          <option value="175">TOGEPI
+          <option value="176">TOGETIC
+          <option value="177">NATU
+          <option value="178">XATU
+          <option value="179">MAREEP
+          <option value="180">FLAAFFY
+          <option value="181">AMPHAROS
+          <option value="182">BELLOSSOM
+          <option value="183">MARILL
+          <option value="184">AZUMARILL
+          <option value="185">SUDOWOODO
+          <option value="186">POLITOED
+          <option value="187">HOPPIP
+          <option value="188">SKIPLOOM
+          <option value="189">JUMPLUFF
+          <option value="190">AIPOM
+          <option value="191">SUNKERN
+          <option value="192">SUNFLORA
+          <option value="193">YANMA
+          <option value="194">WOOPER
+          <option value="195">QUAGSIRE
+          <option value="196">ESPEON
+          <option value="197">UMBREON
+          <option value="198">MURKROW
+          <option value="199">SLOWKING
+          <option value="200">MISDREAVUS
+          <option value="201">UNOWN
+          <option value="202">WOBBUFFET
+          <option value="203">GIRAFARIG
+          <option value="204">PINECO
+          <option value="205">FORRETRESS
+          <option value="206">DUNSPARCE
+          <option value="207">GLIGAR
+          <option value="208">STEELIX
+          <option value="209">SNUBBULL
+          <option value="210">GRANBULL
+          <option value="211">QWILFISH
+          <option value="212">SCIZOR
+          <option value="213">SHUCKLE
+          <option value="214">HERACROSS
+          <option value="215">SNEASEL
+          <option value="216">TEDDIURSA
+          <option value="217">URSARING
+          <option value="218">SLUGMA
+          <option value="219">MAGCARGO
+          <option value="220">SWINUB
+          <option value="221">PILOSWINE
+          <option value="222">CORSOLA
+          <option value="223">REMORAID
+          <option value="224">OCTILLERY
+          <option value="225">DELIBIRD
+          <option value="226">MANTINE
+          <option value="227">SKARMORY
+          <option value="228">HOUNDOUR
+          <option value="229">HOUNDOOM
+          <option value="230">KINGDRA
+          <option value="231">PHANPY
+          <option value="232">DONPHAN
+          <option value="233">PORYGON2
+          <option value="234">STANTLER
+          <option value="235">SMEARGLE
+          <option value="236">TYROGUE
+          <option value="237">HITMONTOP
+          <option value="238">SMOOCHUM
+          <option value="239">ELEKID
+          <option value="240">MAGBY
+          <option value="241">MILTANK
+          <option value="242">BLISSEY
+          <option value="243">RAIKOU
+          <option value="244">ENTEI
+          <option value="245">SUICUNE
+          <option value="246">LARVITAR
+          <option value="247">PUPITAR
+          <option value="248">TYRANITAR
+          <option value="249">LUGIA
+          <option value="250">HO-OH
+          <option value="251">CELEBI
+          <option value="277">TREECKO
+          <option value="278">GROVYLE
+          <option value="279">SCEPTILE
+          <option value="280">TORCHIC
+          <option value="281">COMBUSKEN
+          <option value="282">BLAZIKEN
+          <option value="283">MUDKIP
+          <option value="284">MARSHTOMP
+          <option value="285">SWAMPERT
+          <option value="286">POOCHYENA
+          <option value="287">MIGHTYENA
+          <option value="288">ZIGZAGOON
+          <option value="289">LINOONE
+          <option value="290">WURMPLE
+          <option value="291">SILCOON
+          <option value="292">BEAUTIFLY
+          <option value="293">CASCOON
+          <option value="294">DUSTOX
+          <option value="295">LOTAD
+          <option value="296">LOMBRE
+          <option value="297">LUDICOLO
+          <option value="298">SEEDOT
+          <option value="299">NUZLEAF
+          <option value="300">SHIFTRY
+          <option value="301">NINCADA
+          <option value="302">NINJASK
+          <option value="303">SHEDINJA
+          <option value="304">TAILLOW
+          <option value="305">SWELLOW
+          <option value="306">SHROOMISH
+          <option value="307">BRELOOM
+          <option value="308">SPINDA
+          <option value="309">WINGULL
+          <option value="310">PELIPPER
+          <option value="311">SURSKIT
+          <option value="312">MASQUERAIN
+          <option value="313">WAILMER
+          <option value="314">WAILORD
+          <option value="315">SKITTY
+          <option value="316">DELCATTY
+          <option value="317">KECLEON
+          <option value="318">BALTOY
+          <option value="319">CLAYDOL
+          <option value="320">NOSEPASS
+          <option value="321">TORKOAL
+          <option value="322">SABLEYE
+          <option value="323">BARBOACH
+          <option value="324">WHISCASH
+          <option value="325">LUVDISC
+          <option value="326">CORPHISH
+          <option value="327">CRAWDAUNT
+          <option value="328">FEEBAS
+          <option value="329">MILOTIC
+          <option value="330">CARVANHA
+          <option value="331">SHARPEDO
+          <option value="332">TRAPINCH
+          <option value="333">VIBRAVA
+          <option value="334">FLYGON
+          <option value="335">MAKUHITA
+          <option value="336">HARIYAMA
+          <option value="337">ELECTRIKE
+          <option value="338">MANECTRIC
+          <option value="339">NUMEL
+          <option value="340">CAMERUPT
+          <option value="341">SPHEAL
+          <option value="342">SEALEO
+          <option value="343">WALREIN
+          <option value="344">CACNEA
+          <option value="345">CACTURNE
+          <option value="346">SNORUNT
+          <option value="347">GLALIE
+          <option value="348">LUNATONE
+          <option value="349">SOLROCK
+          <option value="350">AZURILL
+          <option value="351">SPOINK
+          <option value="352">GRUMPIG
+          <option value="353">PLUSLE
+          <option value="354">MINUN
+          <option value="355">MAWILE
+          <option value="356">MEDITITE
+          <option value="357">MEDICHAM
+          <option value="358">SWABLU
+          <option value="359">ALTARIA
+          <option value="360">WYNAUT
+          <option value="361">DUSKULL
+          <option value="362">DUSCLOPS
+          <option value="363">ROSELIA
+          <option value="364">SLAKOTH
+          <option value="365">VIGOROTH
+          <option value="366">SLAKING
+          <option value="367">GULPIN
+          <option value="368">SWALOT
+          <option value="369">TROPIUS
+          <option value="370">WHISMUR
+          <option value="371">LOUDRED
+          <option value="372">EXPLOUD
+          <option value="373">CLAMPERL
+          <option value="374">HUNTAIL
+          <option value="375">GOREBYSS
+          <option value="376">ABSOL
+          <option value="377">SHUPPET
+          <option value="378">BANETTE
+          <option value="379">SEVIPER
+          <option value="380">ZANGOOSE
+          <option value="381">RELICANTH
+          <option value="382">ARON
+          <option value="383">LAIRON
+          <option value="384">AGGRON
+          <option value="385">CASTFORM
+          <option value="386">VOLBEAT
+          <option value="387">ILLUMISE
+          <option value="388">LILEEP
+          <option value="389">CRADILY
+          <option value="390">ANORITH
+          <option value="391">ARMALDO
+          <option value="392">RALTS
+          <option value="393">KIRLIA
+          <option value="394">GARDEVOIR
+          <option value="395">BAGON
+          <option value="396">SHELGON
+          <option value="397">SALAMENCE
+          <option value="398">BELDUM
+          <option value="399">METANG
+          <option value="400">METAGROSS
+          <option value="401">REGIROCK
+          <option value="402">REGICE
+          <option value="403">REGISTEEL
+          <option value="404">KYOGRE
+          <option value="405">GROUDON
+          <option value="406">RAYQUAZA
+          <option value="407">LATIAS
+          <option value="408">LATIOS
+          <option value="409">JIRACHI
+          <option value="410">DEOXYS
+          <option value="411">CHIMECHO
+         </select>
+          <div class="form-check form-check-inline">
+           <label class="form-check-label" for="AltP">Obedient:</label>
+           <input class="form-check-input" name=AltP type=checkbox value="0">
+          </div>
+         </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+          <label for="Type1">Type 1:</label>
+          <select name="Type1" class="form-control" onChange="NewPoke()">
+          <option value="0">Fighting
+          <option value="1">Flying
+          <option value="2">Poison
+          <option value="3">Ground
+          <option value="4">Rock
+          <option value="5">Bug
+          <option value="6">Ghost
+          <option value="7">Steel
+          <option value="8">Fire
+          <option value="9">Water
+          <option value="10">Grass
+          <option value="11">Electric
+          <option value="12">Psychic
+          <option value="13">Ice
+          <option value="14">Dragon
+          <option value="15">Dark
+          <option value="16">Normal
+          <option value="17" selected>
+         </select>
+          <label for="Type2">Type 2:</label>
+          <select name="Type2" class="form-control" onChange="NewPoke()">
+          <option value="0">Fighting
+          <option value="1">Flying
+          <option value="2">Poison
+          <option value="3">Ground
+          <option value="4">Rock
+          <option value="5">Bug
+          <option value="6">Ghost
+          <option value="7">Steel
+          <option value="8">Fire
+          <option value="9">Water
+          <option value="10">Grass
+          <option value="11">Electric
+          <option value="12">Psychic
+          <option value="13">Ice
+          <option value="14">Dragon
+          <option value="15">Dark
+          <option value="16">Normal
+          <option value="17" selected>
+         </select>
+         </div>
+        </td>
+       </tr>
+
+       <tr>
+        <td>
+         <div class="form-group">
+          <label for="Ability">Ability:</label>
+          <select name="Ability" class="form-control" onChange="SetAb()">
+           <option selected value="0">
+           <option value="1">None
+          </select>
+          <textarea name="ADesc" ROWS=2 class="form-control">
+
+          </textarea>
+        </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+          <label for="Unknown">Unknown Letter:</label>
+          <select name="Unown" class="form-control" onChange="NewPoke()">
+           <option value="a">A
+           <option value="b">B
+           <option value="c">C
+           <option value="d">D
+           <option value="e">E
+           <option value="f">F
+           <option value="g">G
+           <option value="h">H
+           <option value="i">I
+           <option value="j">J
+           <option value="k">K
+           <option value="l">L
+           <option value="m">M
+           <option value="n">N
+           <option value="o">O
+           <option value="p">P
+           <option value="q">Q
+           <option value="r">R
+           <option value="s">S
+           <option value="t">T
+           <option value="u">U
+           <option value="v">V
+           <option value="w">W
+           <option value="x">X
+           <option value="y">Y
+           <option value="z">Z
+           <option value="ep">!
+           <option selected value="qm">?
+          </select>
+          <label for="PGender">Gender:</label>
+          <select name="PGender" class="form-control" onChange="NewPoke()">
+           <option selected value="Girl">Girl
+           <option value="Boy">Boy
+          </select>
+         </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+          <div class="form-check form-check-inline">
+           <label class="form-check-label" for="Shiny">Shiny:</label>
+           <input class="form-check-input" name=Shiny type=checkbox onChange="NewPoke()" value="0">
+          </div>
+          <label for="Pokerus">Pokerus:</label>
+          <select name="Pokerus">
+           <option selected value="0" class="form-control">Never Had
+           <option value="1">Has
+           <option value="2">Had
+          </select>
+         </div>
+        </td>
+       </tr>
+
+       <tr>
+
+        <td>
+         <div class="form-group">
+          <label for="Nature">Nature:</label>
+          <select name="Nature" onChange="HPower()" class="form-control">
+           <option selected value="00">Hardy (=)
+           <option value="01">Lonely (+Atk/-Def)
+           <option value="02">Brave (+Atk/ -Spe)
+           <option value="03">Adament (+Atk/-SpA)
+           <option value="04">Naughty (+Atk/-SpD)
+           <option value="05">Bold (+Def/-Atk)
+           <option value="06">Docile (=)
+           <option value="07">Relaxed (+Def/-Spe)
+           <option value="08">Impish (+Def/-SpA)
+           <option value="09">Lax (+Def/-SpD)
+           <option value="0A">Timid (+Spe/-Atk)
+           <option value="0B">Hasty (+Spe/-Def)
+           <option value="0C">Serious (=)
+           <option value="0D">Jolly (+Spe/-SpA)
+           <option value="0E">Naive (+Spe/-SpD)
+           <option value="0F">Modest (+SpA/-Atk)
+           <option value="10">Mild (+SpA/-Def)
+           <option value="11">Quiet (+SpA/-Spe)
+           <option value="12">Bashful (=)
+           <option value="13">Rash (+SpA/-SpD)
+           <option value="14">Calm (+SpD/-Atk)
+           <option value="15">Gentle (+SpD/-Def)
+           <option value="16">Sassy (+SpD/-Spe)
+           <option value="17">Careful (+SpD/-SpA)
+           <option value="18">Quirky (=)
+          </select>
+         </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+          <div class="form-check form-check-inline">
+           <label class="form-check-label" for="Circle">Circle:</label>
+           <input class="form-check-input" name=Circle type=checkbox value="0">
+           <label class="form-check-label" for="Square">Square:</label>
+           <input class="form-check-input" name=Square type=checkbox value="0">
+           <label class="form-check-label" for="Triangle">Triangle:</label>
+           <input class="form-check-input" name=Triangle type=checkbox value="0">
+           <label class="form-check-label" for="Heart">Heart:</label>
+           <input class="form-check-input" name=Heart type=checkbox value="0">
+          </div>
+          <input onclick="Marks(15)" type=button class="btn btn-default" value="All">
+          <input onclick="Marks(0)" type=button class="btn btn-default" value="None">
+          <div class="form-check form-check-inline">
+           <label class="form-check-label" for="MIcode">Mirage Island Code:</label>
+           <input class="form-check-input" name=MIcode type=checkbox value="0">
+          </div>
+         </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+          <label for="Happiness">Happiness:</label>
+          <input name=Happy size=3 value="0" maxLength=3 type="text" class="form-control">
+          <div class="form-check form-check-inline">
+           <label class="form-check-label" for="EFlag">Egg Flag:</label>
+           <input class="form-check-input" name=EFlag type=checkbox value="0">
+          </div>
+         </div>
+        </td>
+
+       </tr>
+
+       <tr>
+        <td>
+         <div class="form-group">
+           <label for="Lvl">Level Met:</label>
+           <input name=Lvl size=3 value="0" maxLength=3 type="text" class="form-control" onChange="HPower()">
+         </div>
+        </td>
+        <td colspan=2>
+         <ul>
+          <li> if(Level Met > 0) then equals Level (met) </li>
+          <li> if(Lvl (met) = 0 and (Trainer info != OT Trainer info)) then Level 5 (met) </li>
+          <li> if(Lvl (met) = 0 and (Trainer info = OT Trainer info)) then Level 5 (EGG) </li>
+         </ul>
+        </td>
+       </tr>
+
+       <tr>
+        <td colspan=3>
+         <div class="form-group">
+          <label for="Loc">Location:</label>
+          <select name="OTFlag" class="form-control">
+           <option value="0">0
+           <option selected value="1">Pokemon Sapphire
+           <option value="2">Pokemon Ruby
+           <option value="3">/Pokemon Emerald/
+           <option value="4">{Pokemon Fire}
+           <option value="5">{Pokemon Leaf}
+           <option value="6">6
+           <option value="7">7
+           <option value="8">8
+           <option value="9">9
+           <option value="10">10
+           <option value="11">11
+           <option value="12">12
+           <option value="13">13
+           <option value="14">14
+           <option value="15">[Pokemon Colosseum]
+          </select>
+          <select name="Loc" class="form-control">
+         <option value="00" selected>00 Littleroot Town [met at a distant land.]
+         <option value="01">01 Oldale Town [OUTSKIRT STAND]
+         <option value="02">02 Dewford Town [OUTSKIRT STAND]
+         <option value="03">03 Lavaridge Town [PHENAC CITY]
+         <option value="04">04 Fallarbor Town [PHENAC CITY]
+         <option value="05">05 Verdanturf Town [MAYOR'S HOUSE]
+         <option value="06">06 Pacifidlog Town [MAYOR'S HOUSE]
+         <option value="07">07 Petalburg City [PHENAC CITY]
+         <option value="08">08 Slateport City [PHENAC CITY]
+         <option value="09">09 Mauville City [PHENAC CITY]
+         <option value="0A">0A Rustboro City [PHENAC CITY]
+         <option value="0B">0B Fortree City [PRE GYM]
+         <option value="0C">0C Lilycove City [PRE GYM]
+         <option value="0D">0D Mossdeep City [PHENAC STADIUM]
+         <option value="0E">0E Sootopolis City [PHENAC STADIUM]
+         <option value="0F">0F Ever Grande City [PYRITE TOWN]
+         <option value="10">10 Route 101 [PYRITE TOWN]
+         <option value="11">11 Route 102 [PYRITE TOWN]
+         <option value="12">12 Route 103 [PYRITE TOWN]
+         <option value="13">13 Route 104 [PYRITE TOWN]
+         <option value="14">14 Route 105 [PYRITE TOWN]
+         <option value="15">15 Route 106 [PYRITE TOWN]
+         <option value="16">16 Route 107 [PYRITE TOWN]
+         <option value="17">17 Route 108 [PYRITE TOWN]
+         <option value="18">18 Route 109 [PYRITE BLDG]
+         <option value="19">19 Route 110 [PYRITE BLDG]
+         <option value="1A">1A Route 111 [PYRITE BLDG]
+         <option value="1B">1B Route 112 [PYRITE BLDG]
+         <option value="1C">1C Route 113 [PYRITE BLDG]
+         <option value="1D">1D Route 114 [PYRITE CAVE]
+         <option value="1E">1E Route 115 [MIROR'S HIDEOUT]
+         <option value="1F">1F Route 116 [PYRITE CAVE]
+         <option value="20">20 Route 117 [PYRITE CAVE]
+         <option value="21">21 Route 118 [PYRITE CAVE]
+         <option value="22">22 Route 119 [PYRITE CAVE]
+         <option value="23">23 Route 120 [PYRITE COLOSSEUM]
+         <option value="24">24 Route 121 [AGATE VILLAGE]
+         <option value="25">25 Route 122 [RELIC CAVE]
+         <option value="26">26 Route 123 [RELIC CAVE]
+         <option value="27">27 Route 124 [AGATE VILLAGE]
+         <option value="28">28 Route 125 [AGATE VILLAGE]
+         <option value="29">29 Route 126 [AGATE VILLAGE]
+         <option value="2A">2A Route 127 [AGATE VILLAGE]
+         <option value="2B">2B Route 128 [AGATE VILLAGE]
+         <option value="2C">2C Route 129 [AGATE VILLAGE]
+         <option value="2D">2D Route 130 [AGATE VILLAGE]
+         <option value="2E">2E Route 131 [AGATE VILLAGE]
+         <option value="2F">2F Route 132 [THE UNDER]
+         <option value="30">30 Route 133 [THE UNDER]
+         <option value="31">31 Route 134 [THE UNDER]
+         <option value="32">32 Underwater (Route 124) [THE UNDER]
+         <option value="33">33 Underwater (Route 126) [THE UNDER]
+         <option value="34">34 Underwater (Route 127) [THE UNDER]
+         <option value="35">35 Underwater (Route 128) [THE UNDER]
+         <option value="36">36 Underwater (Sootopoist) [THE UNDER]
+         <option value="37">37 Granite Cave [THE UNDER]
+         <option value="38">38 Mt. Chimney [met at a distant land.]
+         <option value="39">39 Safari Zone [THE UNDER SUBWAY]
+         <option value="3A">3A Battle Tower [THE UNDER SUBWAY]
+         <option value="3B">3B Petalburg Woods [THE UNDER SUBWAY]
+         <option value="3C">3C Rusturf Tunnel [THE UNDER SUBWAY]
+         <option value="3D">3D Abandoned Ship [THE UNDER SUBWAY]
+         <option value="3E">3E New Maulville [THE UNDER]
+         <option value="3F">3F Meteor Falls [UNDER COLOSSEUM]
+         <option value="40">40 Meteor Falls [DEEP COLOSSEUM]
+         <option value="41">41 Mt. Pyre [FRONT OF LAB]
+         <option value="42">42 Hideout [LABORATORY]
+         <option value="43">43 Shoal Cave [LABORATORY]
+         <option value="44">44 Seafloor Cavern [LABORATORY]
+         <option value="45">45 Underwater (Seafloor Cavern) [LABORATORY]
+         <option value="46">46 Victory Road [LABORATORY]
+         <option value="47">47 Mirage Island [LABORATORY]
+         <option value="48">48 Cave of Origin [LABORATORY]
+         <option value="49">49 Southern Island [LABORATORY]
+         <option value="4A">4A Fiery Path [MT. BATTLE]
+         <option value="4B">4B Fiery Path [MT. BATTLE]
+         <option value="4C">4C Jagged Pass [MT. BATTLE]
+         <option value="4D">4D Jagged Pass [MT. BATTLE]
+         <option value="4E">4E Sealed Chamber [MT. BATTLE]
+         <option value="4F">4F Underwater (Route 134) [MT. BATTLE]
+         <option value="50">50 Scorched Slab [MT. BATTLE]
+         <option value="51">51 Island Cave [MT. BATTLE]
+         <option value="52">52 Desert Ruins [MT. BATTLE]
+         <option value="53">53 Ancient Tomb [MT. BATTLE]
+         <option value="54">54 Inside of Truck [MT. BATTLE]
+         <option value="55">55 Sky Pillar [MT. BATTLE]
+         <option value="56">56 Secret Base [MT. BATTLE]
+         <option value="57">57 Ferry [MT. BATTLE]
+         <option value="58">58 {Pallett Town}[MT. BATTLE]
+         <option value="59">59 {Viridian City}[MT. BATTLE]
+         <option value="5A">5A {Pewter City}[MT. BATTLE]
+         <option value="5B">5B {Cerulean City}[MT. BATTLE]
+         <option value="5C">5C {Lavender Town}[MT. BATTLE]
+         <option value="5D">5D {Vermillion City}[MT. BATTLE]
+         <option value="5E">5E {Celadon City}[MT. BATTLE]
+         <option value="5F">5F {Fuchsia City}[MT.BTL COLOSSEUM]
+         <option value="60">60 {Cinnibar Isle}[met at a distant land.]
+         <option value="61">61 {Indigo Plateau}[met at a distant land.]
+         <option value="62">62 {Saffron City}[met at a distant land.]
+         <option value="63">63 {Route 4}[met at a distant land.]
+         <option value="64">64 {Route 10}[met at a distant land.]
+         <option value="65">65 {Route 1}[met at a distant land.]
+         <option value="66">66 {Route 2}[REALGAM TOWER]
+         <option value="67">67 {Route 3}[REALGAMTWR DOME]
+         <option value="68">68 {Route 4}[REALGAMTWR DOME]
+         <option value="69">69 {Route 5}[REALGAMTWR DOME]
+         <option value="6A">6A {Route 6}[REALGAMTWR DOME]
+         <option value="6B">6B {Route 7}[REALGAMTWR DOME]
+         <option value="6C">6C {Route 8}[REALGAMTWR DOME]
+         <option value="6D">6D {Route 9}[REALGAMTWR DOME]
+         <option value="6E">6E {Route 10}[REALGAMTWR DOME]
+         <option value="6F">6F {Route 11}[REALGAMTWR DOME]
+         <option value="70">70 {Route 12}[REALGAMTWR DOME]
+         <option value="71">71 {Route 13}[REALGAMTWR DOME]
+         <option value="72">72 {Route 14}[REALGAMTWR LOBBY]
+         <option value="73">73 {Route 15}[REALGAM TOWER]
+         <option value="74">74 {Route 16}[REALGAM TOWER]
+         <option value="75">75 {Route 17}[REALGAM TOWER]
+         <option value="76">76 {Route 18}[TOWER COLOSSEUM]
+         <option value="77">77 {Sea Route 19}[PHENAC CITY]
+         <option value="78">78 {Sea Route 20}[PYRITE COLOSSEUM]
+         <option value="79">79 {Sea Route 21}[UNDER COLOSSEUM]
+         <option value="7A">7A {Route 22}[THE UNDER]
+         <option value="7B">7B {Route 23}[REALGAM TOWER]
+         <option value="7C">7C {Route 24}[REALGAM TOWER]
+         <option value="7D">7D {Route 25}[DEEP COLOSSEUM]
+         <option value="7E">7E {Viridian Forest}[ORRE COLOSSEUM]
+         <option value="7F">7F {Mt Moon}[THE UNDER]
+         <option value="80">80 {SS Anne (Pier)}[PHENAC CITY]
+         <option value="81">81 {Underground Path}[SNEGEM HIDOUT]
+         <option value="82">82 {Underground Path}[SNEGEM HIDOUT]
+         <option value="83">83 {Diglett Cave}[SNEGEM HIDOUT]
+         <option value="84">84 {Victory Road}[SNEGEM HIDOUT]
+         <option value="85">85 {Team Rocket's Hideout}[SNEGEM HIDOUT]
+         <option value="86">86 {Silph Company (Lapras)}[SNEGEM HIDOUT]
+         <option value="87">87 {Pokemon Mansion}[SNEGEM HIDOUT]
+         <option value="88">88 {Safari Zone}[SNEGEM HIDOUT]
+         <option value="89">89 {Pokemon League}[SNEGEM HIDOUT]
+         <option value="8A">8A {Rock Tunnel}[THE UNDER SUBWAY]
+         <option value="8B">8B {Seafoam Island}[THE UNDER SUBWAY]
+         <option value="8C">8C {Pokemon Tower}[LABORATORY]
+         <option value="8D">8D {Cerulean Cave}[LABORATORY]
+         <option value="8E">8E {Power Plant}[PYRITE COLOSSEUM]
+         <option value="8F">8F {ONE ISLAND}[met at a distant land.]
+         <option value="90">90 {TWO ISLAND}[met at a distant land.]
+         <option value="91">91 {THREE ISLAND}[met at a distant land.]
+         <option value="92">92 {FOUR ISLAND (Nursery)}[met at a distant land.]
+         <option value="93">93 {FIVE ISLAND}[met at a distant land.]
+         <option value="94">94 {SEVEN ISLAND}[met at a distant land.]
+         <option value="95">95 {SIX ISLAND}[met at a distant land.]
+         <option value="96">96 {Isle 1-KINDLE ROAD}
+         <option value="97">97 {Isle 1-TREASURE BEACH}
+         <option value="98">98 {Isle 2-CAPE BRINK}
+         <option value="99">99 {Isle 3-BOND BRIDGE}
+         <option value="9A">9A {THREE ISLAND PORT}
+         <option value="9B">9B {SEVII ISLE 6}
+         <option value="9C">9C {SEVII ISLE 7}
+         <option value="9D">9D {SEVII ISLE 8}
+         <option value="9E">9E {SEVII ISLE 9}
+         <option value="9F">9F {RESORT GORGEOUS}
+         <option value="A0">A0 {Isle 5-WATER LABYRINTH}
+         <option value="A1">A1 {FIVE ISLE MEADOW}
+         <option value="A2">A2 {Isle 5-South Sea Route-MEMORIAL PILLAR}
+         <option value="A3">A3 {OUTCAST ISLAND}
+         <option value="A4">A4 {GREEN PATH}
+         <option value="A5">A5 {WATER PATH}
+         <option value="A6">A6 {RUIN VALLEY}
+         <option value="A7">A7 {TRAINER TOWER}
+         <option value="A8">A8 {CANYON ENTRANCE}
+         <option value="A9">A9 {SEVAULT CANYON}
+         <option value="AA">AA {TANOBY RUINS}
+         <option value="AB">AB {SEVII ISLE 22}
+         <option value="AC">AC {SEVII ISLE 23}
+         <option value="AD">AD {SEVII ISLE 24}
+         <option value="AE">AE {Isle 8-NAVEL ROCK(Lugia & Ho-oh)}
+         <option value="AF">AF {Isle 1-MT. EMBER}
+         <option value="B0">B0 {BERRY FOREST}
+         <option value="B1">B1 {Isle 4-ICEFALL CAVE}
+         <option value="B2">B2 {ROCKET WAREHOUSE}
+         <option value="B3">B3 {TRAINER TOWER}
+         <option value="B4">B4 {DOTTED HOLE}
+         <option value="B5">B5 {Isle 5-LOST CAVE}
+         <option value="B6">B6 {PATTERN BUSH}
+         <option value="B7">B7 {ALTERING CAVE}
+         <option value="B8">B8 {TRNOBY CHAMBERS}
+         <option value="B9">B9 {THREE ISLE PATH-Tunnel}
+         <option value="BA">BA {TANOBY KEY}
+         <option value="BB">BB {Isle 9-BIRTH ISLAND(Deoxys)}
+         <option value="BC">BC {Iresu Sekisitsu-MONEAN CHAMBER}
+         <option value="BD">BD {Nazan Sekisitsu-LIPTOO CHAMBER}
+         <option value="BE">BE {Yugo Sekisitsu-WEEPTH CHAMBER}
+         <option value="BF">BF {Aleboca Sekisitsu-DILFORD CHAMBER}
+         <option value="C0">C0 {Kotou Sekisitsu-SCUFIB CHAMBER}
+         <option value="C1">C1 {Anuza Sekisitsu-RIXY CHAMBER}
+         <option value="C2">C2 {Oliphu Sekisitsu-VIAPOIS CHAMBER}
+         <option value="C3">C3 {EMBER SPA}
+         <option value="C4">C4 {CELADON DEPT.}
+         <option value="C5">C5
+         <option value="C6">C6
+         <option value="C7">C7
+         <option value="C8">C8 /Deoxys/
+         <option value="C9">C9 /Mew Island/
+         <option value="CA">CA
+         <option value="CB">CB /Kryogre Cave/
+         <option value="CC">CC
+         <option value="CD">CD /Groudon Cave/
+         <option value="CE">CE
+         <option value="CF">CF
+         <option value="D0">D0
+         <option value="D1">D1
+         <option value="D2">D2
+         <option value="D3">D3 /Ho-oh,Lugia/
+         <option value="D4">D4
+         <option value="D5">D5
+         <option value="D6">D6
+         <option value="D7">D7
+         <option value="D8">D8
+         <option value="D9">D9
+         <option value="DA">DA
+         <option value="DB">DB
+         <option value="DC">DC
+         <option value="DD">DD
+         <option value="DE">DE
+         <option value="DF">DF
+         <option value="E0">E0
+         <option value="E1">E1
+         <option value="E2">E2
+         <option value="E3">E3
+         <option value="E4">E4
+         <option value="E5">E5
+         <option value="E6">E6
+         <option value="E7">E7
+         <option value="E8">E8
+         <option value="E9">E9
+         <option value="EA">EA
+         <option value="EB">EB
+         <option value="EC">EC
+         <option value="ED">ED
+         <option value="EE">EE
+         <option value="EF">EF
+         <option value="F0">F0
+         <option value="F1">F1
+         <option value="F2">F2
+         <option value="F3">F3
+         <option value="F4">F4
+         <option value="F5">F5
+         <option value="F6">F6
+         <option value="F7">F7
+         <option value="F8">F8
+         <option value="F9">F9
+         <option value="FA">FA
+         <option value="FB">FB
+         <option value="FC">FC
+         <option value="FD">FD
+         <option value="FE">In-game Trade
+         <option value="FF">fateful encounter.
+        </select>
+         </div>
+        </td>
+       </tr>
+
+       <tr>
+        <td colspan=3>
+          <div class="form-group">
+           <label for="Held">Item Held:</label>
+           <select name="Held" onChange="ItemC()" class="form-control">
+          <option value="000">None
+          <option value="001">Master Ball
+          <option value="002">Ultra Ball
+          <option value="003">Great Ball
+          <option value="004">Poke Ball
+          <option value="005">Safari Ball
+          <option value="006">Net Ball
+          <option value="007">Dive Ball
+          <option value="008">Nest Ball
+          <option value="009">Repeat Ball
+          <option value="00A">Timer Ball
+          <option value="00B">Luxury Ball
+          <option value="00C">Premier Ball
+          <option value="00D">Potion
+          <option value="00E">Antidote
+          <option value="00F">Burn Heal
+          <option value="010">Ice Heal
+          <option value="011">Awakening
+          <option value="012">Parlyz Heal
+          <option value="013">Full Restore
+          <option value="014">Max Potion
+          <option value="015">Hyper Potion
+          <option value="016">Super Potion
+          <option value="017">Full Heal
+          <option value="018">Revive
+          <option value="019">Max Revive
+          <option value="01A">Fresh Water
+          <option value="01B">Soda Pop
+          <option value="01C">Lemonade
+          <option value="01D">MooMoo Milk
+          <option value="01E">Energy Powder
+          <option value="01F">Energy Root
+          <option value="020">Heal Powder
+          <option value="021">Revival Herb
+          <option value="022">Ether
+          <option value="023">Max Ether
+          <option value="024">Elixer
+          <option value="025">Max Elixer
+          <option value="026">Lava Cookie
+          <option value="027">Blue Flute
+          <option value="028">Yellow Flute
+          <option value="029">Red Flute
+          <option value="02A">Black Flute
+          <option value="02B">White Flute
+          <option value="02C">Berry Juice
+          <option value="02D">Sacred Ash
+          <option value="02E">Shoal Salt
+          <option value="02F">Shoal Shell
+          <option value="030">Red Shard
+          <option value="031">Blue Shard
+          <option value="032">Yellow Shard
+          <option value="033">Green Shard
+          <option value="03F">HP Up
+          <option value="040">Protein
+          <option value="041">Iron
+          <option value="042">Carbos
+          <option value="043">Calcium
+          <option value="044">Rare Candy
+          <option value="045">PP Up
+          <option value="046">Zinc
+          <option value="047">PP Max
+          <option value="049">Guard Spec
+          <option value="04A">Dire Hit
+          <option value="04B">X Attack
+          <option value="04C">X Defend
+          <option value="04D">X Speed
+          <option value="04E">X Accuracy
+          <option value="04F">X Special
+          <option value="050">Poke Doll
+          <option value="051">Fluffy Tail
+          <option value="053">Super Repel
+          <option value="054">Max Repel
+          <option value="055">Escape Rope
+          <option value="056">Repel
+          <option value="05D">Sun Stone
+          <option value="05E">Moon Stone
+          <option value="05F">Fire Stone
+          <option value="060">Thunder Stone
+          <option value="061">Water Stone
+          <option value="062">Leaf Stone
+          <option value="067">Tiny Mushroom
+          <option value="068">Big Mushroom
+          <option value="06A">Pearl
+          <option value="06B">Big Pearl
+          <option value="06C">Stardust
+          <option value="06D">Star Piece
+          <option value="06E">Nugget
+          <option value="06F">Heart Scale
+          <option value="079">Orange Mail
+          <option value="07A">Harbor Mail
+          <option value="07B">Glitter Mail
+          <option value="07C">Mech Mail
+          <option value="07D">Wood Mail
+          <option value="07E">Wave Mail
+          <option value="07F">Bead Mail
+          <option value="080">Shadow Mail
+          <option value="081">Tropic Mail
+          <option value="082">Dream Mail
+          <option value="083">Fab Mail
+          <option value="084">Retro Mail
+          <option value="085">Cheri Berry
+          <option value="086">Chesto Berry
+          <option value="087">Pecha Berry
+          <option value="088">Rawst Berry
+          <option value="089">Aspear Berry
+          <option value="08A">Leppa Berry
+          <option value="08B">Oran Berry
+          <option value="08C">Persim Berry
+          <option value="08D">Lum Berry
+          <option value="08E">Sitrus Berry
+          <option value="08F">Figy Berry
+          <option value="090">Wiki Berry
+          <option value="091">Mago Berry
+          <option value="092">Aguav Berry
+          <option value="093">Iapapa Berry
+          <option value="094">Razz Berry
+          <option value="095">Bluk Berry
+          <option value="096">Nanab Berry
+          <option value="097">Wepear Berry
+          <option value="098">Pinap Berry
+          <option value="099">Pomeg Berry
+          <option value="09A">Kelpsy Berry
+          <option value="09B">Qualot Berry
+          <option value="09C">Hondew Berry
+          <option value="09D">Grepa Berry
+          <option value="09E">Tamato Berry
+          <option value="09F">Cornn Berry
+          <option value="0A0">Magost Berry
+          <option value="0A1">Rabuta Berry
+          <option value="0A2">Nomel Berry
+          <option value="0A3">Spelon Berry
+          <option value="0A4">Pamtre Berry
+          <option value="0A5">Watmel Berry
+          <option value="0A6">Durin Berry
+          <option value="0A7">Belue Berry
+          <option value="0A8">Liechi Berry
+          <option value="0A9">Ganlon Berry
+          <option value="0AA">Salac Berry
+          <option value="0AB">Petaya Berry
+          <option value="0AC">Apicot Berry
+          <option value="0AD">Lansat Berry
+          <option value="0AE">Starf Berry
+          <option value="0AF">Enigma Berry
+          <option value="0B3">Bright Powder
+          <option value="0B4">White Herb
+          <option value="0B5">Macho Brace
+          <option value="0B6">Exp Share
+          <option value="0B7">Quick Claw
+          <option value="0B8">Soothe Bell
+          <option value="0B9">Mental Herb
+          <option value="0BA">Choice Band
+          <option value="0BB">King's Rock
+          <option value="0BC">Silver Powder
+          <option value="0BD">Amulet Coin
+          <option value="0BE">Cleanse Tag
+          <option value="0BF">Soul Dew
+          <option value="0C0">Deep Sea Tooth
+          <option value="0C1">Deep Sea Scale
+          <option value="0C2">Smoke Ball
+          <option value="0C3">Everstone
+          <option value="0C4">Focus Band
+          <option value="0C5">Lucky Egg
+          <option value="0C6">Scope Lens
+          <option value="0C7">Metal Coat
+          <option value="0C8">Leftovers
+          <option value="0C9">Dragon Scale
+          <option value="0CA">Light Ball
+          <option value="0CB">Soft Sand
+          <option value="0CC">Hard Stone
+          <option value="0CD">Miracle Seed
+          <option value="0CE">Black Glasses
+          <option value="0CF">Black Belt
+          <option value="0D0">Magnet
+          <option value="0D1">Mystic Water
+          <option value="0D2">Sharp Beak
+          <option value="0D3">Poison Barb
+          <option value="0D4">Nevermelt Ice
+          <option value="0D5">Spell Tag
+          <option value="0D6">Twisted Spoon
+          <option value="0D7">Charcoal
+          <option value="0D8">Dragon Fang
+          <option value="0D9">Silk Scarf
+          <option value="0DA">Up-Grade
+          <option value="0DB">Shell Bell
+          <option value="0DC">Sea Incense
+          <option value="0DD">Lax Incense
+          <option value="0DE">Lucky Punch
+          <option value="0DF">Metal Powder
+          <option value="0E0">Thick Club
+          <option value="0E1">Stick
+          <option value="0FE">Red Scarf
+          <option value="0FF">Blue Scarf
+          <option value="100">Pink Scarf
+          <option value="101">Green Scarf
+          <option value="102">Yellow Scarf
+          <option value="103">Mach Bike
+          <option value="104">Coin Case
+          <option value="105">ItemFinder
+          <option value="106">Old Rod
+          <option value="107">Good Rod
+          <option value="108">Super Rod
+          <option value="109">S.S. Ticket
+          <option value="10A">Contest Pass
+          <option value="10C">Wailmer Pail
+          <option value="10D">Devon's Goods
+          <option value="10E">Soot Sack
+          <option value="10F">Basement Key
+          <option value="110">Acro Bike
+          <option value="111">PokeBlock Case
+          <option value="112">Letter
+          <option value="113">Eon Ticket
+          <option value="114">Red Orb
+          <option value="115">Blue Orb
+          <option value="116">Scanner
+          <option value="117">Go-Goggles
+          <option value="118">Meteorite
+          <option value="119">Rm.1 Key
+          <option value="11A">Rm.2 Key
+          <option value="11B">Rm.4 Key
+          <option value="11C">Rm.6 Key
+          <option value="11D">Storage Key
+          <option value="11E">Root Fossil
+          <option value="11F">Claw Fossil
+          <option value="120">Devon Scope
+          <option value="121">TM01 (Focus Punch)
+          <option value="122">TM02 (Dragon Claw)
+          <option value="123">TM03 (Water Pulse)
+          <option value="124">TM04 (Calm Mind)
+          <option value="125">TM05 (Roar)
+          <option value="126">TM06 (Toxic)
+          <option value="127">TM07 (Hail)
+          <option value="128">TM08 (Bulk Up)
+          <option value="129">TM09 (Bullet Seed)
+          <option value="12A">TM10 (Hidden Power)
+          <option value="12B">TM11 (Sunny Day)
+          <option value="12C">TM12 (Taunt)
+          <option value="12D">TM13 (Ice Beam)
+          <option value="12E">TM14 (Blizzard)
+          <option value="12F">TM15 (Hyper Beam)
+          <option value="130">TM16 (Light Screen)
+          <option value="131">TM17 (Protect)
+          <option value="132">TM18 (Rain Dance)
+          <option value="133">TM19 (Giga Drain)
+          <option value="134">TM20 (Safeguard)
+          <option value="135">TM21 (Frustration)
+          <option value="136">TM22 (Solar Beam)
+          <option value="137">TM23 (Iron Tail)
+          <option value="138">TM24 (Thunderbolt)
+          <option value="139">TM25 (Thunder)
+          <option value="13A">TM26 (Earthquake)
+          <option value="13B">TM27 (Return)
+          <option value="13C">TM28 (Dig)
+          <option value="13D">TM29 (Psychic)
+          <option value="13E">TM30 (Shadow Ball)
+          <option value="13F">TM31 (Brick Break)
+          <option value="140">TM32 (Double Team)
+          <option value="141">TM33 (Reflect)
+          <option value="142">TM34 (Shock Wave)
+          <option value="143">TM35 (Flamethrower)
+          <option value="144">TM36 (Sludge Bomb)
+          <option value="145">TM37 (Sandstorm)
+          <option value="146">TM38 (Fire Blast)
+          <option value="147">TM39 (Rock Tomb)
+          <option value="148">TM40 (Aerial Ace)
+          <option value="149">TM41 (Torment)
+          <option value="14A">TM42 (Facade)
+          <option value="14B">TM43 (Secret Power)
+          <option value="14C">TM44 (Rest)
+          <option value="14D">TM45 (Attract)
+          <option value="14E">TM46 (Thief)
+          <option value="14F">TM47 (Steel Wing)
+          <option value="150">TM48 (Skill Swap)
+          <option value="151">TM49 (Snatch)
+          <option value="152">TM50 (Overheat)
+          <option value="153">HM01 (Cut)
+          <option value="154">HM02 (Fly)
+          <option value="155">HM03 (Surf)
+          <option value="156">HM04 (Strength)
+          <option value="157">HM05 (Flash)
+          <option value="158">HM06 (Rock Smash)
+          <option value="159">HM07 (Waterfall)
+          <option value="15A">HM08 (Dive)
+          <option value="15D">{Oak's Parcel}
+          <option value="15E">{Poke Flute}
+          <option value="15F">{Secret Key}
+          <option value="160">{Bike Voucher}
+          <option value="161">{Gold Teeth}
+          <option value="162">{Old Amber}
+          <option value="163">{Card Key}
+          <option value="164">{Elevator Key}
+          <option value="165">{Dome Fossil}
+          <option value="166">{Helix Fossil}
+          <option value="167">{Silph Scope}
+          <option value="168">{Bicycle}
+          <option value="169">{Town Map}
+          <option value="16A">{Battle Searcher}
+          <option value="16B">{Voice Checker}
+          <option value="16C">{TM Case}
+          <option value="16D">{Berry Bag}
+          <option value="16E">{Help TV}
+          <option value="16F">{Tri-Pass}
+          <option value="170">{Rainbow Pass}
+          <option value="171">{Tea}
+          <option value="172">{Mystery Ticket}
+          <option value="173">{Aurora Ticket}
+          <option value="174">{Konaire}
+          <option value="175">{Ruby Plate}
+          <option value="176">{Sapphire Plate}
+          <option value="1F4">[Jail Key]
+          <option value="1F5">[Elevator Key]
+          <option value="1F6">[Small tablet]
+          <option value="1F7">[F-Disk]
+          <option value="1F8">[R-Disk]
+          <option value="1F9">[L-Disk]
+          <option value="1FA">[D-Disk]
+          <option value="1FB">[U-Disk]
+          <option value="1FC">[Subway Key]
+          <option value="1FD">[Maingate Key]
+          <option value="1FE">[Card Key]
+          <option value="1FF">[Down St. Key]
+          <option value="200">[DNA Sample 1]
+          <option value="201">[Bayleef DNA]
+          <option value="202">[DNA Sample 2]
+          <option value="203">[Quilava DNA]
+          <option value="204">[DNA Sample 3]
+          <option value="205">[Croconaw DNA]
+          <option value="206">[DNA Sample 4]
+          <option value="207">[Sudowoodo DNA]
+          <option value="208">[DNA Sample 5]
+          <option value="209">[Misdreavus DNA]
+          <option value="20A">[DNA Sample 6]
+          <option value="20B">[Mightyena DNA]
+          <option value="20C">[DNA Sample 7]
+          <option value="20D">[Raikou DNA]
+          <option value="20E">[DNA Sample 8]
+          <option value="20F">[Entei DNA]
+          <option value="210">[DNA Sample 9]
+          <option value="211">[Suicune DNA]
+          <option value="212">[Data ROM]
+          <option value="213">[Steel Teeth]
+          <option value="214">[Gear]
+          <option value="215">[Red ID Badge]
+          <option value="216">[Green ID Badge]
+          <option value="217">[Blue ID Badge]
+          <option value="218">[Yellow ID Badge]
+          <option value="219">[Time Flute]
+          <option value="21A">[Ein File S]
+          <option value="21B">[Ein File H]
+          <option value="21C">[Ein File C]
+          <option value="21D">[Ein File P]
+          <option value="21E">[Cologne Case]
+          <option value="21F">[Joy Scent]
+          <option value="220">[Excite Scent]
+          <option value="221">[Vivid Scent]
+          <option value="222">[Powerup Part]
+          <option value="223">[Ein File F]
+          </select>
+           <textarea name="ItemDesc" ROWS=2 class="form-control" onChange="ItemC()">No Item Held
+           </textarea>
+           <label for="Isort">Sort By:</label>
+           <select name="Isort" onChange="NIO()" class="form-control">
+            <option selected>Number
+            <option>Alpha
+            <option>Ball
+            <option>Berry
+            <option>Key
+            <option>Hold Item
+            <option>TM/HM
+           </select>
+          </div>
+        </td>
+       </tr>
+
+      </tbody>
+     </table>
+
+     </div>
+   </div>
+  </div>
+  </div>
+
+  <div class="form-group">
+   <div class="panel panel-default">
+    <div class="panel-heading">
+     <h4 class="panel-title">
+      <a data-toggle="collapse" href="#cStats">Stats</a>
+     </h4>
+    </div>
+    <div id="cStats" class="panel-collapse collapse">
+     <div class="panel-body">
+
+       <table class="table">
+        <tbody>
+
+         <tr>
+          <td></td>
+          <td>
+           <label for="IV">IVs</label>
+           <div class="container-fluid">
+            <div class="row">
+             <div class="col-sm">
+              <input onclick="MaxDV()" type=button class="btn btn-default" value="Max">
+             </div>
+             <div class="col-sm">
+              <input onclick="RandomDV()" type=button class="btn btn-default" value="Random">
+             </div>
+            </div>
+           </div>
+          </td>
+          <td>
+           <label for="EV">EVs</label>
+           <div class="container-fluid">
+            <div class="row">
+             <div class="col-sm">
+              <input onclick="MaxEff()" type=button class="btn btn-default"  value="Max">
+             </div>
+             <div class="col-sm">
+              <input onclick="RandomEf()" type=button class="btn btn-default" value="Random">
+             </div>
+            </div>
+           </div>
+          </td>
+          <td>
+           <label for="XLvl">Stats at Level:</label>
+           <input name=XLvl size=3 onchange=XQ("X") class="form-control" value="1" maxLength=3>
+          </td>
+         </tr>
+
+         <tr>
+          <td>
+           <label for="HP">Hit Points:</label>
+          </td>
+          <td>
+           <select name="HPDV" onChange="HPower()" class="form-control">
+            <option selected value="00">0
+            <option value="01">1
+            <option value="02">2
+            <option value="03">3
+            <option value="04">4
+            <option value="05">5
+            <option value="06">6
+            <option value="07">7
+            <option value="08">8
+            <option value="09">9
+            <option value="10">10
+            <option value="11">11
+            <option value="12">12
+            <option value="13">13
+            <option value="14">14
+            <option value="15">15
+            <option value="16">16
+            <option value="17">17
+            <option value="18">18
+            <option value="19">19
+            <option value="20">20
+            <option value="21">21
+            <option value="22">22
+            <option value="23">23
+            <option value="24">24
+            <option value="25">25
+            <option value="26">26
+            <option value="27">27
+            <option value="28">28
+            <option value="29">29
+            <option value="30">30
+            <option value="31">31
+           </select>
+          </td>
+          <td>
+           <input name="HPEff" size=3 value="0" maxLength=3 onChange="HPower()" class="form-control">
+          </td>
+          <td><input name="HPDex" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+         </tr>
+
+         <tr>
+          <td>
+           <label for="Atk">Attack:</label>
+          </td>
+          <td>
+           <select name="AtkDV" onChange="HPower()" class="form-control">
+            <option selected value="00">0
+            <option value="01">1
+            <option value="02">2
+            <option value="03">3
+            <option value="04">4
+            <option value="05">5
+            <option value="06">6
+            <option value="07">7
+            <option value="08">8
+            <option value="09">9
+            <option value="10">10
+            <option value="11">11
+            <option value="12">12
+            <option value="13">13
+            <option value="14">14
+            <option value="15">15
+            <option value="16">16
+            <option value="17">17
+            <option value="18">18
+            <option value="19">19
+            <option value="20">20
+            <option value="21">21
+            <option value="22">22
+            <option value="23">23
+            <option value="24">24
+            <option value="25">25
+            <option value="26">26
+            <option value="27">27
+            <option value="28">28
+            <option value="29">29
+            <option value="30">30
+            <option value="31">31
+           </select>
+          </td>
+          <td><input name="AtkEff" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+          <td><input name="AtkDex" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+         </tr>
+
+         <tr>
+          <td><label for="Def">Defence:</label></td>
+          <td>
+           <select name="DefDV" onChange="HPower()" class="form-control">
+            <option selected value="00">0
+            <option value="01">1
+            <option value="02">2
+            <option value="03">3
+            <option value="04">4
+            <option value="05">5
+            <option value="06">6
+            <option value="07">7
+            <option value="08">8
+            <option value="09">9
+            <option value="10">10
+            <option value="11">11
+            <option value="12">12
+            <option value="13">13
+            <option value="14">14
+            <option value="15">15
+            <option value="16">16
+            <option value="17">17
+            <option value="18">18
+            <option value="19">19
+            <option value="20">20
+            <option value="21">21
+            <option value="22">22
+            <option value="23">23
+            <option value="24">24
+            <option value="25">25
+            <option value="26">26
+            <option value="27">27
+            <option value="28">28
+            <option value="29">29
+            <option value="30">30
+            <option value="31">31
+           </select>
+          </td>
+          <td><input name="DefEff" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+          <td><input name="DefDex" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+         </tr>
+
+         <tr>
+          <td><label for="SpA">Special Attack:</label></td>
+          <td>
+           <select name="SpADV" onChange="HPower()" class="form-control">
+            <option selected value="00">0
+            <option value="01">1
+            <option value="02">2
+            <option value="03">3
+            <option value="04">4
+            <option value="05">5
+            <option value="06">6
+            <option value="07">7
+            <option value="08">8
+            <option value="09">9
+            <option value="10">10
+            <option value="11">11
+            <option value="12">12
+            <option value="13">13
+            <option value="14">14
+            <option value="15">15
+            <option value="16">16
+            <option value="17">17
+            <option value="18">18
+            <option value="19">19
+            <option value="20">20
+            <option value="21">21
+            <option value="22">22
+            <option value="23">23
+            <option value="24">24
+            <option value="25">25
+            <option value="26">26
+            <option value="27">27
+            <option value="28">28
+            <option value="29">29
+            <option value="30">30
+            <option value="31">31
+           </select>
+          </td>
+          <td><input name="SpAEff" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+          <td><input name="SpADex" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+         </tr>
+
+         <tr>
+          <td><label for="SpD">Special Defence:</label></td>
+          <td>
+           <select name="SpDDV" onChange="HPower()" class="form-control">
+            <option selected value="00">0
+            <option value="01">1
+            <option value="02">2
+            <option value="03">3
+            <option value="04">4
+            <option value="05">5
+            <option value="06">6
+            <option value="07">7
+            <option value="08">8
+            <option value="09">9
+            <option value="10">10
+            <option value="11">11
+            <option value="12">12
+            <option value="13">13
+            <option value="14">14
+            <option value="15">15
+            <option value="16">16
+            <option value="17">17
+            <option value="18">18
+            <option value="19">19
+            <option value="20">20
+            <option value="21">21
+            <option value="22">22
+            <option value="23">23
+            <option value="24">24
+            <option value="25">25
+            <option value="26">26
+            <option value="27">27
+            <option value="28">28
+            <option value="29">29
+            <option value="30">30
+            <option value="31">31
+           </select>
+          </td>
+          <td><input name="SpDEff" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+          <td><input name="SpDDex" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+         </tr>
+
+         <tr>
+          <td><label for="Spe">Speed:</label></td>
+          <td>
+           <select name="SpeDV" onChange="HPower()" class="form-control">
+            <option selected value="00">0
+            <option value="01">1
+            <option value="02">2
+            <option value="03">3
+            <option value="04">4
+            <option value="05">5
+            <option value="06">6
+            <option value="07">7
+            <option value="08">8
+            <option value="09">9
+            <option value="10">10
+            <option value="11">11
+            <option value="12">12
+            <option value="13">13
+            <option value="14">14
+            <option value="15">15
+            <option value="16">16
+            <option value="17">17
+            <option value="18">18
+            <option value="19">19
+            <option value="20">20
+            <option value="21">21
+            <option value="22">22
+            <option value="23">23
+            <option value="24">24
+            <option value="25">25
+            <option value="26">26
+            <option value="27">27
+            <option value="28">28
+            <option value="29">29
+            <option value="30">30
+            <option value="31">31
+           </select>
+          </td>
+          <td><input name="SpeEff" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+          <td><input name="SpeDex" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()"></td>
+         </tr>
+
+         <tr>
+          <td></td>
+          <td></td>
+          <td>
+           <div class="form-group">
+             <label for="EffSum">Total EVs:</label>
+             <input name=EffSum size=9 value="?" maxLength=9 class="form-control" onChange="HPower()" readonly>
+           </div>
+          </td>
+          <td colspan="2">
+           <div class="form-group">
+             <label for="Exp">Exp:</label>
+             <input name=Exp size=9 value="1" maxLength=9 class="form-control" onChange="HPower()">
+           </div>
+          </td>
+         </tr>
+
+        <tr>
+          <td>
+          </td>
+          <td>
+           <div class="form-group">
+            <label for="HidePower">Hidden Power:</label>
+            <input name="HidePower" size=3 value="0" maxLength=3 class="form-control" onChange="HPower()">
+           </div>
+          </td>
+          <td>
+            <div class="form-group">
+             <label for="HiddenPower">Type:</label>
+             <select name="HiddenPower" onChange="HPower()" class="form-control">
+              <option value="0">Fighting
+              <option value="1">Flying
+              <option value="2">Poison
+              <option value="3">Ground
+              <option value="4">Rock
+              <option value="5">Bug
+              <option value="6">Ghost
+              <option value="7">Steel
+              <option value="8">Fire
+              <option value="9">Water
+              <option value="10">Grass
+              <option value="11">Electric
+              <option value="12">Psychic
+              <option value="13">Ice
+              <option value="14">Dragon
+              <option value="15">Dark
+              <option value="16">Normal
+              <option value="17" selected>
+             </select>
+            </div>
+          </td>
+          <td>
+           <div class="form-group">
+             <label for="NExp">Next Level Exp:</label>
+             <input name=NExp size=9 value="?" maxLength=9 class="form-control" onChange="HPower()" readonly>
+           </div>
+          </td>
+         </tr>
+
+        </tbody>
+       </table>
+
+      </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="form-group">
+   <div class="panel panel-default">
+    <div class="panel-heading">
+     <h4 class="panel-title">
+      <a data-toggle="collapse" href="#cMoves">Moves</a>
+     </h4>
+    </div>
+    <div id="cMoves" class="panel-collapse collapse">
+     <div class="panel-body">
+
+      <table class="table">
+       <tbody>
+
+        <tr>
+         <td>
+          <label>Sort By</label>
+         </td>
+         <td>
+          <label>Moves</label>
+         </td>
+         <td>
+          <label>PP</label>
+         </td>
+         <td>
+          <div class="form-group">
+           <label>PP Ups</label>
+           <input onclick="MaxUPP()" type=button class="btn btn-default" value="Max">
+          </div>
+         </td>
+         <td>
+          <label>Type</label>
+         </td>
+         <td>
+          <label>Power</label>
+         </td>
+         <td>
+          <label>Accuracy</label>
+         </td>
+         <td>
+          <label>Description</label>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <select name="M1O" onchange="NMO('1')" class="form-control">
+           <option selected>Number
+           <option>Alpha
+           <option>???
+           <option>Fighting
+           <option>Flying
+           <option>Poison
+           <option>Ground
+           <option>Rock
+           <option>Bug
+           <option>Ghost
+           <option>Steel
+           <option>Fire
+           <option>Water
+           <option>Grass
+           <option>Electric
+           <option>Psychic
+           <option>Ice
+           <option>Dragon
+           <option>Dark
+           <option>Normal
+           <option>TMs/HMs
+           <option>vs 2 Moves
+           <option>Cool
+           <option>Beauty
+           <option>Cute
+           <option>Smart
+           <option>Tough
+          </select>
+         </td>
+         <td>
+          <select name="Move1" onchange="NMove('1')" class="form-control">
+           <option selected value="001">Pound
+           <option value="002">Karate Chop
+           <option value="003">Doubleslap
+           <option value="004">Comet Punch
+           <option value="005">Mega Punch
+           <option value="006">Pay Day
+           <option value="007">Fire Punch
+           <option value="008">Ice Punch
+           <option value="009">Thunderpunch
+           <option value="010">Scratch
+           <option value="011">ViceGrip
+           <option value="012">Guillotine
+           <option value="013">Razor Wind
+           <option value="014">Swords Dance
+           <option value="015">Cut
+           <option value="016">Gust
+           <option value="017">Wing Attack
+           <option value="018">Whirlwind
+           <option value="019">Fly
+           <option value="020">Bind
+           <option value="021">Slam
+           <option value="022">Vine Whip
+           <option value="023">Stomp
+           <option value="024">Double Kick
+           <option value="025">Mega Kick
+           <option value="026">Jump Kick
+           <option value="027">Rolling Kick
+           <option value="028">Sand-Attack
+           <option value="029">Headbutt
+           <option value="030">Horn Attack
+           <option value="031">Fury Attack
+           <option value="032">Horn Drill
+           <option value="033">Tackle
+           <option value="034">Body Slam
+           <option value="035">Wrap
+           <option value="036">Take Down
+           <option value="037">Thrash
+           <option value="038">Double-Edge
+           <option value="039">Tail Whip
+           <option value="040">Poison Sting
+           <option value="041">Twineedle
+           <option value="042">Pin Missile
+           <option value="043">Leer
+           <option value="044">Bite
+           <option value="045">Growl
+           <option value="046">Roar
+           <option value="047">Sing
+           <option value="048">Supersonic
+           <option value="049">Sonicboom
+           <option value="050">Disable
+           <option value="051">Acid
+           <option value="052">Ember
+           <option value="053">Flamethrower
+           <option value="054">Mist
+           <option value="055">Water Gun
+           <option value="056">Hydro Pump
+           <option value="057">Surf
+           <option value="058">Ice Beam
+           <option value="059">Blizzard
+           <option value="060">Psybeam
+           <option value="061">Bubblebeam
+           <option value="062">Aurora Beam
+           <option value="063">Hyper Beam
+           <option value="064">Peck
+           <option value="065">Drill Peck
+           <option value="066">Submission
+           <option value="067">Low Kick
+           <option value="068">Counter
+           <option value="069">Seismic Toss
+           <option value="070">Strength
+           <option value="071">Absorb
+           <option value="072">Mega Drain
+           <option value="073">Leech Seed
+           <option value="074">Growth
+           <option value="075">Razor Leaf
+           <option value="076">Solarbeam
+           <option value="077">Poisonpowder
+           <option value="078">Stun Spore
+           <option value="079">Sleep Powder
+           <option value="080">Petal Dance
+           <option value="081">String Shot
+           <option value="082">Dragon Rage
+           <option value="083">Fire Spin
+           <option value="084">Thundershock
+           <option value="085">Thunderbolt
+           <option value="086">Thunder Wave
+           <option value="087">Thunder
+           <option value="088">Rock Throw
+           <option value="089">Earthquake
+           <option value="090">Fissure
+           <option value="091">Dig
+           <option value="092">Toxic
+           <option value="093">Confusion
+           <option value="094">Psychic
+           <option value="095">Hypnosis
+           <option value="096">Meditate
+           <option value="097">Agility
+           <option value="098">Quick Attack
+           <option value="099">Rage
+           <option value="100">Teleport
+           <option value="101">Night Shade
+           <option value="102">Mimic
+           <option value="103">Screech
+           <option value="104">Double Team
+           <option value="105">Recover
+           <option value="106">Harden
+           <option value="107">Minimize
+           <option value="108">Smokescreen
+           <option value="109">Confuse Ray
+           <option value="110">Withdraw
+           <option value="111">Defense Curl
+           <option value="112">Barrier
+           <option value="113">Light Screen
+           <option value="114">Haze
+           <option value="115">Reflect
+           <option value="116">Focus Energy
+           <option value="117">Bide
+           <option value="118">Metronome
+           <option value="119">Mirror Move
+           <option value="120">Selfdestruct
+           <option value="121">Egg Bomb
+           <option value="122">Lick
+           <option value="123">Smog
+           <option value="124">Sludge
+           <option value="125">Bone Club
+           <option value="126">Fire Blast
+           <option value="127">Waterfall
+           <option value="128">Clamp
+           <option value="129">Swift
+           <option value="130">Skull Bash
+           <option value="131">Spike Cannon
+           <option value="132">Constrict
+           <option value="133">Amnesia
+           <option value="134">Kinesis
+           <option value="135">Softboiled
+           <option value="136">Hi Jump Kick
+           <option value="137">Glare
+           <option value="138">Dream Eater
+           <option value="139">Poison Gas
+           <option value="140">Barrage
+           <option value="141">Leech Life
+           <option value="142">Lovely Kiss
+           <option value="143">Sky Attack
+           <option value="144">Transform
+           <option value="145">Bubble
+           <option value="146">Dizzy Punch
+           <option value="147">Spore
+           <option value="148">Flash
+           <option value="149">Psywave
+           <option value="150">Splash
+           <option value="151">Acid Armor
+           <option value="152">Crabhammer
+           <option value="153">Explosion
+           <option value="154">Fury Swipes
+           <option value="155">Bonemerang
+           <option value="156">Rest
+           <option value="157">Rock Slide
+           <option value="158">Hyper Fang
+           <option value="159">Sharpen
+           <option value="160">Conversion
+           <option value="161">Tri Attack
+           <option value="162">Super Fang
+           <option value="163">Slash
+           <option value="164">Substitute
+           <option value="165">Struggle
+           <option value="166">Sketch
+           <option value="167">Triple Kick
+           <option value="168">Thief
+           <option value="169">Spider Web
+           <option value="170">Mind Reader
+           <option value="171">Nightmare
+           <option value="172">Flame Wheel
+           <option value="173">Snore
+           <option value="174">Curse
+           <option value="175">Flail
+           <option value="176">Conversion 2
+           <option value="177">Aeroblast
+           <option value="178">Cotton Spore
+           <option value="179">Reversal
+           <option value="180">Spite
+           <option value="181">Powder Snow
+           <option value="182">Protect
+           <option value="183">Mach Punch
+           <option value="184">Scary Face
+           <option value="185">Faint Attack
+           <option value="186">Sweet Kiss
+           <option value="187">Belly Drum
+           <option value="188">Sludge Bomb
+           <option value="189">Mud-Slap
+           <option value="190">Octazooka
+           <option value="191">Spikes
+           <option value="192">Zap Cannon
+           <option value="193">Foresight
+           <option value="194">Destiny Bond
+           <option value="195">Perish Song
+           <option value="196">Icy Wind
+           <option value="197">Detect
+           <option value="198">Bone Rush
+           <option value="199">Lock-On
+           <option value="200">Outrage
+           <option value="201">Sandstorm
+           <option value="202">Giga Drain
+           <option value="203">Endure
+           <option value="204">Charm
+           <option value="205">Rollout
+           <option value="206">False Swipe
+           <option value="207">Swagger
+           <option value="208">Milk Drink
+           <option value="209">Spark
+           <option value="210">Fury Cutter
+           <option value="211">Steel Wing
+           <option value="212">Mean Look
+           <option value="213">Attract
+           <option value="214">Sleep Talk
+           <option value="215">Heal Bell
+           <option value="216">Return
+           <option value="217">Present
+           <option value="218">Frustration
+           <option value="219">Safeguard
+           <option value="220">Pain Split
+           <option value="221">Sacred Fire
+           <option value="222">Magnitude
+           <option value="223">Dynamicpunch
+           <option value="224">Megahorn
+           <option value="225">Dragonbreath
+           <option value="226">Baton Pass
+           <option value="227">Encore
+           <option value="228">Pursuit
+           <option value="229">Rapid Spin
+           <option value="230">Sweet Scent
+           <option value="231">Iron Tail
+           <option value="232">Metal Claw
+           <option value="233">Vital Throw
+           <option value="234">Morning Sun
+           <option value="235">Synthesis
+           <option value="236">Moonlight
+           <option value="237">Hidden Power
+           <option value="238">Cross Chop
+           <option value="239">Twister
+           <option value="240">Rain Dance
+           <option value="241">Sunny Day
+           <option value="242">Crunch
+           <option value="243">Mirror Coat
+           <option value="244">Psych Up
+           <option value="245">Extremespeed
+           <option value="246">Ancientpower
+           <option value="247">Shadow Ball
+           <option value="248">Future Sight
+           <option value="249">Rock Smash
+           <option value="250">Whirlpool
+           <option value="251">Beat Up
+           <option value="252">Fake Out
+           <option value="253">Uproar
+           <option value="254">Stockpile
+           <option value="255">Spit Up
+           <option value="256">Swallow
+           <option value="257">Heat Wave
+           <option value="258">Hail
+           <option value="259">Tornment
+           <option value="260">Flatters
+           <option value="261">Will-O-Wisp
+           <option value="262">Memento
+           <option value="263">Facade
+           <option value="264">Focus Punch
+           <option value="265">Smellingsalt
+           <option value="266">Follow Me
+           <option value="267">Nature Power
+           <option value="268">Charge
+           <option value="269">Taunt
+           <option value="270">Helping Hand
+           <option value="271">Trick
+           <option value="272">Role Play
+           <option value="273">Wish
+           <option value="274">Assist
+           <option value="275">Ingrain
+           <option value="276">Superpower
+           <option value="277">Magic Coat
+           <option value="278">Recycle
+           <option value="279">Revenge
+           <option value="280">Brick Break
+           <option value="281">Yawn
+           <option value="282">Knock Off
+           <option value="283">Endeavor
+           <option value="284">Eruption
+           <option value="285">Skill Swap
+           <option value="286">Imprison
+           <option value="287">Refresh
+           <option value="288">Grudge
+           <option value="289">Snatch
+           <option value="290">Secret Power
+           <option value="291">Dive
+           <option value="292">Arm Thrust
+           <option value="293">Camouflage
+           <option value="294">Tail Glow
+           <option value="295">Luster Purge
+           <option value="296">Mist Ball
+           <option value="297">Featherdance
+           <option value="298">Teeter Dance
+           <option value="299">Blaze Kick
+           <option value="300">Mud Sport
+           <option value="301">Ice Ball
+           <option value="302">Needle Arm
+           <option value="303">Slack Off
+           <option value="304">Hyper Voice
+           <option value="305">Poison Fang
+           <option value="306">Crush Claw
+           <option value="307">Blast Burn
+           <option value="308">Hydro Cannon
+           <option value="309">Meteor Mash
+           <option value="310">Astonish
+           <option value="311">Weather Ball
+           <option value="312">Aromatherapy
+           <option value="313">Fake Tears
+           <option value="314">Air Cutter
+           <option value="315">Overheat
+           <option value="316">Odor Sleuth
+           <option value="317">Rock Tomb
+           <option value="318">Silver Wind
+           <option value="319">Metal Sound
+           <option value="320">Grasswhistle
+           <option value="321">Tickle
+           <option value="322">Cosmic Power
+           <option value="323">Water Spout
+           <option value="324">Signal Beam
+           <option value="325">Shadow Punch
+           <option value="326">Extrasensory
+           <option value="327">Sky Uppercut
+           <option value="328">Sand Tomb
+           <option value="329">Sheer Cold
+           <option value="330">Muddy Water
+           <option value="331">Bullet Seed
+           <option value="332">Aerial Ace
+           <option value="333">Icicle Spear
+           <option value="334">Iron Defense
+           <option value="335">Block
+           <option value="336">Howl
+           <option value="337">Dragon Claw
+           <option value="338">Frenzy Plant
+           <option value="339">Bulk Up
+           <option value="340">Bounce
+           <option value="341">Mud Shot
+           <option value="342">Poison Tail
+           <option value="343">Covet
+           <option value="344">Volt Tackle
+           <option value="345">Magical Leaf
+           <option value="346">Water Sport
+           <option value="347">Calm Mind
+           <option value="348">Leaf Blade
+           <option value="349">Dragon Dance
+           <option value="350">Rock Blast
+           <option value="351">Shock Wave
+           <option value="352">Water Pulse
+           <option value="353">Doom Desire
+           <option value="354">Psycho Boost
+          </select>
+         </td>
+         <td><input name="M1PP" size=3 class="form-control" value="5" maxLength=2></td>
+         <td>
+          <select name="M1UPP" onchange="NMove('1')" class="form-control">
+           <option selected value="0">0
+           <option value="1">1
+           <option value="2">2
+           <option value="3">3
+          </select>
+         </td>
+         <td>
+          <input name="M1Ty" class="form-control" size=12 value="Normal" maxLength=12 onchange="NMove('0')">
+         </td>
+         <td>
+          <input name="M1Po" class="form-control" size=3 value="40" maxLength=3 onchange="NMove('0')">
+         </td>
+         <td>
+          <input name="M1Ac" class="form-control" size=3 value="100%" maxLength=4 onchange="NMove('0')">
+         </td>
+         <td>
+          <div class="form-group">
+           <textarea name="M1De" ROWS=2 class="form-control" onChange="NMove('0')">No effect.
+           </textarea>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <select name="M2O" onchange="NMO('2')" class="form-control">
+           <option selected>Number
+           <option>Alpha
+           <option>???
+           <option>Fighting
+           <option>Flying
+           <option>Poison
+           <option>Ground
+           <option>Rock
+           <option>Bug
+           <option>Ghost
+           <option>Steel
+           <option>Fire
+           <option>Water
+           <option>Grass
+           <option>Electric
+           <option>Psychic
+           <option>Ice
+           <option>Dragon
+           <option>Dark
+           <option>Normal
+           <option>TMs/HMs
+           <option>vs 2 Moves
+           <option>Cool
+           <option>Beauty
+           <option>Cute
+           <option>Smart
+           <option>Tough
+          </select>
+         </td>
+         <td>
+          <select name="Move2" onchange="NMove('2')" class="form-control">
+           <option selected value="000">Empty Move
+           <option value="001">Pound
+           <option value="002">Karate Chop
+           <option value="003">Doubleslap
+           <option value="004">Comet Punch
+           <option value="005">Mega Punch
+           <option value="006">Pay Day
+           <option value="007">Fire Punch
+           <option value="008">Ice Punch
+           <option value="009">Thunderpunch
+           <option value="010">Scratch
+           <option value="011">ViceGrip
+           <option value="012">Guillotine
+           <option value="013">Razor Wind
+           <option value="014">Swords Dance
+           <option value="015">Cut
+           <option value="016">Gust
+           <option value="017">Wing Attack
+           <option value="018">Whirlwind
+           <option value="019">Fly
+           <option value="020">Bind
+           <option value="021">Slam
+           <option value="022">Vine Whip
+           <option value="023">Stomp
+           <option value="024">Double Kick
+           <option value="025">Mega Kick
+           <option value="026">Jump Kick
+           <option value="027">Rolling Kick
+           <option value="028">Sand-Attack
+           <option value="029">Headbutt
+           <option value="030">Horn Attack
+           <option value="031">Fury Attack
+           <option value="032">Horn Drill
+           <option value="033">Tackle
+           <option value="034">Body Slam
+           <option value="035">Wrap
+           <option value="036">Take Down
+           <option value="037">Thrash
+           <option value="038">Double-Edge
+           <option value="039">Tail Whip
+           <option value="040">Poison Sting
+           <option value="041">Twineedle
+           <option value="042">Pin Missile
+           <option value="043">Leer
+           <option value="044">Bite
+           <option value="045">Growl
+           <option value="046">Roar
+           <option value="047">Sing
+           <option value="048">Supersonic
+           <option value="049">Sonicboom
+           <option value="050">Disable
+           <option value="051">Acid
+           <option value="052">Ember
+           <option value="053">Flamethrower
+           <option value="054">Mist
+           <option value="055">Water Gun
+           <option value="056">Hydro Pump
+           <option value="057">Surf
+           <option value="058">Ice Beam
+           <option value="059">Blizzard
+           <option value="060">Psybeam
+           <option value="061">Bubblebeam
+           <option value="062">Aurora Beam
+           <option value="063">Hyper Beam
+           <option value="064">Peck
+           <option value="065">Drill Peck
+           <option value="066">Submission
+           <option value="067">Low Kick
+           <option value="068">Counter
+           <option value="069">Seismic Toss
+           <option value="070">Strength
+           <option value="071">Absorb
+           <option value="072">Mega Drain
+           <option value="073">Leech Seed
+           <option value="074">Growth
+           <option value="075">Razor Leaf
+           <option value="076">Solarbeam
+           <option value="077">Poisonpowder
+           <option value="078">Stun Spore
+           <option value="079">Sleep Powder
+           <option value="080">Petal Dance
+           <option value="081">String Shot
+           <option value="082">Dragon Rage
+           <option value="083">Fire Spin
+           <option value="084">Thundershock
+           <option value="085">Thunderbolt
+           <option value="086">Thunder Wave
+           <option value="087">Thunder
+           <option value="088">Rock Throw
+           <option value="089">Earthquake
+           <option value="090">Fissure
+           <option value="091">Dig
+           <option value="092">Toxic
+           <option value="093">Confusion
+           <option value="094">Psychic
+           <option value="095">Hypnosis
+           <option value="096">Meditate
+           <option value="097">Agility
+           <option value="098">Quick Attack
+           <option value="099">Rage
+           <option value="100">Teleport
+           <option value="101">Night Shade
+           <option value="102">Mimic
+           <option value="103">Screech
+           <option value="104">Double Team
+           <option value="105">Recover
+           <option value="106">Harden
+           <option value="107">Minimize
+           <option value="108">Smokescreen
+           <option value="109">Confuse Ray
+           <option value="110">Withdraw
+           <option value="111">Defense Curl
+           <option value="112">Barrier
+           <option value="113">Light Screen
+           <option value="114">Haze
+           <option value="115">Reflect
+           <option value="116">Focus Energy
+           <option value="117">Bide
+           <option value="118">Metronome
+           <option value="119">Mirror Move
+           <option value="120">Selfdestruct
+           <option value="121">Egg Bomb
+           <option value="122">Lick
+           <option value="123">Smog
+           <option value="124">Sludge
+           <option value="125">Bone Club
+           <option value="126">Fire Blast
+           <option value="127">Waterfall
+           <option value="128">Clamp
+           <option value="129">Swift
+           <option value="130">Skull Bash
+           <option value="131">Spike Cannon
+           <option value="132">Constrict
+           <option value="133">Amnesia
+           <option value="134">Kinesis
+           <option value="135">Softboiled
+           <option value="136">Hi Jump Kick
+           <option value="137">Glare
+           <option value="138">Dream Eater
+           <option value="139">Poison Gas
+           <option value="140">Barrage
+           <option value="141">Leech Life
+           <option value="142">Lovely Kiss
+           <option value="143">Sky Attack
+           <option value="144">Transform
+           <option value="145">Bubble
+           <option value="146">Dizzy Punch
+           <option value="147">Spore
+           <option value="148">Flash
+           <option value="149">Psywave
+           <option value="150">Splash
+           <option value="151">Acid Armor
+           <option value="152">Crabhammer
+           <option value="153">Explosion
+           <option value="154">Fury Swipes
+           <option value="155">Bonemerang
+           <option value="156">Rest
+           <option value="157">Rock Slide
+           <option value="158">Hyper Fang
+           <option value="159">Sharpen
+           <option value="160">Conversion
+           <option value="161">Tri Attack
+           <option value="162">Super Fang
+           <option value="163">Slash
+           <option value="164">Substitute
+           <option value="165">Struggle
+           <option value="166">Sketch
+           <option value="167">Triple Kick
+           <option value="168">Thief
+           <option value="169">Spider Web
+           <option value="170">Mind Reader
+           <option value="171">Nightmare
+           <option value="172">Flame Wheel
+           <option value="173">Snore
+           <option value="174">Curse
+           <option value="175">Flail
+           <option value="176">Conversion 2
+           <option value="177">Aeroblast
+           <option value="178">Cotton Spore
+           <option value="179">Reversal
+           <option value="180">Spite
+           <option value="181">Powder Snow
+           <option value="182">Protect
+           <option value="183">Mach Punch
+           <option value="184">Scary Face
+           <option value="185">Faint Attack
+           <option value="186">Sweet Kiss
+           <option value="187">Belly Drum
+           <option value="188">Sludge Bomb
+           <option value="189">Mud-Slap
+           <option value="190">Octazooka
+           <option value="191">Spikes
+           <option value="192">Zap Cannon
+           <option value="193">Foresight
+           <option value="194">Destiny Bond
+           <option value="195">Perish Song
+           <option value="196">Icy Wind
+           <option value="197">Detect
+           <option value="198">Bone Rush
+           <option value="199">Lock-On
+           <option value="200">Outrage
+           <option value="201">Sandstorm
+           <option value="202">Giga Drain
+           <option value="203">Endure
+           <option value="204">Charm
+           <option value="205">Rollout
+           <option value="206">False Swipe
+           <option value="207">Swagger
+           <option value="208">Milk Drink
+           <option value="209">Spark
+           <option value="210">Fury Cutter
+           <option value="211">Steel Wing
+           <option value="212">Mean Look
+           <option value="213">Attract
+           <option value="214">Sleep Talk
+           <option value="215">Heal Bell
+           <option value="216">Return
+           <option value="217">Present
+           <option value="218">Frustration
+           <option value="219">Safeguard
+           <option value="220">Pain Split
+           <option value="221">Sacred Fire
+           <option value="222">Magnitude
+           <option value="223">Dynamicpunch
+           <option value="224">Megahorn
+           <option value="225">Dragonbreath
+           <option value="226">Baton Pass
+           <option value="227">Encore
+           <option value="228">Pursuit
+           <option value="229">Rapid Spin
+           <option value="230">Sweet Scent
+           <option value="231">Iron Tail
+           <option value="232">Metal Claw
+           <option value="233">Vital Throw
+           <option value="234">Morning Sun
+           <option value="235">Synthesis
+           <option value="236">Moonlight
+           <option value="237">Hidden Power
+           <option value="238">Cross Chop
+           <option value="239">Twister
+           <option value="240">Rain Dance
+           <option value="241">Sunny Day
+           <option value="242">Crunch
+           <option value="243">Mirror Coat
+           <option value="244">Psych Up
+           <option value="245">Extremespeed
+           <option value="246">Ancientpower
+           <option value="247">Shadow Ball
+           <option value="248">Future Sight
+           <option value="249">Rock Smash
+           <option value="250">Whirlpool
+           <option value="251">Beat Up
+           <option value="252">Fake Out
+           <option value="253">Uproar
+           <option value="254">Stockpile
+           <option value="255">Spit Up
+           <option value="256">Swallow
+           <option value="257">Heat Wave
+           <option value="258">Hail
+           <option value="259">Tornment
+           <option value="260">Flatters
+           <option value="261">Will-O-Wisp
+           <option value="262">Memento
+           <option value="263">Facade
+           <option value="264">Focus Punch
+           <option value="265">Smellingsalt
+           <option value="266">Follow Me
+           <option value="267">Nature Power
+           <option value="268">Charge
+           <option value="269">Taunt
+           <option value="270">Helping Hand
+           <option value="271">Trick
+           <option value="272">Role Play
+           <option value="273">Wish
+           <option value="274">Assist
+           <option value="275">Ingrain
+           <option value="276">Superpower
+           <option value="277">Magic Coat
+           <option value="278">Recycle
+           <option value="279">Revenge
+           <option value="280">Brick Break
+           <option value="281">Yawn
+           <option value="282">Knock Off
+           <option value="283">Endeavor
+           <option value="284">Eruption
+           <option value="285">Skill Swap
+           <option value="286">Imprison
+           <option value="287">Refresh
+           <option value="288">Grudge
+           <option value="289">Snatch
+           <option value="290">Secret Power
+           <option value="291">Dive
+           <option value="292">Arm Thrust
+           <option value="293">Camouflage
+           <option value="294">Tail Glow
+           <option value="295">Luster Purge
+           <option value="296">Mist Ball
+           <option value="297">Featherdance
+           <option value="298">Teeter Dance
+           <option value="299">Blaze Kick
+           <option value="300">Mud Sport
+           <option value="301">Ice Ball
+           <option value="302">Needle Arm
+           <option value="303">Slack Off
+           <option value="304">Hyper Voice
+           <option value="305">Poison Fang
+           <option value="306">Crush Claw
+           <option value="307">Blast Burn
+           <option value="308">Hydro Cannon
+           <option value="309">Meteor Mash
+           <option value="310">Astonish
+           <option value="311">Weather Ball
+           <option value="312">Aromatherapy
+           <option value="313">Fake Tears
+           <option value="314">Air Cutter
+           <option value="315">Overheat
+           <option value="316">Odor Sleuth
+           <option value="317">Rock Tomb
+           <option value="318">Silver Wind
+           <option value="319">Metal Sound
+           <option value="320">Grasswhistle
+           <option value="321">Tickle
+           <option value="322">Cosmic Power
+           <option value="323">Water Spout
+           <option value="324">Signal Beam
+           <option value="325">Shadow Punch
+           <option value="326">Extrasensory
+           <option value="327">Sky Uppercut
+           <option value="328">Sand Tomb
+           <option value="329">Sheer Cold
+           <option value="330">Muddy Water
+           <option value="331">Bullet Seed
+           <option value="332">Aerial Ace
+           <option value="333">Icicle Spear
+           <option value="334">Iron Defense
+           <option value="335">Block
+           <option value="336">Howl
+           <option value="337">Dragon Claw
+           <option value="338">Frenzy Plant
+           <option value="339">Bulk Up
+           <option value="340">Bounce
+           <option value="341">Mud Shot
+           <option value="342">Poison Tail
+           <option value="343">Covet
+           <option value="344">Volt Tackle
+           <option value="345">Magical Leaf
+           <option value="346">Water Sport
+           <option value="347">Calm Mind
+           <option value="348">Leaf Blade
+           <option value="349">Dragon Dance
+           <option value="350">Rock Blast
+           <option value="351">Shock Wave
+           <option value="352">Water Pulse
+           <option value="353">Doom Desire
+           <option value="354">Psycho Boost
+          </select>
+         </td>
+         <td><input name="M2PP" class="form-control" size=3 value="5" maxLength=2></td>
+         <td>
+          <select name="M2UPP" onchange="NMove('2')" class="form-control">
+           <option selected value="0">0
+           <option value="1">1
+           <option value="2">2
+           <option value="3">3
+          </select>
+         </td>
+         <td><input name="M2Ty" class="form-control" size=12 value="None" maxLength=12 onchange="NMove('0')"></td>
+         <td><input name="M2Po" class="form-control" size=3 value="0" maxLength=3 onchange="NMove('0')"></td>
+         <td><input name="M2Ac" class="form-control" size=3 value="0%" maxLength=4 onchange="NMove('0')"></td>
+         <td>
+          <div class="form-group">
+           <textarea name="M2De" ROWS=2 class="form-control" onChange="NMove('0')">No Move.
+           </textarea>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <select name="M3O" onchange="NMO('3')" class="form-control">
+           <option selected>Number
+           <option>Alpha
+           <option>???
+           <option>Fighting
+           <option>Flying
+           <option>Poison
+           <option>Ground
+           <option>Rock
+           <option>Bug
+           <option>Ghost
+           <option>Steel
+           <option>Fire
+           <option>Water
+           <option>Grass
+           <option>Electric
+           <option>Psychic
+           <option>Ice
+           <option>Dragon
+           <option>Dark
+           <option>Normal
+           <option>TMs/HMs
+           <option>vs 2 Moves
+           <option>Cool
+           <option>Beauty
+           <option>Cute
+           <option>Smart
+           <option>Tough
+          </select>
+         </td>
+         <td>
+          <select name="Move3" onchange="NMove('3')" class="form-control">
+           <option selected value="000">Empty Move
+           <option value="001">Pound
+           <option value="002">Karate Chop
+           <option value="003">Doubleslap
+           <option value="004">Comet Punch
+           <option value="005">Mega Punch
+           <option value="006">Pay Day
+           <option value="007">Fire Punch
+           <option value="008">Ice Punch
+           <option value="009">Thunderpunch
+           <option value="010">Scratch
+           <option value="011">ViceGrip
+           <option value="012">Guillotine
+           <option value="013">Razor Wind
+           <option value="014">Swords Dance
+           <option value="015">Cut
+           <option value="016">Gust
+           <option value="017">Wing Attack
+           <option value="018">Whirlwind
+           <option value="019">Fly
+           <option value="020">Bind
+           <option value="021">Slam
+           <option value="022">Vine Whip
+           <option value="023">Stomp
+           <option value="024">Double Kick
+           <option value="025">Mega Kick
+           <option value="026">Jump Kick
+           <option value="027">Rolling Kick
+           <option value="028">Sand-Attack
+           <option value="029">Headbutt
+           <option value="030">Horn Attack
+           <option value="031">Fury Attack
+           <option value="032">Horn Drill
+           <option value="033">Tackle
+           <option value="034">Body Slam
+           <option value="035">Wrap
+           <option value="036">Take Down
+           <option value="037">Thrash
+           <option value="038">Double-Edge
+           <option value="039">Tail Whip
+           <option value="040">Poison Sting
+           <option value="041">Twineedle
+           <option value="042">Pin Missile
+           <option value="043">Leer
+           <option value="044">Bite
+           <option value="045">Growl
+           <option value="046">Roar
+           <option value="047">Sing
+           <option value="048">Supersonic
+           <option value="049">Sonicboom
+           <option value="050">Disable
+           <option value="051">Acid
+           <option value="052">Ember
+           <option value="053">Flamethrower
+           <option value="054">Mist
+           <option value="055">Water Gun
+           <option value="056">Hydro Pump
+           <option value="057">Surf
+           <option value="058">Ice Beam
+           <option value="059">Blizzard
+           <option value="060">Psybeam
+           <option value="061">Bubblebeam
+           <option value="062">Aurora Beam
+           <option value="063">Hyper Beam
+           <option value="064">Peck
+           <option value="065">Drill Peck
+           <option value="066">Submission
+           <option value="067">Low Kick
+           <option value="068">Counter
+           <option value="069">Seismic Toss
+           <option value="070">Strength
+           <option value="071">Absorb
+           <option value="072">Mega Drain
+           <option value="073">Leech Seed
+           <option value="074">Growth
+           <option value="075">Razor Leaf
+           <option value="076">Solarbeam
+           <option value="077">Poisonpowder
+           <option value="078">Stun Spore
+           <option value="079">Sleep Powder
+           <option value="080">Petal Dance
+           <option value="081">String Shot
+           <option value="082">Dragon Rage
+           <option value="083">Fire Spin
+           <option value="084">Thundershock
+           <option value="085">Thunderbolt
+           <option value="086">Thunder Wave
+           <option value="087">Thunder
+           <option value="088">Rock Throw
+           <option value="089">Earthquake
+           <option value="090">Fissure
+           <option value="091">Dig
+           <option value="092">Toxic
+           <option value="093">Confusion
+           <option value="094">Psychic
+           <option value="095">Hypnosis
+           <option value="096">Meditate
+           <option value="097">Agility
+           <option value="098">Quick Attack
+           <option value="099">Rage
+           <option value="100">Teleport
+           <option value="101">Night Shade
+           <option value="102">Mimic
+           <option value="103">Screech
+           <option value="104">Double Team
+           <option value="105">Recover
+           <option value="106">Harden
+           <option value="107">Minimize
+           <option value="108">Smokescreen
+           <option value="109">Confuse Ray
+           <option value="110">Withdraw
+           <option value="111">Defense Curl
+           <option value="112">Barrier
+           <option value="113">Light Screen
+           <option value="114">Haze
+           <option value="115">Reflect
+           <option value="116">Focus Energy
+           <option value="117">Bide
+           <option value="118">Metronome
+           <option value="119">Mirror Move
+           <option value="120">Selfdestruct
+           <option value="121">Egg Bomb
+           <option value="122">Lick
+           <option value="123">Smog
+           <option value="124">Sludge
+           <option value="125">Bone Club
+           <option value="126">Fire Blast
+           <option value="127">Waterfall
+           <option value="128">Clamp
+           <option value="129">Swift
+           <option value="130">Skull Bash
+           <option value="131">Spike Cannon
+           <option value="132">Constrict
+           <option value="133">Amnesia
+           <option value="134">Kinesis
+           <option value="135">Softboiled
+           <option value="136">Hi Jump Kick
+           <option value="137">Glare
+           <option value="138">Dream Eater
+           <option value="139">Poison Gas
+           <option value="140">Barrage
+           <option value="141">Leech Life
+           <option value="142">Lovely Kiss
+           <option value="143">Sky Attack
+           <option value="144">Transform
+           <option value="145">Bubble
+           <option value="146">Dizzy Punch
+           <option value="147">Spore
+           <option value="148">Flash
+           <option value="149">Psywave
+           <option value="150">Splash
+           <option value="151">Acid Armor
+           <option value="152">Crabhammer
+           <option value="153">Explosion
+           <option value="154">Fury Swipes
+           <option value="155">Bonemerang
+           <option value="156">Rest
+           <option value="157">Rock Slide
+           <option value="158">Hyper Fang
+           <option value="159">Sharpen
+           <option value="160">Conversion
+           <option value="161">Tri Attack
+           <option value="162">Super Fang
+           <option value="163">Slash
+           <option value="164">Substitute
+           <option value="165">Struggle
+           <option value="166">Sketch
+           <option value="167">Triple Kick
+           <option value="168">Thief
+           <option value="169">Spider Web
+           <option value="170">Mind Reader
+           <option value="171">Nightmare
+           <option value="172">Flame Wheel
+           <option value="173">Snore
+           <option value="174">Curse
+           <option value="175">Flail
+           <option value="176">Conversion 2
+           <option value="177">Aeroblast
+           <option value="178">Cotton Spore
+           <option value="179">Reversal
+           <option value="180">Spite
+           <option value="181">Powder Snow
+           <option value="182">Protect
+           <option value="183">Mach Punch
+           <option value="184">Scary Face
+           <option value="185">Faint Attack
+           <option value="186">Sweet Kiss
+           <option value="187">Belly Drum
+           <option value="188">Sludge Bomb
+           <option value="189">Mud-Slap
+           <option value="190">Octazooka
+           <option value="191">Spikes
+           <option value="192">Zap Cannon
+           <option value="193">Foresight
+           <option value="194">Destiny Bond
+           <option value="195">Perish Song
+           <option value="196">Icy Wind
+           <option value="197">Detect
+           <option value="198">Bone Rush
+           <option value="199">Lock-On
+           <option value="200">Outrage
+           <option value="201">Sandstorm
+           <option value="202">Giga Drain
+           <option value="203">Endure
+           <option value="204">Charm
+           <option value="205">Rollout
+           <option value="206">False Swipe
+           <option value="207">Swagger
+           <option value="208">Milk Drink
+           <option value="209">Spark
+           <option value="210">Fury Cutter
+           <option value="211">Steel Wing
+           <option value="212">Mean Look
+           <option value="213">Attract
+           <option value="214">Sleep Talk
+           <option value="215">Heal Bell
+           <option value="216">Return
+           <option value="217">Present
+           <option value="218">Frustration
+           <option value="219">Safeguard
+           <option value="220">Pain Split
+           <option value="221">Sacred Fire
+           <option value="222">Magnitude
+           <option value="223">Dynamicpunch
+           <option value="224">Megahorn
+           <option value="225">Dragonbreath
+           <option value="226">Baton Pass
+           <option value="227">Encore
+           <option value="228">Pursuit
+           <option value="229">Rapid Spin
+           <option value="230">Sweet Scent
+           <option value="231">Iron Tail
+           <option value="232">Metal Claw
+           <option value="233">Vital Throw
+           <option value="234">Morning Sun
+           <option value="235">Synthesis
+           <option value="236">Moonlight
+           <option value="237">Hidden Power
+           <option value="238">Cross Chop
+           <option value="239">Twister
+           <option value="240">Rain Dance
+           <option value="241">Sunny Day
+           <option value="242">Crunch
+           <option value="243">Mirror Coat
+           <option value="244">Psych Up
+           <option value="245">Extremespeed
+           <option value="246">Ancientpower
+           <option value="247">Shadow Ball
+           <option value="248">Future Sight
+           <option value="249">Rock Smash
+           <option value="250">Whirlpool
+           <option value="251">Beat Up
+           <option value="252">Fake Out
+           <option value="253">Uproar
+           <option value="254">Stockpile
+           <option value="255">Spit Up
+           <option value="256">Swallow
+           <option value="257">Heat Wave
+           <option value="258">Hail
+           <option value="259">Tornment
+           <option value="260">Flatters
+           <option value="261">Will-O-Wisp
+           <option value="262">Memento
+           <option value="263">Facade
+           <option value="264">Focus Punch
+           <option value="265">Smellingsalt
+           <option value="266">Follow Me
+           <option value="267">Nature Power
+           <option value="268">Charge
+           <option value="269">Taunt
+           <option value="270">Helping Hand
+           <option value="271">Trick
+           <option value="272">Role Play
+           <option value="273">Wish
+           <option value="274">Assist
+           <option value="275">Ingrain
+           <option value="276">Superpower
+           <option value="277">Magic Coat
+           <option value="278">Recycle
+           <option value="279">Revenge
+           <option value="280">Brick Break
+           <option value="281">Yawn
+           <option value="282">Knock Off
+           <option value="283">Endeavor
+           <option value="284">Eruption
+           <option value="285">Skill Swap
+           <option value="286">Imprison
+           <option value="287">Refresh
+           <option value="288">Grudge
+           <option value="289">Snatch
+           <option value="290">Secret Power
+           <option value="291">Dive
+           <option value="292">Arm Thrust
+           <option value="293">Camouflage
+           <option value="294">Tail Glow
+           <option value="295">Luster Purge
+           <option value="296">Mist Ball
+           <option value="297">Featherdance
+           <option value="298">Teeter Dance
+           <option value="299">Blaze Kick
+           <option value="300">Mud Sport
+           <option value="301">Ice Ball
+           <option value="302">Needle Arm
+           <option value="303">Slack Off
+           <option value="304">Hyper Voice
+           <option value="305">Poison Fang
+           <option value="306">Crush Claw
+           <option value="307">Blast Burn
+           <option value="308">Hydro Cannon
+           <option value="309">Meteor Mash
+           <option value="310">Astonish
+           <option value="311">Weather Ball
+           <option value="312">Aromatherapy
+           <option value="313">Fake Tears
+           <option value="314">Air Cutter
+           <option value="315">Overheat
+           <option value="316">Odor Sleuth
+           <option value="317">Rock Tomb
+           <option value="318">Silver Wind
+           <option value="319">Metal Sound
+           <option value="320">Grasswhistle
+           <option value="321">Tickle
+           <option value="322">Cosmic Power
+           <option value="323">Water Spout
+           <option value="324">Signal Beam
+           <option value="325">Shadow Punch
+           <option value="326">Extrasensory
+           <option value="327">Sky Uppercut
+           <option value="328">Sand Tomb
+           <option value="329">Sheer Cold
+           <option value="330">Muddy Water
+           <option value="331">Bullet Seed
+           <option value="332">Aerial Ace
+           <option value="333">Icicle Spear
+           <option value="334">Iron Defense
+           <option value="335">Block
+           <option value="336">Howl
+           <option value="337">Dragon Claw
+           <option value="338">Frenzy Plant
+           <option value="339">Bulk Up
+           <option value="340">Bounce
+           <option value="341">Mud Shot
+           <option value="342">Poison Tail
+           <option value="343">Covet
+           <option value="344">Volt Tackle
+           <option value="345">Magical Leaf
+           <option value="346">Water Sport
+           <option value="347">Calm Mind
+           <option value="348">Leaf Blade
+           <option value="349">Dragon Dance
+           <option value="350">Rock Blast
+           <option value="351">Shock Wave
+           <option value="352">Water Pulse
+           <option value="353">Doom Desire
+           <option value="354">Psycho Boost
+          </select>
+         </td>
+         <td><input name="M3PP" class="form-control" size=3 value="5" maxLength=2></td>
+         <td>
+          <select name="M3UPP" onchange="NMove('3')" class="form-control">
+           <option selected value="0">0
+           <option value="1">1
+           <option value="2">2
+           <option value="3">3
+          </select>
+         </td>
+         <td><input name="M3Ty" class="form-control" size=12 value="None" maxLength=12 onchange="NMove('0')"></td>
+         <td><input name="M3Po" class="form-control" size=3 value="0" maxLength=3 onchange="NMove('0')"></td>
+         <td><input name="M3Ac" class="form-control" size=3 value="0%" maxLength=4 onchange="NMove('0')"></td>
+         <td>
+          <div class="form-group">
+           <textarea name="M3De" ROWS=2 class="form-control" onChange="NMove('0')">No Move.
+           </textarea>
+          </div>
+         </td>
+        </tr>
+
+        <tr>
+         <td>
+          <select name="M4O" onchange="NMO('4')" class="form-control">
+           <option selected>Number
+           <option>Alpha
+           <option>???
+           <option>Fighting
+           <option>Flying
+           <option>Poison
+           <option>Ground
+           <option>Rock
+           <option>Bug
+           <option>Ghost
+           <option>Steel
+           <option>Fire
+           <option>Water
+           <option>Grass
+           <option>Electric
+           <option>Psychic
+           <option>Ice
+           <option>Dragon
+           <option>Dark
+           <option>Normal
+           <option>TMs/HMs
+           <option>vs 2 Moves
+           <option>Cool
+           <option>Beauty
+           <option>Cute
+           <option>Smart
+           <option>Tough
+          </select>
+         </td>
+         <td>
+          <select name="Move4" onchange="NMove('4')" class="form-control">
+           <option selected value="000">Empty Move
+           <option value="001">Pound
+           <option value="002">Karate Chop
+           <option value="003">Doubleslap
+           <option value="004">Comet Punch
+           <option value="005">Mega Punch
+           <option value="006">Pay Day
+           <option value="007">Fire Punch
+           <option value="008">Ice Punch
+           <option value="009">Thunderpunch
+           <option value="010">Scratch
+           <option value="011">ViceGrip
+           <option value="012">Guillotine
+           <option value="013">Razor Wind
+           <option value="014">Swords Dance
+           <option value="015">Cut
+           <option value="016">Gust
+           <option value="017">Wing Attack
+           <option value="018">Whirlwind
+           <option value="019">Fly
+           <option value="020">Bind
+           <option value="021">Slam
+           <option value="022">Vine Whip
+           <option value="023">Stomp
+           <option value="024">Double Kick
+           <option value="025">Mega Kick
+           <option value="026">Jump Kick
+           <option value="027">Rolling Kick
+           <option value="028">Sand-Attack
+           <option value="029">Headbutt
+           <option value="030">Horn Attack
+           <option value="031">Fury Attack
+           <option value="032">Horn Drill
+           <option value="033">Tackle
+           <option value="034">Body Slam
+           <option value="035">Wrap
+           <option value="036">Take Down
+           <option value="037">Thrash
+           <option value="038">Double-Edge
+           <option value="039">Tail Whip
+           <option value="040">Poison Sting
+           <option value="041">Twineedle
+           <option value="042">Pin Missile
+           <option value="043">Leer
+           <option value="044">Bite
+           <option value="045">Growl
+           <option value="046">Roar
+           <option value="047">Sing
+           <option value="048">Supersonic
+           <option value="049">Sonicboom
+           <option value="050">Disable
+           <option value="051">Acid
+           <option value="052">Ember
+           <option value="053">Flamethrower
+           <option value="054">Mist
+           <option value="055">Water Gun
+           <option value="056">Hydro Pump
+           <option value="057">Surf
+           <option value="058">Ice Beam
+           <option value="059">Blizzard
+           <option value="060">Psybeam
+           <option value="061">Bubblebeam
+           <option value="062">Aurora Beam
+           <option value="063">Hyper Beam
+           <option value="064">Peck
+           <option value="065">Drill Peck
+           <option value="066">Submission
+           <option value="067">Low Kick
+           <option value="068">Counter
+           <option value="069">Seismic Toss
+           <option value="070">Strength
+           <option value="071">Absorb
+           <option value="072">Mega Drain
+           <option value="073">Leech Seed
+           <option value="074">Growth
+           <option value="075">Razor Leaf
+           <option value="076">Solarbeam
+           <option value="077">Poisonpowder
+           <option value="078">Stun Spore
+           <option value="079">Sleep Powder
+           <option value="080">Petal Dance
+           <option value="081">String Shot
+           <option value="082">Dragon Rage
+           <option value="083">Fire Spin
+           <option value="084">Thundershock
+           <option value="085">Thunderbolt
+           <option value="086">Thunder Wave
+           <option value="087">Thunder
+           <option value="088">Rock Throw
+           <option value="089">Earthquake
+           <option value="090">Fissure
+           <option value="091">Dig
+           <option value="092">Toxic
+           <option value="093">Confusion
+           <option value="094">Psychic
+           <option value="095">Hypnosis
+           <option value="096">Meditate
+           <option value="097">Agility
+           <option value="098">Quick Attack
+           <option value="099">Rage
+           <option value="100">Teleport
+           <option value="101">Night Shade
+           <option value="102">Mimic
+           <option value="103">Screech
+           <option value="104">Double Team
+           <option value="105">Recover
+           <option value="106">Harden
+           <option value="107">Minimize
+           <option value="108">Smokescreen
+           <option value="109">Confuse Ray
+           <option value="110">Withdraw
+           <option value="111">Defense Curl
+           <option value="112">Barrier
+           <option value="113">Light Screen
+           <option value="114">Haze
+           <option value="115">Reflect
+           <option value="116">Focus Energy
+           <option value="117">Bide
+           <option value="118">Metronome
+           <option value="119">Mirror Move
+           <option value="120">Selfdestruct
+           <option value="121">Egg Bomb
+           <option value="122">Lick
+           <option value="123">Smog
+           <option value="124">Sludge
+           <option value="125">Bone Club
+           <option value="126">Fire Blast
+           <option value="127">Waterfall
+           <option value="128">Clamp
+           <option value="129">Swift
+           <option value="130">Skull Bash
+           <option value="131">Spike Cannon
+           <option value="132">Constrict
+           <option value="133">Amnesia
+           <option value="134">Kinesis
+           <option value="135">Softboiled
+           <option value="136">Hi Jump Kick
+           <option value="137">Glare
+           <option value="138">Dream Eater
+           <option value="139">Poison Gas
+           <option value="140">Barrage
+           <option value="141">Leech Life
+           <option value="142">Lovely Kiss
+           <option value="143">Sky Attack
+           <option value="144">Transform
+           <option value="145">Bubble
+           <option value="146">Dizzy Punch
+           <option value="147">Spore
+           <option value="148">Flash
+           <option value="149">Psywave
+           <option value="150">Splash
+           <option value="151">Acid Armor
+           <option value="152">Crabhammer
+           <option value="153">Explosion
+           <option value="154">Fury Swipes
+           <option value="155">Bonemerang
+           <option value="156">Rest
+           <option value="157">Rock Slide
+           <option value="158">Hyper Fang
+           <option value="159">Sharpen
+           <option value="160">Conversion
+           <option value="161">Tri Attack
+           <option value="162">Super Fang
+           <option value="163">Slash
+           <option value="164">Substitute
+           <option value="165">Struggle
+           <option value="166">Sketch
+           <option value="167">Triple Kick
+           <option value="168">Thief
+           <option value="169">Spider Web
+           <option value="170">Mind Reader
+           <option value="171">Nightmare
+           <option value="172">Flame Wheel
+           <option value="173">Snore
+           <option value="174">Curse
+           <option value="175">Flail
+           <option value="176">Conversion 2
+           <option value="177">Aeroblast
+           <option value="178">Cotton Spore
+           <option value="179">Reversal
+           <option value="180">Spite
+           <option value="181">Powder Snow
+           <option value="182">Protect
+           <option value="183">Mach Punch
+           <option value="184">Scary Face
+           <option value="185">Faint Attack
+           <option value="186">Sweet Kiss
+           <option value="187">Belly Drum
+           <option value="188">Sludge Bomb
+           <option value="189">Mud-Slap
+           <option value="190">Octazooka
+           <option value="191">Spikes
+           <option value="192">Zap Cannon
+           <option value="193">Foresight
+           <option value="194">Destiny Bond
+           <option value="195">Perish Song
+           <option value="196">Icy Wind
+           <option value="197">Detect
+           <option value="198">Bone Rush
+           <option value="199">Lock-On
+           <option value="200">Outrage
+           <option value="201">Sandstorm
+           <option value="202">Giga Drain
+           <option value="203">Endure
+           <option value="204">Charm
+           <option value="205">Rollout
+           <option value="206">False Swipe
+           <option value="207">Swagger
+           <option value="208">Milk Drink
+           <option value="209">Spark
+           <option value="210">Fury Cutter
+           <option value="211">Steel Wing
+           <option value="212">Mean Look
+           <option value="213">Attract
+           <option value="214">Sleep Talk
+           <option value="215">Heal Bell
+           <option value="216">Return
+           <option value="217">Present
+           <option value="218">Frustration
+           <option value="219">Safeguard
+           <option value="220">Pain Split
+           <option value="221">Sacred Fire
+           <option value="222">Magnitude
+           <option value="223">Dynamicpunch
+           <option value="224">Megahorn
+           <option value="225">Dragonbreath
+           <option value="226">Baton Pass
+           <option value="227">Encore
+           <option value="228">Pursuit
+           <option value="229">Rapid Spin
+           <option value="230">Sweet Scent
+           <option value="231">Iron Tail
+           <option value="232">Metal Claw
+           <option value="233">Vital Throw
+           <option value="234">Morning Sun
+           <option value="235">Synthesis
+           <option value="236">Moonlight
+           <option value="237">Hidden Power
+           <option value="238">Cross Chop
+           <option value="239">Twister
+           <option value="240">Rain Dance
+           <option value="241">Sunny Day
+           <option value="242">Crunch
+           <option value="243">Mirror Coat
+           <option value="244">Psych Up
+           <option value="245">Extremespeed
+           <option value="246">Ancientpower
+           <option value="247">Shadow Ball
+           <option value="248">Future Sight
+           <option value="249">Rock Smash
+           <option value="250">Whirlpool
+           <option value="251">Beat Up
+           <option value="252">Fake Out
+           <option value="253">Uproar
+           <option value="254">Stockpile
+           <option value="255">Spit Up
+           <option value="256">Swallow
+           <option value="257">Heat Wave
+           <option value="258">Hail
+           <option value="259">Tornment
+           <option value="260">Flatters
+           <option value="261">Will-O-Wisp
+           <option value="262">Memento
+           <option value="263">Facade
+           <option value="264">Focus Punch
+           <option value="265">Smellingsalt
+           <option value="266">Follow Me
+           <option value="267">Nature Power
+           <option value="268">Charge
+           <option value="269">Taunt
+           <option value="270">Helping Hand
+           <option value="271">Trick
+           <option value="272">Role Play
+           <option value="273">Wish
+           <option value="274">Assist
+           <option value="275">Ingrain
+           <option value="276">Superpower
+           <option value="277">Magic Coat
+           <option value="278">Recycle
+           <option value="279">Revenge
+           <option value="280">Brick Break
+           <option value="281">Yawn
+           <option value="282">Knock Off
+           <option value="283">Endeavor
+           <option value="284">Eruption
+           <option value="285">Skill Swap
+           <option value="286">Imprison
+           <option value="287">Refresh
+           <option value="288">Grudge
+           <option value="289">Snatch
+           <option value="290">Secret Power
+           <option value="291">Dive
+           <option value="292">Arm Thrust
+           <option value="293">Camouflage
+           <option value="294">Tail Glow
+           <option value="295">Luster Purge
+           <option value="296">Mist Ball
+           <option value="297">Featherdance
+           <option value="298">Teeter Dance
+           <option value="299">Blaze Kick
+           <option value="300">Mud Sport
+           <option value="301">Ice Ball
+           <option value="302">Needle Arm
+           <option value="303">Slack Off
+           <option value="304">Hyper Voice
+           <option value="305">Poison Fang
+           <option value="306">Crush Claw
+           <option value="307">Blast Burn
+           <option value="308">Hydro Cannon
+           <option value="309">Meteor Mash
+           <option value="310">Astonish
+           <option value="311">Weather Ball
+           <option value="312">Aromatherapy
+           <option value="313">Fake Tears
+           <option value="314">Air Cutter
+           <option value="315">Overheat
+           <option value="316">Odor Sleuth
+           <option value="317">Rock Tomb
+           <option value="318">Silver Wind
+           <option value="319">Metal Sound
+           <option value="320">Grasswhistle
+           <option value="321">Tickle
+           <option value="322">Cosmic Power
+           <option value="323">Water Spout
+           <option value="324">Signal Beam
+           <option value="325">Shadow Punch
+           <option value="326">Extrasensory
+           <option value="327">Sky Uppercut
+           <option value="328">Sand Tomb
+           <option value="329">Sheer Cold
+           <option value="330">Muddy Water
+           <option value="331">Bullet Seed
+           <option value="332">Aerial Ace
+           <option value="333">Icicle Spear
+           <option value="334">Iron Defense
+           <option value="335">Block
+           <option value="336">Howl
+           <option value="337">Dragon Claw
+           <option value="338">Frenzy Plant
+           <option value="339">Bulk Up
+           <option value="340">Bounce
+           <option value="341">Mud Shot
+           <option value="342">Poison Tail
+           <option value="343">Covet
+           <option value="344">Volt Tackle
+           <option value="345">Magical Leaf
+           <option value="346">Water Sport
+           <option value="347">Calm Mind
+           <option value="348">Leaf Blade
+           <option value="349">Dragon Dance
+           <option value="350">Rock Blast
+           <option value="351">Shock Wave
+           <option value="352">Water Pulse
+           <option value="353">Doom Desire
+           <option value="354">Psycho Boost
+          </select>
+         </td>
+         <td><input name="M4PP" class="form-control" size=3 value="5" maxLength=2></td>
+         <td>
+          <select name="M4UPP" onchange="NMove('4')" class="form-control">
+           <option selected value="0">0
+           <option value="1">1
+           <option value="2">2
+           <option value="3">3
+          </select>
+         </td>
+         <td><input name="M4Ty" class="form-control" size=12 value="None" maxLength=12 onchange="NMove('0')"></td>
+         <td><input name="M4Po" class="form-control" size=3 value="0" maxLength=3 onchange="NMove('0')"></td>
+         <td><input name="M4Ac" class="form-control" size=3 value="0%" maxLength=4 onchange="NMove('0')"></td>
+         <td>
+          <div class="form-group">
+           <textarea name="M4De" ROWS=2 class="form-control" onChange="NMove('0')">No Move.
+           </textarea>
+          </div>
+         </td>
+        </tr>
+
+       </tbody>
+      </table>
+
+      </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="form-group">
+   <div class="panel panel-default">
+    <div class="panel-heading">
+     <h4 class="panel-title">
+      <a data-toggle="collapse" href="#cRibbons">Ribbons</a>
+     </h4>
+    </div>
+    <div id="cRibbons" class="panel-collapse collapse">
+     <div class="panel-body">
+
+      <table class="table">
+       <tbody>
+
+        <tr>
+         <td colspan=2><b>Contest Stats</B><input onclick="MaxContest()" type=button class="btn btn-default" value="Max"></td>
+         <td colspan=8><b>Ribbons</b>
+          <input onclick="OnRibbons('32')" type=button class="btn btn-default" value="All Ribbons(32)">
+          <input onclick="NoRibbons('32')" type=button class="btn btn-default" value="No Ribbons(0)">
+         </td>
+        </tr>
+
+        <tr>
+         <td>Luster:</td>
+         <td><input name=Luster class="form-control" size=3 value="0" maxLength=3></td>
+         <td colspan=8><b>Contest Ribbons</b>
+          <input onclick="OnRibbons('20')" type=button class="btn btn-default" value="All Contest(20)">
+          <input onclick="NoRibbons('20')" type=button class="btn btn-default" value="No Contest(-20)">
+         </td>
+        </tr>
+
+        <tr>
+         <td>Cool:</td>
+         <td><input name=Cool class="form-control" size=3 value="0" maxLength=3></td>
+         <td colspan=8>
+          Cool Ribbon:
+          <select name="RCool">
+           <option selected value="0">None
+           <option value="1">Normal
+           <option value="2">Super
+           <option value="3">Hyper
+           <option value="4">Master
+          </select>
+         </td>
+        </tr>
+
+        <tr>
+         <td>Beauty:</td>
+         <td><input name=Beauty class="form-control" size=3 value="0" maxLength=3></td>
+         <td colspan=8>
+          Beauty Ribbon:
+          <select name="RBeauty">
+           <option selected value="0">None
+           <option value="1">Normal
+           <option value="2">Super
+           <option value="3">Hyper
+           <option value="4">Master
+          </select>
+         </td>
+        </tr>
+
+        <tr>
+         <td>Cute:</td>
+         <td><input name=Cute class="form-control" size=3 value="0" maxLength=3></td>
+         <td colspan=8>
+          Cute Ribbon:
+          <select name="RCute">
+           <option selected value="0">None
+           <option value="1">Normal
+           <option value="2">Super
+           <option value="3">Hyper
+           <option value="4">Master
+          </select>
+         </td>
+        </tr>
+
+        <tr>
+         <td>Smart:</td>
+         <td><input name=Smart class="form-control" size=3 value="0" maxLength=3></td>
+         <td colspan=8>
+          Smart Ribbon:
+          <select name="RSmart">
+           <option selected value="0">None
+           <option value="1">Normal
+           <option value="2">Super
+           <option value="3">Hyper
+           <option value="4">Master
+          </select>
+         </td>
+        </tr>
+
+        <tr>
+         <td>Tough:</td>
+         <td><input name=Tough class="form-control" size=3 value="0" maxLength=3></td>
+         <td colspan=8>
+          Tough Ribbon:
+          <select name="RTough">
+           <option selected value="0">None
+           <option value="1">Normal
+           <option value="2">Super
+           <option value="3">Hyper
+           <option value="4">Master
+          </select>
+         </td>
+        </tr>
+
+        <tr>
+         <td colspan=2><b>Extra Ribbons</b></td>
+         <td colspan=8>
+          <input onclick="OnRibbons('5')" type=button class="btn btn-default" value="All ExtrAb(5,0)">
+          <input onclick="NoRibbons('5')" type=button class="btn btn-default" value="No ExtrAb(-5)">
+         </td>
+        </tr>
+
+        <tr>
+         <td colspan=2>Champion</td>
+         <td colspan=2><input name=RChampion class="form-check" type=checkbox value="0"></td>
+         <td colspan=6></td>
+        </tr>
+
+        <tr>
+        <td colspan=2>Battle Lvl 50</td>
+        <td colspan=2>
+         <input name=RB50 class="form-check" type=checkbox value="0">
+        </td>
+         <td colspan=6>
+        </tr>
+
+        <tr>
+        <td colspan=2>Battle Lvl 100</td>
+         <td colspan=2>
+          <input name=RB100 class="form-check" type=checkbox value="0">
+         </td>
+         <td colspan=6></td>
+        </tr>
+
+        <tr>
+        <td colspan=2>Sketch Ribbon</td>
+         <td colspan=2>
+          <input name=RSketch class="form-check" type=checkbox value="0">
+         </td>
+         <td colspan=6></td>
+        </tr>
+
+        <tr>
+        <td colspan=2>Hard Worker</td>
+         <td colspan=2>
+          <input name=RHardWorker class="form-check" type=checkbox value="0">
+         </td>
+         <td colspan=6></td>
+        </tr>
+
+        <tr>
+         <td colspan=2><b>Special Ribbons</b></td>
+         <td colspan=8>
+          <input onclick="OnRibbons('7')" type=button class="btn btn-default" value="All Special(7)">
+          <input onclick="NoRibbons('7')" type=button class="btn btn-default" value="No Special(-7)">
+          <input onclick="MSGReset()" type=button class="btn btn-default" value="Reset MSG">
+         </td>
+        </tr>
+
+        <tr>
+
+         <td colspan=2>Special Ribbon 1</td>
+         <td colspan=2><input name=RS0 type=checkbox value="0"></td>
+         <td colspan=6>
+          <select name="S0M">
+           <option selected value="0">None
+           <option value="1">2003 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="2">2003 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="3">2003 GLOBAL CUP CHAMPION RIBBON
+           <option value="4">2003 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="5">2003 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="6">2003 GLOBAL CUP Runner-up RIBBON
+           <option value="7">2003 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="8">2003 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="9">2003 GLOBAL CUP Semifinalist RIBBON
+           <option value="10">2004 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="11">2004 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="12">2004 GLOBAL CUP CHAMPION RIBBON
+           <option value="13">2004 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="14">2004 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="15">2004 GLOBAL CUP Runner-up RIBBON
+           <option value="16">2004 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="17">2004 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="18">2004 GLOBAL CUP Semifinalist RIBBON
+           <option value="19">2005 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="20">2005 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="21">2005 GLOBAL CUP CHAMPION RIBBON
+           <option value="22">2005 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="23">2005 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="24">2005 GLOBAL CUP Runner-up RIBBON
+           <option value="25">2005 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="26">2005 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="27">2005 GLOBAL CUP Semifinalist RIBBON
+           <option value="28">POKEMON BATTLE CUP CHAMPION RIBBON
+           <option value="29">POKEMON BATTLE CUP Runner-up RIBBON
+           <option value="30">POKEMON BATTLE CUP Semifinalist RIBBON
+           <option value="31">POKEMON BATTLE CUP Participation RIBBON
+           <option value="32">POKEMON LEAGUE CUP CHAMPION RIBBON
+           <option value="33">POKEMON LEAGUE CUP Runner-up RIBBON
+           <option value="34">POKEMON LEAGUE CUP Semifinalist RIBBON
+           <option value="35">POKEMON LEAGUE CUP Participation RIBBON
+           <option value="36">ADVANCE CUP CHAMPION RIBBON
+           <option value="37">ADVANCE CUP Runner-up RIBBON
+           <option value="38">ADVANCE CUP Semifinalist RIBBON
+           <option value="39">ADVANCE CUP Participation RIBBON
+           <option value="40">POKEMON Tournament Participation RIBBON
+           <option value="41">POKEMON Event Participation RIBBON
+           <option value="42">POKEMON Festival Participation RIBBON
+           <option value="43">Difficulty-clearing Commemorative RIBBON
+           <option value="44">RIBBON awarded for clearing all difficulties
+           <option value="45">100-striaght Win Commemorative RIBBON
+           <option value="46">DARKNESS TOWER Clear Commemorative RIBBON
+           <option value="47">RED TOWER Clear Commemorative RIBBON
+           <option value="48">BLACKIRON TOWER Clear Commemorative RIBBON
+           <option value="49">FINAL TOWER Clear Commemorative RIBBON
+           <option value="50">Legend-making Commemorative RIBBON
+           <option value="51">POKEMON CENTER TOKYO Commemorative RIBBON
+           <option value="52">POKEMON CENTER OSAKA Commemorative RIBBON
+           <option value="53">POKEMON CENTER NAGOYA Commemorative RIBBON
+           <option value="54">POKEMON CENTER NY Commemorative RIBBON
+           <option value="56">Summer Holidays RIBBON
+           <option value="57">Winter Holidays RIBBON
+           <option value="58">Spring Holidays RIBBON
+           <option value="59">Evergreen RIBBON
+           <option value="60">Special Holidays RIBBON
+           <option value="61">Hard Worker RIBBON
+           <option value="62">Lots of Friends RIBBON
+           <option value="63">Full of Energy RIBBON
+           <option value="64">A Commemorative RIBBON for a loved POKEMON
+          </select>
+         </td>
+        </tr>
+
+        <tr>
+         <td colspan=2>Special Ribbon 2</td>
+         <td colspan=2><input name=RS1 class="form-check" type=checkbox value="0"></td>
+         <td colspan=6>
+          <select name="S1M">
+           <option selected value="0">None
+           <option value="1">2003 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="2">2003 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="3">2003 GLOBAL CUP CHAMPION RIBBON
+           <option value="4">2003 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="5">2003 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="6">2003 GLOBAL CUP Runner-up RIBBON
+           <option value="7">2003 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="8">2003 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="9">2003 GLOBAL CUP Semifinalist RIBBON
+           <option value="10">2004 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="11">2004 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="12">2004 GLOBAL CUP CHAMPION RIBBON
+           <option value="13">2004 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="14">2004 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="15">2004 GLOBAL CUP Runner-up RIBBON
+           <option value="16">2004 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="17">2004 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="18">2004 GLOBAL CUP Semifinalist RIBBON
+           <option value="19">2005 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="20">2005 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="21">2005 GLOBAL CUP CHAMPION RIBBON
+           <option value="22">2005 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="23">2005 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="24">2005 GLOBAL CUP Runner-up RIBBON
+           <option value="25">2005 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="26">2005 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="27">2005 GLOBAL CUP Semifinalist RIBBON
+           <option value="28">POKEMON BATTLE CUP CHAMPION RIBBON
+           <option value="29">POKEMON BATTLE CUP Runner-up RIBBON
+           <option value="30">POKEMON BATTLE CUP Semifinalist RIBBON
+           <option value="31">POKEMON BATTLE CUP Participation RIBBON
+           <option value="32">POKEMON LEAGUE CUP CHAMPION RIBBON
+           <option value="33">POKEMON LEAGUE CUP Runner-up RIBBON
+           <option value="34">POKEMON LEAGUE CUP Semifinalist RIBBON
+           <option value="35">POKEMON LEAGUE CUP Participation RIBBON
+           <option value="36">ADVANCE CUP CHAMPION RIBBON
+           <option value="37">ADVANCE CUP Runner-up RIBBON
+           <option value="38">ADVANCE CUP Semifinalist RIBBON
+           <option value="39">ADVANCE CUP Participation RIBBON
+           <option value="40">POKEMON Tournament Participation RIBBON
+           <option value="41">POKEMON Event Participation RIBBON
+           <option value="42">POKEMON Festival Participation RIBBON
+           <option value="43">Difficulty-clearing Commemorative RIBBON
+           <option value="44">RIBBON awarded for clearing all difficulties
+           <option value="45">100-striaght Win Commemorative RIBBON
+           <option value="46">DARKNESS TOWER Clear Commemorative RIBBON
+           <option value="47">RED TOWER Clear Commemorative RIBBON
+           <option value="48">BLACKIRON TOWER Clear Commemorative RIBBON
+           <option value="49">FINAL TOWER Clear Commemorative RIBBON
+           <option value="50">Legend-making Commemorative RIBBON
+           <option value="51">POKEMON CENTER TOKYO Commemorative RIBBON
+           <option value="52">POKEMON CENTER OSAKA Commemorative RIBBON
+           <option value="53">POKEMON CENTER NAGOYA Commemorative RIBBON
+           <option value="54">POKEMON CENTER NY Commemorative RIBBON
+           <option value="56">Summer Holidays RIBBON
+           <option value="57">Winter Holidays RIBBON
+           <option value="58">Spring Holidays RIBBON
+           <option value="59">Evergreen RIBBON
+           <option value="60">Special Holidays RIBBON
+           <option value="61">Hard Worker RIBBON
+           <option value="62">Lots of Friends RIBBON
+           <option value="63">Full of Energy RIBBON
+           <option value="64">A Commemorative RIBBON for a loved POKEMON
+          </select>
+         </td>
+        </tr>
+        <tr>
+
+        <td colspan=2>Special Ribbon 3</td>
+         <td colspan=2><input name=RS2 class="form-check" type=checkbox value="0"></td>
+         <td colspan=6>
+          <select name="S2M">
+           <option selected value="0">None
+           <option value="1">2003 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="2">2003 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="3">2003 GLOBAL CUP CHAMPION RIBBON
+           <option value="4">2003 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="5">2003 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="6">2003 GLOBAL CUP Runner-up RIBBON
+           <option value="7">2003 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="8">2003 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="9">2003 GLOBAL CUP Semifinalist RIBBON
+           <option value="10">2004 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="11">2004 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="12">2004 GLOBAL CUP CHAMPION RIBBON
+           <option value="13">2004 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="14">2004 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="15">2004 GLOBAL CUP Runner-up RIBBON
+           <option value="16">2004 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="17">2004 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="18">2004 GLOBAL CUP Semifinalist RIBBON
+           <option value="19">2005 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="20">2005 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="21">2005 GLOBAL CUP CHAMPION RIBBON
+           <option value="22">2005 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="23">2005 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="24">2005 GLOBAL CUP Runner-up RIBBON
+           <option value="25">2005 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="26">2005 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="27">2005 GLOBAL CUP Semifinalist RIBBON
+           <option value="28">POKEMON BATTLE CUP CHAMPION RIBBON
+           <option value="29">POKEMON BATTLE CUP Runner-up RIBBON
+           <option value="30">POKEMON BATTLE CUP Semifinalist RIBBON
+           <option value="31">POKEMON BATTLE CUP Participation RIBBON
+           <option value="32">POKEMON LEAGUE CUP CHAMPION RIBBON
+           <option value="33">POKEMON LEAGUE CUP Runner-up RIBBON
+           <option value="34">POKEMON LEAGUE CUP Semifinalist RIBBON
+           <option value="35">POKEMON LEAGUE CUP Participation RIBBON
+           <option value="36">ADVANCE CUP CHAMPION RIBBON
+           <option value="37">ADVANCE CUP Runner-up RIBBON
+           <option value="38">ADVANCE CUP Semifinalist RIBBON
+           <option value="39">ADVANCE CUP Participation RIBBON
+           <option value="40">POKEMON Tournament Participation RIBBON
+           <option value="41">POKEMON Event Participation RIBBON
+           <option value="42">POKEMON Festival Participation RIBBON
+           <option value="43">Difficulty-clearing Commemorative RIBBON
+           <option value="44">RIBBON awarded for clearing all difficulties
+           <option value="45">100-striaght Win Commemorative RIBBON
+           <option value="46">DARKNESS TOWER Clear Commemorative RIBBON
+           <option value="47">RED TOWER Clear Commemorative RIBBON
+           <option value="48">BLACKIRON TOWER Clear Commemorative RIBBON
+           <option value="49">FINAL TOWER Clear Commemorative RIBBON
+           <option value="50">Legend-making Commemorative RIBBON
+           <option value="51">POKEMON CENTER TOKYO Commemorative RIBBON
+           <option value="52">POKEMON CENTER OSAKA Commemorative RIBBON
+           <option value="53">POKEMON CENTER NAGOYA Commemorative RIBBON
+           <option value="54">POKEMON CENTER NY Commemorative RIBBON
+           <option value="56">Summer Holidays RIBBON
+           <option value="57">Winter Holidays RIBBON
+           <option value="58">Spring Holidays RIBBON
+           <option value="59">Evergreen RIBBON
+           <option value="60">Special Holidays RIBBON
+           <option value="61">Hard Worker RIBBON
+           <option value="62">Lots of Friends RIBBON
+           <option value="63">Full of Energy RIBBON
+           <option value="64">A Commemorative RIBBON for a loved POKEMON
+          </select>
+         </td>
+        </tr>
+
+        <tr>
+         <td colspan=2>Special Ribbon 4</td>
+         <td colspan=2><input name=RS3 class="form-check" type=checkbox value="0"></td>
+         <td colspan=6>
+          <select name="S3M">
+           <option selected value="0">None
+           <option value="1">2003 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="2">2003 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="3">2003 GLOBAL CUP CHAMPION RIBBON
+           <option value="4">2003 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="5">2003 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="6">2003 GLOBAL CUP Runner-up RIBBON
+           <option value="7">2003 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="8">2003 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="9">2003 GLOBAL CUP Semifinalist RIBBON
+           <option value="10">2004 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="11">2004 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="12">2004 GLOBAL CUP CHAMPION RIBBON
+           <option value="13">2004 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="14">2004 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="15">2004 GLOBAL CUP Runner-up RIBBON
+           <option value="16">2004 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="17">2004 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="18">2004 GLOBAL CUP Semifinalist RIBBON
+           <option value="19">2005 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="20">2005 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="21">2005 GLOBAL CUP CHAMPION RIBBON
+           <option value="22">2005 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="23">2005 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="24">2005 GLOBAL CUP Runner-up RIBBON
+           <option value="25">2005 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="26">2005 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="27">2005 GLOBAL CUP Semifinalist RIBBON
+           <option value="28">POKEMON BATTLE CUP CHAMPION RIBBON
+           <option value="29">POKEMON BATTLE CUP Runner-up RIBBON
+           <option value="30">POKEMON BATTLE CUP Semifinalist RIBBON
+           <option value="31">POKEMON BATTLE CUP Participation RIBBON
+           <option value="32">POKEMON LEAGUE CUP CHAMPION RIBBON
+           <option value="33">POKEMON LEAGUE CUP Runner-up RIBBON
+           <option value="34">POKEMON LEAGUE CUP Semifinalist RIBBON
+           <option value="35">POKEMON LEAGUE CUP Participation RIBBON
+           <option value="36">ADVANCE CUP CHAMPION RIBBON
+           <option value="37">ADVANCE CUP Runner-up RIBBON
+           <option value="38">ADVANCE CUP Semifinalist RIBBON
+           <option value="39">ADVANCE CUP Participation RIBBON
+           <option value="40">POKEMON Tournament Participation RIBBON
+           <option value="41">POKEMON Event Participation RIBBON
+           <option value="42">POKEMON Festival Participation RIBBON
+           <option value="43">Difficulty-clearing Commemorative RIBBON
+           <option value="44">RIBBON awarded for clearing all difficulties
+           <option value="45">100-striaght Win Commemorative RIBBON
+           <option value="46">DARKNESS TOWER Clear Commemorative RIBBON
+           <option value="47">RED TOWER Clear Commemorative RIBBON
+           <option value="48">BLACKIRON TOWER Clear Commemorative RIBBON
+           <option value="49">FINAL TOWER Clear Commemorative RIBBON
+           <option value="50">Legend-making Commemorative RIBBON
+           <option value="51">POKEMON CENTER TOKYO Commemorative RIBBON
+           <option value="52">POKEMON CENTER OSAKA Commemorative RIBBON
+           <option value="53">POKEMON CENTER NAGOYA Commemorative RIBBON
+           <option value="54">POKEMON CENTER NY Commemorative RIBBON
+           <option value="56">Summer Holidays RIBBON
+           <option value="57">Winter Holidays RIBBON
+           <option value="58">Spring Holidays RIBBON
+           <option value="59">Evergreen RIBBON
+           <option value="60">Special Holidays RIBBON
+           <option value="61">Hard Worker RIBBON
+           <option value="62">Lots of Friends RIBBON
+           <option value="63">Full of Energy RIBBON
+           <option value="64">A Commemorative RIBBON for a loved POKEMON
+          </select>
+         </td>
+        </tr>
+
+        <tr>
+         <td colspan=2>Special Ribbon 5</td>
+         <td colspan=2><input name=RS4 class="form-check" type=checkbox value="0"></td>
+         <td colspan=6>
+          <select name="S4M">
+           <option selected value="0">None
+           <option value="1">2003 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="2">2003 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="3">2003 GLOBAL CUP CHAMPION RIBBON
+           <option value="4">2003 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="5">2003 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="6">2003 GLOBAL CUP Runner-up RIBBON
+           <option value="7">2003 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="8">2003 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="9">2003 GLOBAL CUP Semifinalist RIBBON
+           <option value="10">2004 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="11">2004 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="12">2004 GLOBAL CUP CHAMPION RIBBON
+           <option value="13">2004 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="14">2004 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="15">2004 GLOBAL CUP Runner-up RIBBON
+           <option value="16">2004 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="17">2004 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="18">2004 GLOBAL CUP Semifinalist RIBBON
+           <option value="19">2005 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="20">2005 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="21">2005 GLOBAL CUP CHAMPION RIBBON
+           <option value="22">2005 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="23">2005 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="24">2005 GLOBAL CUP Runner-up RIBBON
+           <option value="25">2005 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="26">2005 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="27">2005 GLOBAL CUP Semifinalist RIBBON
+           <option value="28">POKEMON BATTLE CUP CHAMPION RIBBON
+           <option value="29">POKEMON BATTLE CUP Runner-up RIBBON
+           <option value="30">POKEMON BATTLE CUP Semifinalist RIBBON
+           <option value="31">POKEMON BATTLE CUP Participation RIBBON
+           <option value="32">POKEMON LEAGUE CUP CHAMPION RIBBON
+           <option value="33">POKEMON LEAGUE CUP Runner-up RIBBON
+           <option value="34">POKEMON LEAGUE CUP Semifinalist RIBBON
+           <option value="35">POKEMON LEAGUE CUP Participation RIBBON
+           <option value="36">ADVANCE CUP CHAMPION RIBBON
+           <option value="37">ADVANCE CUP Runner-up RIBBON
+           <option value="38">ADVANCE CUP Semifinalist RIBBON
+           <option value="39">ADVANCE CUP Participation RIBBON
+           <option value="40">POKEMON Tournament Participation RIBBON
+           <option value="41">POKEMON Event Participation RIBBON
+           <option value="42">POKEMON Festival Participation RIBBON
+           <option value="43">Difficulty-clearing Commemorative RIBBON
+           <option value="44">RIBBON awarded for clearing all difficulties
+           <option value="45">100-striaght Win Commemorative RIBBON
+           <option value="46">DARKNESS TOWER Clear Commemorative RIBBON
+           <option value="47">RED TOWER Clear Commemorative RIBBON
+           <option value="48">BLACKIRON TOWER Clear Commemorative RIBBON
+           <option value="49">FINAL TOWER Clear Commemorative RIBBON
+           <option value="50">Legend-making Commemorative RIBBON
+           <option value="51">POKEMON CENTER TOKYO Commemorative RIBBON
+           <option value="52">POKEMON CENTER OSAKA Commemorative RIBBON
+           <option value="53">POKEMON CENTER NAGOYA Commemorative RIBBON
+           <option value="54">POKEMON CENTER NY Commemorative RIBBON
+           <option value="56">Summer Holidays RIBBON
+           <option value="57">Winter Holidays RIBBON
+           <option value="58">Spring Holidays RIBBON
+           <option value="59">Evergreen RIBBON
+           <option value="60">Special Holidays RIBBON
+           <option value="61">Hard Worker RIBBON
+           <option value="62">Lots of Friends RIBBON
+           <option value="63">Full of Energy RIBBON
+           <option value="64">A Commemorative RIBBON for a loved POKEMON
+          </select>
+         </td>
+        </tr>
+
+        <tr>
+         <td colspan=2>Special Ribbon 6</td>
+         <td colspan=2><input name=RS5 class="form-check" type=checkbox value="0"></td>
+         <td colspan=6>
+          <select name="S5M">
+           <option selected value="0">None
+           <option value="1">2003 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="2">2003 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="3">2003 GLOBAL CUP CHAMPION RIBBON
+           <option value="4">2003 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="5">2003 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="6">2003 GLOBAL CUP Runner-up RIBBON
+           <option value="7">2003 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="8">2003 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="9">2003 GLOBAL CUP Semifinalist RIBBON
+           <option value="10">2004 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="11">2004 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="12">2004 GLOBAL CUP CHAMPION RIBBON
+           <option value="13">2004 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="14">2004 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="15">2004 GLOBAL CUP Runner-up RIBBON
+           <option value="16">2004 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="17">2004 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="18">2004 GLOBAL CUP Semifinalist RIBBON
+           <option value="19">2005 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="20">2005 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="21">2005 GLOBAL CUP CHAMPION RIBBON
+           <option value="22">2005 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="23">2005 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="24">2005 GLOBAL CUP Runner-up RIBBON
+           <option value="25">2005 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="26">2005 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="27">2005 GLOBAL CUP Semifinalist RIBBON
+           <option value="28">POKEMON BATTLE CUP CHAMPION RIBBON
+           <option value="29">POKEMON BATTLE CUP Runner-up RIBBON
+           <option value="30">POKEMON BATTLE CUP Semifinalist RIBBON
+           <option value="31">POKEMON BATTLE CUP Participation RIBBON
+           <option value="32">POKEMON LEAGUE CUP CHAMPION RIBBON
+           <option value="33">POKEMON LEAGUE CUP Runner-up RIBBON
+           <option value="34">POKEMON LEAGUE CUP Semifinalist RIBBON
+           <option value="35">POKEMON LEAGUE CUP Participation RIBBON
+           <option value="36">ADVANCE CUP CHAMPION RIBBON
+           <option value="37">ADVANCE CUP Runner-up RIBBON
+           <option value="38">ADVANCE CUP Semifinalist RIBBON
+           <option value="39">ADVANCE CUP Participation RIBBON
+           <option value="40">POKEMON Tournament Participation RIBBON
+           <option value="41">POKEMON Event Participation RIBBON
+           <option value="42">POKEMON Festival Participation RIBBON
+           <option value="43">Difficulty-clearing Commemorative RIBBON
+           <option value="44">RIBBON awarded for clearing all difficulties
+           <option value="45">100-striaght Win Commemorative RIBBON
+           <option value="46">DARKNESS TOWER Clear Commemorative RIBBON
+           <option value="47">RED TOWER Clear Commemorative RIBBON
+           <option value="48">BLACKIRON TOWER Clear Commemorative RIBBON
+           <option value="49">FINAL TOWER Clear Commemorative RIBBON
+           <option value="50">Legend-making Commemorative RIBBON
+           <option value="51">POKEMON CENTER TOKYO Commemorative RIBBON
+           <option value="52">POKEMON CENTER OSAKA Commemorative RIBBON
+           <option value="53">POKEMON CENTER NAGOYA Commemorative RIBBON
+           <option value="54">POKEMON CENTER NY Commemorative RIBBON
+           <option value="56">Summer Holidays RIBBON
+           <option value="57">Winter Holidays RIBBON
+           <option value="58">Spring Holidays RIBBON
+           <option value="59">Evergreen RIBBON
+           <option value="60">Special Holidays RIBBON
+           <option value="61">Hard Worker RIBBON
+           <option value="62">Lots of Friends RIBBON
+           <option value="63">Full of Energy RIBBON
+           <option value="64">A Commemorative RIBBON for a loved POKEMON
+          </select>
+         </td>
+        </tr>
+
+        <tr>
+         <td colspan=2>Special Ribbon 7</td>
+         <td colspan=2><input name=RS6 class="form-check" type=checkbox value="0"></td>
+         <td colspan=6>
+          <select name="S6M">
+           <option selected value="0">None
+           <option value="1">2003 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="2">2003 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="3">2003 GLOBAL CUP CHAMPION RIBBON
+           <option value="4">2003 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="5">2003 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="6">2003 GLOBAL CUP Runner-up RIBBON
+           <option value="7">2003 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="8">2003 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="9">2003 GLOBAL CUP Semifinalist RIBBON
+           <option value="10">2004 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="11">2004 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="12">2004 GLOBAL CUP CHAMPION RIBBON
+           <option value="13">2004 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="14">2004 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="15">2004 GLOBAL CUP Runner-up RIBBON
+           <option value="16">2004 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="17">2004 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="18">2004 GLOBAL CUP Semifinalist RIBBON
+           <option value="19">2005 REGIONAL TOURNEY CHAMPION RIBBON
+           <option value="20">2005 NATIONAL TOURNEY CHAMPION RIBBON
+           <option value="21">2005 GLOBAL CUP CHAMPION RIBBON
+           <option value="22">2005 REGIONAL TOURNEY Runner-up RIBBON
+           <option value="23">2005 NATIONAL TOURNEY Runner-up RIBBON
+           <option value="24">2005 GLOBAL CUP Runner-up RIBBON
+           <option value="25">2005 REGIONAL TOURNEY Semifinalist RIBBON
+           <option value="26">2005 NATIONAL TOURNEY Semifinalist RIBBON
+           <option value="27">2005 GLOBAL CUP Semifinalist RIBBON
+           <option value="28">POKEMON BATTLE CUP CHAMPION RIBBON
+           <option value="29">POKEMON BATTLE CUP Runner-up RIBBON
+           <option value="30">POKEMON BATTLE CUP Semifinalist RIBBON
+           <option value="31">POKEMON BATTLE CUP Participation RIBBON
+           <option value="32">POKEMON LEAGUE CUP CHAMPION RIBBON
+           <option value="33">POKEMON LEAGUE CUP Runner-up RIBBON
+           <option value="34">POKEMON LEAGUE CUP Semifinalist RIBBON
+           <option value="35">POKEMON LEAGUE CUP Participation RIBBON
+           <option value="36">ADVANCE CUP CHAMPION RIBBON
+           <option value="37">ADVANCE CUP Runner-up RIBBON
+           <option value="38">ADVANCE CUP Semifinalist RIBBON
+           <option value="39">ADVANCE CUP Participation RIBBON
+           <option value="40">POKEMON Tournament Participation RIBBON
+           <option value="41">POKEMON Event Participation RIBBON
+           <option value="42">POKEMON Festival Participation RIBBON
+           <option value="43">Difficulty-clearing Commemorative RIBBON
+           <option value="44">RIBBON awarded for clearing all difficulties
+           <option value="45">100-striaght Win Commemorative RIBBON
+           <option value="46">DARKNESS TOWER Clear Commemorative RIBBON
+           <option value="47">RED TOWER Clear Commemorative RIBBON
+           <option value="48">BLACKIRON TOWER Clear Commemorative RIBBON
+           <option value="49">FINAL TOWER Clear Commemorative RIBBON
+           <option value="50">Legend-making Commemorative RIBBON
+           <option value="51">POKEMON CENTER TOKYO Commemorative RIBBON
+           <option value="52">POKEMON CENTER OSAKA Commemorative RIBBON
+           <option value="53">POKEMON CENTER NAGOYA Commemorative RIBBON
+           <option value="54">POKEMON CENTER NY Commemorative RIBBON
+           <option value="56">Summer Holidays RIBBON
+           <option value="57">Winter Holidays RIBBON
+           <option value="58">Spring Holidays RIBBON
+           <option value="59">Evergreen RIBBON
+           <option value="60">Special Holidays RIBBON
+           <option value="61">Hard Worker RIBBON
+           <option value="62">Lots of Friends RIBBON
+           <option value="63">Full of Energy RIBBON
+           <option value="64">A Commemorative RIBBON for a loved POKEMON
+          </select>
+         </td>
+        </tr>
+
+       </tbody>
+      </table>
+
+      </div>
+    </div>
+   </div>
+  </div>
+
+</form>
+
+</div>
+
+ <div class="nav-footer jumbotron jumbotron-fluid fixed-bottom">
+  <div class="container">
+   <p class="text-primary lead">PokemonMaker by kpdavatar restyled and extended by b3m2a1</p>
+  </div>
+ </div>
+
+</body>
+
+</html>
