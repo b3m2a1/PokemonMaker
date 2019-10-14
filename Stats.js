@@ -9,7 +9,7 @@ function fMaxContest(f){
     f.Tough.value=255;
 }
 function MaxContest() {
-    fMaxContest(getDefaultForm())
+    return fMaxContest(getDefaultForm());
 }
 
 function fMaxDV(f){
@@ -22,7 +22,7 @@ function fMaxDV(f){
     dv=fHPower(f);
 }
 function MaxDV() {
-    fMaxDV(getDefaultForm())
+    return fMaxDV(getDefaultForm());
 }
 
 function fMaxEff(f){
@@ -35,7 +35,7 @@ function fMaxEff(f){
     dv=fHPower(f);
 }
 function MaxEff(){
-    fMaxEff(getDefaultForm())
+    return fMaxEff(getDefaultForm());
 }
 
 function fRandomEf(f){
@@ -55,7 +55,7 @@ function fRandomEf(f){
     dv=fHPower(f);
 }
 function RandomEf() {
-    fRandomEf(getDefaultForm())
+    return fRandomEf(getDefaultForm());
 }
 
 function fMSGReset(f){
@@ -68,7 +68,7 @@ function fMSGReset(f){
     f.S6M.options[0].selected=true;
 }
 function MSGReset() {
-    fMSGReset(getDefaultForm())
+    return fMSGReset(getDefaultForm());
 }
 
 function fOnRibbons(f, which){
@@ -97,7 +97,7 @@ function fOnRibbons(f, which){
     }
 }
 function OnRibbons(which) {
-    fOnRibbons(getDefaultForm(), which)
+    return fOnRibbons(getDefaultForm(), which);
 }
 
 function fNoRibbons(f, which){
@@ -126,7 +126,7 @@ function fNoRibbons(f, which){
     }
 }
 function NoRibbons(which) {
-    fNoRibbons(getDefaultForm(), which)
+    return fNoRibbons(getDefaultForm(), which);
 }
 
 function fMaxUPP(f){
@@ -138,7 +138,7 @@ function fMaxUPP(f){
     d=NMove('5');
 }
 function MaxUPP(){
-    fMaxUPP(getDefaultForm())
+    return fMaxUPP(getDefaultForm());
 }
 
 
@@ -653,7 +653,7 @@ function fXL(f, n){
     return o;
 }
 function XL() {
-    fXL(getDefaultForm(), n)
+    return fXL(getDefaultForm(), n)
 }
 
 function fXQ(f, what){
@@ -727,7 +727,7 @@ function fXQ(f, what){
     n=fHPower(f);
 }
 function XQ(what) {
-    fXQ(getDefaultForm(), what)
+    return fXQ(getDefaultForm(), what);
 }
 
 function fHPower(f){
@@ -971,7 +971,7 @@ function fMT(f, n, W, T2){
     return o;
 }
 function MT(n, W, T2){
-    fMT(getDefaultForm(), n, W, T2);
+    return fMT(getDefaultForm(), n, W, T2);
 }
 
 function fGtest(f){
@@ -993,7 +993,7 @@ function fGtest(f){
     return gt;
 }
 function Gtest(){
-    fGtest(getDefaultForm());
+    return fGtest(getDefaultForm());
 }
 
 function fFI(form, S,C,N){
