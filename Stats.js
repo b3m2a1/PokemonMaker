@@ -2223,10 +2223,10 @@ function fNMove(f, n){
         y=(x*f.M3UPP.selectedIndex)+(1*o);
         f.M3PP.value=y;
     }
-    o=MoveDex(f, i,5); f.M3Ty.value=o;
-    o=MoveDex(f, i,2); f.M3Po.value=o;
-    o=MoveDex(f, i,3); f.M3Ac.value=o;
-    o=MoveDex(f, i,6); f.M3De.value=o;
+    o=fMoveDex(f, i,5); f.M3Ty.value=o;
+    o=fMoveDex(f, i,2); f.M3Po.value=o;
+    o=fMoveDex(f, i,3); f.M3Ac.value=o;
+    o=fMoveDex(f, i,6); f.M3De.value=o;
     i=f.Move4.options[f.Move4.selectedIndex].value;
     if(n=="4" || n=="5"){
         o=fMoveDex(f, i,4);
