@@ -565,7 +565,6 @@ function RandomDV() {
     return fRandomDV(getDefaultForm());
 }
 
-
 function XE(n){
     var d=0;
     var o=0;
@@ -748,7 +747,7 @@ function fHPower(f){
     pd=fPokeDex(f, pg);
     o=fFI(f, pd,"~",21);
     p=parseInt(o,10);
-    q=XE(f, p);
+    q=XE(p);
     if(f.Exp.value<0){f.Exp.value=0;}
     if(f.Exp.value>q){f.Exp.value=q;}
     q=fXL(f, p);
@@ -777,12 +776,54 @@ function fHPower(f){
     if(p>255){f.SpDEff.value=255;}
     s+=(1*f.SpDEff.value);
     f.EffSum.value=s;
-    a0=(Math.floor((((2*FI(pd,"~",4))-(-1*f.HPDV.selectedIndex)-Math.ceil(f.HPEff.value/-4))*f.XLvl.value)/100)-(-10)-(-1*f.XLvl.value));
-    a1=Math.floor((Math.floor((((2*FI(pd,"~",5))-(-1*f.AtkDV.selectedIndex)-Math.ceil(f.AtkEff.value/-4))*f.XLvl.value)/100)-(-5))*PerMod("Atk"));
-    a2=Math.floor((Math.floor((((2*FI(pd,"~",6))-(-1*f.DefDV.selectedIndex)-Math.ceil(f.DefEff.value/-4))*f.XLvl.value)/100)-(-5))*PerMod("Def"));
-    a3=Math.floor((Math.floor((((2*FI(pd,"~",7))-(-1*f.SpeDV.selectedIndex)-Math.ceil(f.SpeEff.value/-4))*f.XLvl.value)/100)-(-5))*PerMod("Spe"));
-    a4=Math.floor((Math.floor((((2*FI(pd,"~",8))-(-1*f.SpADV.selectedIndex)-Math.ceil(f.SpAEff.value/-4))*f.XLvl.value)/100)-(-5))*PerMod("SpA"));
-    a5=Math.floor((Math.floor((((2*FI(pd,"~",9))-(-1*f.SpDDV.selectedIndex)-Math.ceil(f.SpDEff.value/-4))*f.XLvl.value)/100)-(-5))*PerMod("SpD"));
+
+    a0=(
+        Math.floor(
+            (
+                (
+                    (2*FI(pd,"~",4))-(-1*f.HPDV.selectedIndex)-Math.ceil(f.HPEff.value/-4)
+                )*f.XLvl.value)/100)-(-10)-(-1*f.XLvl.value)
+    );
+
+    console.log(PerMod("Atk"));
+    a1=Math.floor(
+        (
+            Math.floor(
+            (((2*FI(pd,"~",5))-(-1*f.AtkDV.selectedIndex)-Math.ceil(f.AtkEff.value/-4))*f.XLvl.value)/100
+            )-(-5)
+        )*PerMod("Atk")
+    );
+    a2=Math.floor(
+        (
+            Math.floor(
+                (((2*FI(pd,"~",6))-(-1*f.DefDV.selectedIndex)-Math.ceil(f.DefEff.value/-4))*f.XLvl.value
+                )/100
+            )-(-5)
+        )*PerMod("Def")
+    );
+    a3=Math.floor(
+        (
+            Math.floor(
+                (((2*FI(pd,"~",7))-(-1*f.SpeDV.selectedIndex)-Math.ceil(f.SpeEff.value/-4))*f.XLvl.value)/100
+            )-(-5)
+        )*PerMod("Spe")
+    );
+    a4=Math.floor(
+        (
+            Math.floor(
+                (((2*FI(pd,"~",8))-(-1*f.SpADV.selectedIndex)-Math.ceil(f.SpAEff.value/-4))*f.XLvl.value)/100
+        )-(-5)
+        )*PerMod("SpA")
+    );
+    a5=Math.floor(
+        (
+            Math.floor(
+                (
+                    ((2*FI(pd,"~",9))-(-1*f.SpDDV.selectedIndex)-Math.ceil(f.SpDEff.value/-4))*f.XLvl.value
+                )/100
+            )-(-5)
+        )*PerMod("SpD")
+    );
     f.HPDex.value=a0;
     f.AtkDex.value=a1;
     f.DefDex.value=a2;
@@ -883,7 +924,7 @@ function fPerMod(f, w){
     return o;
 }
 function PerMod(w){
-    fPerMod(getDefaultForm(), w);
+    return fPerMod(getDefaultForm(), w);
 }
 
 function fMT(f, n, W, T2){
