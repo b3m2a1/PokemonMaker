@@ -1,6 +1,31 @@
 
+
+//region Structs
 // Defines the Game data needed to compile properly
+class Offsets {
+    constructor(
+        box,
+        trainer,
+        ribbon,
+        etc
+    ) {
+        this.box = box;
+        this.trainer = trainer;
+        this.ribbon = ribbon;
+    }
+}
 class GameData {
+    constructor(
+        gameID,
+        offsetSet,
+        mcode,
+        antiDMA
+    ) {
+        this.id = id;
+        this.offsets = offsetSet;
+        this.dma = antiDMA;
+        this.mcode = mcode;
+    }
 
 }
 
@@ -24,6 +49,8 @@ class RibbonSet {
 
 }
 
+//endregion
+
 class Pokemon {
     constructor(
         game,
@@ -39,6 +66,7 @@ class Pokemon {
         this._ribbons = ribbons;
     }
 
+    //region Boilerplate
     get game() {
         return this._game;
     }
@@ -55,6 +83,27 @@ class Pokemon {
         return this._ribbons;
     }
 
+    set game(g) {
+        this._game = g;
+        // Potentially call some kind of update call for the React object we want bound in...
+    }
+    set trainer(t) {
+        this._trainer = t;
+        // Potentially call some kind of update call for the React object we want bound in...
+    }
+    set stats(s) {
+        this._stats = s;
+    }
+    set moves(m) {
+        this._moves = m;
+    }
+    set ribbons(r) {
+        this._ribbons = r;
+    }
+    //endregion
 
+    write(form) {
+
+    }
 
 }
