@@ -1,0 +1,25 @@
+
+.main-header {
+    margin-bottom: 20px;
+    margin-top: 0px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    color: white;
+    border-bottom: solid 1px lightgray;
+}
+
+.text-tab {
+    border-top: solid 1px lightgray;
+    margin-left: -.625rem;
+    margin-top: .75rem;
+    padding-top: 15px;
+}
+
+.nav-footer {
+    margin-bottom: 0;
+}
+
+.text-pane {
+    min-width: 100%;
+    min-height: 200px;
+}

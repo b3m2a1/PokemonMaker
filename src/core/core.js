@@ -21,7 +21,7 @@ class GameData {
         mcode,
         antiDMA
     ) {
-        this.id = id;
+        this.id = gameID;
         this.offsets = offsetSet;
         this.dma = antiDMA;
         this.mcode = mcode;
@@ -107,3 +107,50 @@ class Pokemon {
     }
 
 }
+
+class PokemonForm {
+    constructor() {
+        this.CodePanel = null;
+        this.CodeInfoPanel = null;
+        this.PokemonPanel = null;
+        this.TrainerPanel = null;
+        this.StatsPanel = null;
+        this.MovesPanel = null;
+        this.RibbonsPanel = null
+    }
+
+    bindCodePanel(component) {
+        this.CodePanel = component;
+        component.form = this;
+    }
+    bindCodeInfoPanel(component) {
+        this.CodeInfoPanel = component;
+        component.form = this;
+    }
+    bindPokemonPanel(component) {
+        this.PokemonPanel = component;
+        component.form = this;
+    }
+    bindTrainerPanel(component) {
+        this.TrainerPanel = component;
+        component.form = this;
+    }
+    bindStatsPanel(component) {
+        this.StatsPanel = component;
+        component.form = this;
+    }
+    bindMovesPanel(component) {
+        this.MovesPanel = component;
+        component.form = this;
+    }
+    bindRibbonsPanel(component) {
+        this.RibbonsPanel = component;
+        component.form = this;
+    }
+
+    generate() {
+        // take the react components, pull their data, feed it into the back-end code
+    }
+}
+
+export default PokemonForm;
