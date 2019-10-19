@@ -1,0 +1,314 @@
+[
+	{
+		"ability":"Air Lock",
+		"description":"Is not effected by weather."
+	},
+	{
+		"ability":"Arena Trap",
+		"description":"The opponent cannot run nor switch. Flying-type Pokemon and Pokemon with the Levitate special ability are uneffected."
+	},
+	{
+		"ability":"Battle Armor",
+		"description":"The opponent's moves cannot Critical Hit."
+	},
+	{
+		"ability":"Blaze",
+		"description":"When HP is below 1\/3rd, Fire's power increases to 1.5 times."
+	},
+	{
+		"ability":"Cacophony",
+		"description":"Uneffected by sound moves."
+	},
+	{
+		"ability":"Chlorophyll",
+		"description":"When sunny, Speed doubles."
+	},
+	{
+		"ability":"Clear Body",
+		"description":"Opponent's moves that lower ability values have no effect."
+	},
+	{
+		"ability":"Cloud Nine",
+		"description":"Is not effected by weather."
+	},
+	{
+		"ability":"Color Change",
+		"description":"Becomes the type of a damaging move that hits it."
+	},
+	{
+		"ability":"Compoundeyes",
+		"description":"Accuracy is raised to 30% in battles."
+	},
+	{
+		"ability":"Cute Charm",
+		"description":"The opponent has a 30% chance of being induced with ATTRACT when using a direct attack against this Pokemon."
+	},
+	{
+		"ability":"Damp",
+		"description":"Neither side can use Explosion or Selfdestruct."
+	},
+	{
+		"ability":"Drizzle",
+		"description":"Rain falls when the Pokemon enters battle."
+	},
+	{
+		"ability":"Drought",
+		"description":"Sunlight shines when the Pokemon enters battle."
+	},
+	{
+		"ability":"Early Bird",
+		"description":"SLEEP conditions lasts for half as long."
+	},
+	{
+		"ability":"Effect Spore",
+		"description":"The opponent has a 10% chance of being induced by PARALYE, POISON, or SLEEP when using a direct attack against this Pokemon."
+	},
+	{
+		"ability":"Flame Body",
+		"description":"The opponent has a 30% chance of being induced with BURN when using a direct attack against this Pokemon."
+	},
+	{
+		"ability":"Flash Fire",
+		"description":"Activates when user is hit by a damaging Fire-type move. Once activiated, user's Fire-type moves deal 1.5 times damage and user is immune to damage from Fire-type attacks."
+	},
+	{
+		"ability":"Forecast",
+		"description":"Its type and figure change with the weather."
+	},
+	{
+		"ability":"Guts",
+		"description":"Attack raises to 1.5 times when induced with a status."
+	},
+	{
+		"ability":"Huge Power",
+		"description":"Attack power is doubled in battle. It will return to normal if special ability is taken."
+	},
+	{
+		"ability":"Hustle",
+		"description":"Damage from physical attacks is 1.5 times, but average accuracy is only 80%."
+	},
+	{
+		"ability":"Hyper Cutter",
+		"description":"Opponent cannot lower Attack value."
+	},
+	{
+		"ability":"Illuminate",
+		"description":"If the Pokemon is in the lead spot, chance of encountering a wild Pokemon raises."
+	},
+	{
+		"ability":"Immunity",
+		"description":"Cannot be POISON condition."
+	},
+	{
+		"ability":"Inner Focus",
+		"description":"Will not flinch."
+	},
+	{
+		"ability":"Insomnia",
+		"description":"Cannot be SLEEP condition."
+	},
+	{
+		"ability":"Intimidate",
+		"description":"Upon entering battle, the opponent's Attack lowers one stage."
+	},
+	{
+		"ability":"Keen Eye",
+		"description":"Opponent cannot lower accuracy."
+	},
+	{
+		"ability":"Levitate",
+		"description":"Damage dealing Ground-type moves have no effect."
+	},
+	{
+		"ability":"Lightningrod",
+		"description":"Electric type moves are drawn to it."
+	},
+	{
+		"ability":"Limber",
+		"description":"Cannot be Paralyze condition."
+	},
+	{
+		"ability":"Liquid Ooze",
+		"description":"When the opponent absorbs Hit Points, the opponent instead loses Hit Points."
+	},
+	{
+		"ability":"Magma Armor",
+		"description":"Cannot be FREEZE condition."
+	},
+	{
+		"ability":"Magnet Pull",
+		"description":"Steel types cannot run nor switch."
+	},
+	{
+		"ability":"Marvel Scale",
+		"description":"Defense raises to 1.5 times when induced with a status."
+	},
+	{
+		"ability":"Minus",
+		"description":"When battling with Plus, Special Attack becomes 1.5 times."
+	},
+	{
+		"ability":"Natural Cure",
+		"description":"Status is healed when withdrawn from battle."
+	},
+	{
+		"ability":"No Ability",
+		"description":"No special ability"
+	},
+	{
+		"ability":"Oblivious",
+		"description":"Cannot be Attract condition."
+	},
+	{
+		"ability":"Overgrow",
+		"description":"When HP is below 1\/3rd, Grass's power increases to 1.5 times."
+	},
+	{
+		"ability":"Own Tempo",
+		"description":"Cannot be confusion condition."
+	},
+	{
+		"ability":"Pickup",
+		"description":"May find an item after battle."
+	},
+	{
+		"ability":"Plus",
+		"description":"When battling with Minus, Special Attack becomes 1.5 times."
+	},
+	{
+		"ability":"Poison Point",
+		"description":"The opponent has a 30% chance of being induced with POISON when using a direct attack against this Pokemon."
+	},
+	{
+		"ability":"Pressure",
+		"description":"When hit by a move, the opponent's PP lowers by 2 rather than 1."
+	},
+	{
+		"ability":"Pure Power",
+		"description":"Attack power is doubled in battle. It will return to normal if special ability is taken."
+	},
+	{
+		"ability":"Rain Dish",
+		"description":"A little bit of HP is restored every turn that it is raining."
+	},
+	{
+		"ability":"Rock Head",
+		"description":"Does not receive recoil damage from moves such as Double-Edge and Volt Tackle."
+	},
+	{
+		"ability":"Rough Skin",
+		"description":"The opponent is hurt by 1\/16th hit points of recoil when using a direct attack against this Pokemon."
+	},
+	{
+		"ability":"Run Away",
+		"description":"Except for trainer battles, can always run from battle."
+	},
+	{
+		"ability":"Sand Stream",
+		"description":"Sandstorm blows when the Pokemon enters battle."
+	},
+	{
+		"ability":"Sand Veil",
+		"description":"During a sandstorm, evasion rises."
+	},
+	{
+		"ability":"Serene Grace",
+		"description":"The chances of a move having an effect doubles."
+	},
+	{
+		"ability":"Shadow Tag",
+		"description":"The opponent cannot run nor switch."
+	},
+	{
+		"ability":"Shed Skin",
+		"description":"Every turn, it has a 1 in 3 chance of healing from a status condition."
+	},
+	{
+		"ability":"Shell Armor",
+		"description":"The opponent's moves cannot Critical Hit."
+	},
+	{
+		"ability":"Shield Dust",
+		"description":"Opponent's move do not have an additional effect."
+	},
+	{
+		"ability":"Soundproof",
+		"description":"Uneffected by sound moves."
+	},
+	{
+		"ability":"Speed Boost",
+		"description":"Speed increases by one stage each turn."
+	},
+	{
+		"ability":"Static",
+		"description":"The opponent has a 30% chance of being induced with PARALYE when using a direct attack against this Pokemon."
+	},
+	{
+		"ability":"Stench",
+		"description":"If the Pokemon is in the lead spot, chance of encountering a wild Pokemon lowers."
+	},
+	{
+		"ability":"Sticky Hold",
+		"description":"Item cannot be taken."
+	},
+	{
+		"ability":"Sturdy",
+		"description":"One-hit knock out moves have no effect."
+	},
+	{
+		"ability":"Suction Cups",
+		"description":"Cannot be switched by the opponent using Roar or Whirlwind."
+	},
+	{
+		"ability":"Swarm",
+		"description":"When HP is below 1\/3rd, Bug's power increases to 1.5 times."
+	},
+	{
+		"ability":"Swift Swim",
+		"description":"When rainy, Speed doubles."
+	},
+	{
+		"ability":"Synchronize",
+		"description":"When the Pokemon becomes Poison, Paralyze, or Burn, so does the opponent."
+	},
+	{
+		"ability":"Thick Fat",
+		"description":"Fire and Ice-type moves deal 50% damage."
+	},
+	{
+		"ability":"Torrent",
+		"description":"When HP is below 1\/3rd, Water's power increases to 1.5 times."
+	},
+	{
+		"ability":"Trace",
+		"description":"Special ability becomes the same as that of the opponent."
+	},
+	{
+		"ability":"Truant",
+		"description":"Cannot attack consecutively."
+	},
+	{
+		"ability":"Vital Spirit",
+		"description":"Cannot be SLEEP condition."
+	},
+	{
+		"ability":"Volt Absorb",
+		"description":"Healed by up to 1\/4 maximum Hit Points when hit with Electric-type moves."
+	},
+	{
+		"ability":"Water Absorb",
+		"description":"Healed by up to 1\/4 maximum Hit Points when hit with Water-type moves."
+	},
+	{
+		"ability":"Water Veil",
+		"description":"Cannot be BURN condition."
+	},
+	{
+		"ability":"White Smoke",
+		"description":"Opponent's moves that lower ability values have no effect."
+	},
+	{
+		"ability":"Wonder Guard",
+		"description":"Only harmed by Super Effective damage."
+	}
+]

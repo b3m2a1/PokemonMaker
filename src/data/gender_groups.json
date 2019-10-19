@@ -1,0 +1,37 @@
+{
+  "-1" : {
+    "Name": "Genderless",
+    "PercentFemale": -1,
+    "HiddenPowerWeirdNumber": 128
+  },
+  "0" : {
+    "Name": "Male",
+    "PercentFemale": 0,
+    "HiddenPowerWeirdNumber": 128
+  },
+  "12" : {
+    "Name": "WTFNintendo",
+    "PercentFemale": 12.5,
+    "HiddenPowerWeirdNumber": 30
+  },
+  "25" : {
+    "Name": "MostlyMale",
+    "PercentFemale": 25,
+    "HiddenPowerWeirdNumber": 63
+  },
+  "50" : {
+    "Name": "Parity",
+    "PercentFemale": -1,
+    "HiddenPowerWeirdNumber": 126
+  },
+  "75" : {
+    "Name": "MostlyFemale",
+    "PercentFemale": 75,
+    "HiddenPowerWeirdNumber": 190
+  },
+  "100" : {
+    "Name": "Female",
+    "PercentFemale": 100,
+    "HiddenPowerWeirdNumber": 128
+  }
+}

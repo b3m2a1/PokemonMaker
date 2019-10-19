@@ -566,6 +566,7 @@ function RandomDV() {
 }
 
 function XE(n){
+    // seems to give the Max possible experience for a given Pokeman
     var d=0;
     var o=0;
     if(n==0){o=1000000;}
@@ -580,6 +581,8 @@ function XE(n){
 }
 
 function fXL(f, n){
+    // Computes the experience needed to get to the next level, which is cooked implicitly into the huge blocks of strings
+    // The 1 and 2 are the new "Experience Groups" introduced in Gen 3 which have a piecewise form to them
     var ex=0;
     var px=f.Exp.value;
     var o=0;
@@ -745,9 +748,9 @@ function fHPower(f){
     var s=0;
     pg=f.Species.options[f.Species.selectedIndex].value;
     pd=fPokeDex(f, pg);
-    o=fFI(f, pd,"~",21);
-    p=parseInt(o,10);
-    q=XE(p);
+    o=fFI(f, pd,"~",21); // this is the Max Exp column
+    p=parseInt(o,10); // Makes it properly base 10
+    q=XE(p); // Extracts what this means the abs. Max Exp can be?
     if(f.Exp.value<0){f.Exp.value=0;}
     if(f.Exp.value>q){f.Exp.value=q;}
     q=fXL(f, p);
@@ -982,7 +985,7 @@ function fGtest(f){
     gt=256;
     pg=f.Species.options[f.Species.selectedIndex].value;
     pd=fPokeDex(f, pg);
-    p=fFI(f, pd,"~",20);
+    p=fFI(f, pd,"~",20); // this is the pokeman's Gender group...?
     if(p=="-1"){gt=128;}
     if(p=="0"){gt=128;}
     if(p=="12"){gt=30;}
@@ -996,7 +999,12 @@ function Gtest(){
     return fGtest(getDefaultForm());
 }
 
-function fFI(form, S,C,N){
+function fFI(form, S, C, N){
+    // This is basically a string splitter?
+    // S is the substring (taken from, e.g. PokeDex)
+    // C is the sep char (always ~)
+    // N is which element to take out
+
     var i=0;
     var j=0;
     var f=0;

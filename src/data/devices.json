@@ -1,8 +1,26 @@
-{
-  "VBA": "VBA",
-  "ARv1": "ARv1-2/GSv1-2",
-  "ARv3": "ARv3",
-  "CB": "CB/GSv3+Type8",
-  "Hex": "80-Bytes",
-  "CB5": "CB/GSv3+Type5"
-}
+[
+  {
+    "Key": "VBA",
+    "Name": "VBA"
+  },
+  {
+    "Key": "ARv1",
+    "Name": "ActionReplay V1-2/Gameshark V1-2"
+  },
+  {
+    "Key": "ARv3",
+    "Name": "ActionReplay V3"
+  },
+  {
+    "Key": "CB",
+    "Name": "CodeBreaker/Gameshark V3 (Type8)"
+  },
+  {
+    "Key": "Hex",
+    "Name": "80-Bytes"
+  },
+  {
+    "Key": "CB5",
+    "Name": "CodeBreaker/Gameshark V3 (Type5)"
+  }
+]

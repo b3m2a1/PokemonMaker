@@ -1,0 +1,812 @@
+[
+	[
+		"Littleroot Town ",
+		"met at a distant land."
+	],
+	[
+		"Oldale Town ",
+		"OUTSKIRT STAND"
+	],
+	[
+		"Dewford Town ",
+		"OUTSKIRT STAND"
+	],
+	[
+		"Lavaridge Town ",
+		"PHENAC CITY"
+	],
+	[
+		"Fallarbor Town ",
+		"PHENAC CITY"
+	],
+	[
+		"Verdanturf Town ",
+		"MAYOR'S HOUSE"
+	],
+	[
+		"Pacifidlog Town ",
+		"MAYOR'S HOUSE"
+	],
+	[
+		"Petalburg City ",
+		"PHENAC CITY"
+	],
+	[
+		"Slateport City ",
+		"PHENAC CITY"
+	],
+	[
+		"Mauville City ",
+		"PHENAC CITY"
+	],
+	[
+		"Rustboro City ",
+		"PHENAC CITY"
+	],
+	[
+		"Fortree City ",
+		"PRE GYM"
+	],
+	[
+		"Lilycove City ",
+		"PRE GYM"
+	],
+	[
+		"Mossdeep City ",
+		"PHENAC STADIUM"
+	],
+	[
+		"Sootopolis City ",
+		"PHENAC STADIUM"
+	],
+	[
+		"Ever Grande City ",
+		"PYRITE TOWN"
+	],
+	[
+		"Route 101 ",
+		"PYRITE TOWN"
+	],
+	[
+		"Route 102 ",
+		"PYRITE TOWN"
+	],
+	[
+		"Route 103 ",
+		"PYRITE TOWN"
+	],
+	[
+		"Route 104 ",
+		"PYRITE TOWN"
+	],
+	[
+		"Route 105 ",
+		"PYRITE TOWN"
+	],
+	[
+		"Route 106 ",
+		"PYRITE TOWN"
+	],
+	[
+		"Route 107 ",
+		"PYRITE TOWN"
+	],
+	[
+		"Route 108 ",
+		"PYRITE TOWN"
+	],
+	[
+		"Route 109 ",
+		"PYRITE BLDG"
+	],
+	[
+		"Route 110 ",
+		"PYRITE BLDG"
+	],
+	[
+		"Route 111 ",
+		"PYRITE BLDG"
+	],
+	[
+		"Route 112 ",
+		"PYRITE BLDG"
+	],
+	[
+		"Route 113 ",
+		"PYRITE BLDG"
+	],
+	[
+		"Route 114 ",
+		"PYRITE CAVE"
+	],
+	[
+		"Route 115 ",
+		"MIROR'S HIDEOUT"
+	],
+	[
+		"Route 116 ",
+		"PYRITE CAVE"
+	],
+	[
+		"Route 117 ",
+		"PYRITE CAVE"
+	],
+	[
+		"Route 118 ",
+		"PYRITE CAVE"
+	],
+	[
+		"Route 119 ",
+		"PYRITE CAVE"
+	],
+	[
+		"Route 120 ",
+		"PYRITE COLOSSEUM"
+	],
+	[
+		"Route 121 ",
+		"AGATE VILLAGE"
+	],
+	[
+		"Route 122 ",
+		"RELIC CAVE"
+	],
+	[
+		"Route 123 ",
+		"RELIC CAVE"
+	],
+	[
+		"Route 124 ",
+		"AGATE VILLAGE"
+	],
+	[
+		"Route 125 ",
+		"AGATE VILLAGE"
+	],
+	[
+		"Route 126 ",
+		"AGATE VILLAGE"
+	],
+	[
+		"Route 127 ",
+		"AGATE VILLAGE"
+	],
+	[
+		"Route 128 ",
+		"AGATE VILLAGE"
+	],
+	[
+		"Route 129 ",
+		"AGATE VILLAGE"
+	],
+	[
+		"Route 130 ",
+		"AGATE VILLAGE"
+	],
+	[
+		"Route 131 ",
+		"AGATE VILLAGE"
+	],
+	[
+		"Route 132 ",
+		"THE UNDER"
+	],
+	[
+		"Route 133 ",
+		"THE UNDER"
+	],
+	[
+		"Route 134 ",
+		"THE UNDER"
+	],
+	[
+		"Underwater (Route 124) ",
+		"THE UNDER"
+	],
+	[
+		"Underwater (Route 126) ",
+		"THE UNDER"
+	],
+	[
+		"Underwater (Route 127) ",
+		"THE UNDER"
+	],
+	[
+		"Underwater (Route 128) ",
+		"THE UNDER"
+	],
+	[
+		"Underwater (Sootopoist) ",
+		"THE UNDER"
+	],
+	[
+		"Granite Cave ",
+		"THE UNDER"
+	],
+	[
+		"Mt. Chimney ",
+		"met at a distant land."
+	],
+	[
+		"Safari Zone ",
+		"THE UNDER SUBWAY"
+	],
+	[
+		"Battle Tower ",
+		"THE UNDER SUBWAY"
+	],
+	[
+		"Petalburg Woods ",
+		"THE UNDER SUBWAY"
+	],
+	[
+		"Rusturf Tunnel ",
+		"THE UNDER SUBWAY"
+	],
+	[
+		"Abandoned Ship ",
+		"THE UNDER SUBWAY"
+	],
+	[
+		"New Maulville ",
+		"THE UNDER"
+	],
+	[
+		"Meteor Falls ",
+		"UNDER COLOSSEUM"
+	],
+	[
+		"Meteor Falls ",
+		"DEEP COLOSSEUM"
+	],
+	[
+		"Mt. Pyre ",
+		"FRONT OF LAB"
+	],
+	[
+		"Hideout ",
+		"LABORATORY"
+	],
+	[
+		"Shoal Cave ",
+		"LABORATORY"
+	],
+	[
+		"Seafloor Cavern ",
+		"LABORATORY"
+	],
+	[
+		"Underwater (Seafloor Cavern) ",
+		"LABORATORY"
+	],
+	[
+		"Victory Road ",
+		"LABORATORY"
+	],
+	[
+		"Mirage Island ",
+		"LABORATORY"
+	],
+	[
+		"Cave of Origin ",
+		"LABORATORY"
+	],
+	[
+		"Southern Island ",
+		"LABORATORY"
+	],
+	[
+		"Fiery Path ",
+		"MT. BATTLE"
+	],
+	[
+		"Fiery Path ",
+		"MT. BATTLE"
+	],
+	[
+		"Jagged Pass ",
+		"MT. BATTLE"
+	],
+	[
+		"Jagged Pass ",
+		"MT. BATTLE"
+	],
+	[
+		"Sealed Chamber ",
+		"MT. BATTLE"
+	],
+	[
+		"Underwater (Route 134) ",
+		"MT. BATTLE"
+	],
+	[
+		"Scorched Slab ",
+		"MT. BATTLE"
+	],
+	[
+		"Island Cave ",
+		"MT. BATTLE"
+	],
+	[
+		"Desert Ruins ",
+		"MT. BATTLE"
+	],
+	[
+		"Ancient Tomb ",
+		"MT. BATTLE"
+	],
+	[
+		"Inside of Truck ",
+		"MT. BATTLE"
+	],
+	[
+		"Sky Pillar ",
+		"MT. BATTLE"
+	],
+	[
+		"Secret Base ",
+		"MT. BATTLE"
+	],
+	[
+		"Ferry ",
+		"MT. BATTLE"
+	],
+	[
+		"{Pallett Town}",
+		"MT. BATTLE"
+	],
+	[
+		"{Viridian City}",
+		"MT. BATTLE"
+	],
+	[
+		"{Pewter City}",
+		"MT. BATTLE"
+	],
+	[
+		"{Cerulean City}",
+		"MT. BATTLE"
+	],
+	[
+		"{Lavender Town}",
+		"MT. BATTLE"
+	],
+	[
+		"{Vermillion City}",
+		"MT. BATTLE"
+	],
+	[
+		"{Celadon City}",
+		"MT. BATTLE"
+	],
+	[
+		"{Fuchsia City}",
+		"MT.BTL COLOSSEUM"
+	],
+	[
+		"{Cinnibar Isle}",
+		"met at a distant land."
+	],
+	[
+		"{Indigo Plateau}",
+		"met at a distant land."
+	],
+	[
+		"{Saffron City}",
+		"met at a distant land."
+	],
+	[
+		"{Route 4}",
+		"met at a distant land."
+	],
+	[
+		"{Route 10}",
+		"met at a distant land."
+	],
+	[
+		"{Route 1}",
+		"met at a distant land."
+	],
+	[
+		"{Route 2}",
+		"REALGAM TOWER"
+	],
+	[
+		"{Route 3}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 4}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 5}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 6}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 7}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 8}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 9}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 10}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 11}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 12}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 13}",
+		"REALGAMTWR DOME"
+	],
+	[
+		"{Route 14}",
+		"REALGAMTWR LOBBY"
+	],
+	[
+		"{Route 15}",
+		"REALGAM TOWER"
+	],
+	[
+		"{Route 16}",
+		"REALGAM TOWER"
+	],
+	[
+		"{Route 17}",
+		"REALGAM TOWER"
+	],
+	[
+		"{Route 18}",
+		"TOWER COLOSSEUM"
+	],
+	[
+		"{Sea Route 19}",
+		"PHENAC CITY"
+	],
+	[
+		"{Sea Route 20}",
+		"PYRITE COLOSSEUM"
+	],
+	[
+		"{Sea Route 21}",
+		"UNDER COLOSSEUM"
+	],
+	[
+		"{Route 22}",
+		"THE UNDER"
+	],
+	[
+		"{Route 23}",
+		"REALGAM TOWER"
+	],
+	[
+		"{Route 24}",
+		"REALGAM TOWER"
+	],
+	[
+		"{Route 25}",
+		"DEEP COLOSSEUM"
+	],
+	[
+		"{Viridian Forest}",
+		"ORRE COLOSSEUM"
+	],
+	[
+		"{Mt Moon}",
+		"THE UNDER"
+	],
+	[
+		"{SS Anne (Pier)}",
+		"PHENAC CITY"
+	],
+	[
+		"{Underground Path}",
+		"SNEGEM HIDOUT"
+	],
+	[
+		"{Underground Path}",
+		"SNEGEM HIDOUT"
+	],
+	[
+		"{Diglett Cave}",
+		"SNEGEM HIDOUT"
+	],
+	[
+		"{Victory Road}",
+		"SNEGEM HIDOUT"
+	],
+	[
+		"{Team Rocket's Hideout}",
+		"SNEGEM HIDOUT"
+	],
+	[
+		"{Silph Company (Lapras)}",
+		"SNEGEM HIDOUT"
+	],
+	[
+		"{Pokemon Mansion}",
+		"SNEGEM HIDOUT"
+	],
+	[
+		"{Safari Zone}",
+		"SNEGEM HIDOUT"
+	],
+	[
+		"{Pokemon League}",
+		"SNEGEM HIDOUT"
+	],
+	[
+		"{Rock Tunnel}",
+		"THE UNDER SUBWAY"
+	],
+	[
+		"{Seafoam Island}",
+		"THE UNDER SUBWAY"
+	],
+	[
+		"{Pokemon Tower}",
+		"LABORATORY"
+	],
+	[
+		"{Cerulean Cave}",
+		"LABORATORY"
+	],
+	[
+		"{Power Plant}",
+		"PYRITE COLOSSEUM"
+	],
+	[
+		"{ONE ISLAND}",
+		"met at a distant land."
+	],
+	[
+		"{TWO ISLAND}",
+		"met at a distant land."
+	],
+	[
+		"{THREE ISLAND}",
+		"met at a distant land."
+	],
+	[
+		"{FOUR ISLAND (Nursery)}",
+		"met at a distant land."
+	],
+	[
+		"{FIVE ISLAND}",
+		"met at a distant land."
+	],
+	[
+		"{SEVEN ISLAND}",
+		"met at a distant land."
+	],
+	[
+		"{SIX ISLAND}",
+		"met at a distant land."
+	],
+	[
+		"{Isle 1-KINDLE ROAD}"
+	],
+	[
+		"{Isle 1-TREASURE BEACH}"
+	],
+	[
+		"{Isle 2-CAPE BRINK}"
+	],
+	[
+		"{Isle 3-BOND BRIDGE}"
+	],
+	[
+		"{THREE ISLAND PORT}"
+	],
+	[
+		"{SEVII ISLE 6}"
+	],
+	[
+		"{SEVII ISLE 7}"
+	],
+	[
+		"{SEVII ISLE 8}"
+	],
+	[
+		"{SEVII ISLE 9}"
+	],
+	[
+		"{RESORT GORGEOUS}"
+	],
+	[
+		"{Isle 5-WATER LABYRINTH}"
+	],
+	[
+		"{FIVE ISLE MEADOW}"
+	],
+	[
+		"{Isle 5-South Sea Route-MEMORIAL PILLAR}"
+	],
+	[
+		"{OUTCAST ISLAND}"
+	],
+	[
+		"{GREEN PATH}"
+	],
+	[
+		"{WATER PATH}"
+	],
+	[
+		"{RUIN VALLEY}"
+	],
+	[
+		"{TRAINER TOWER}"
+	],
+	[
+		"{CANYON ENTRANCE}"
+	],
+	[
+		"{SEVAULT CANYON}"
+	],
+	[
+		"{TANOBY RUINS}"
+	],
+	[
+		"{SEVII ISLE 22}"
+	],
+	[
+		"{SEVII ISLE 23}"
+	],
+	[
+		"{SEVII ISLE 24}"
+	],
+	[
+		"{Isle 8-NAVEL ROCK(Lugia & Ho-oh)}"
+	],
+	[
+		"{Isle 1-MT. EMBER}"
+	],
+	[
+		"{BERRY FOREST}"
+	],
+	[
+		"{Isle 4-ICEFALL CAVE}"
+	],
+	[
+		"{ROCKET WAREHOUSE}"
+	],
+	[
+		"{TRAINER TOWER}"
+	],
+	[
+		"{DOTTED HOLE}"
+	],
+	[
+		"{Isle 5-LOST CAVE}"
+	],
+	[
+		"{PATTERN BUSH}"
+	],
+	[
+		"{ALTERING CAVE}"
+	],
+	[
+		"{TRNOBY CHAMBERS}"
+	],
+	[
+		"{THREE ISLE PATH-Tunnel}"
+	],
+	[
+		"{TANOBY KEY}"
+	],
+	[
+		"{Isle 9-BIRTH ISLAND(Deoxys)}"
+	],
+	[
+		"{Iresu Sekisitsu-MONEAN CHAMBER}"
+	],
+	[
+		"{Nazan Sekisitsu-LIPTOO CHAMBER}"
+	],
+	[
+		"{Yugo Sekisitsu-WEEPTH CHAMBER}"
+	],
+	[
+		"{Aleboca Sekisitsu-DILFORD CHAMBER}"
+	],
+	[
+		"{Kotou Sekisitsu-SCUFIB CHAMBER}"
+	],
+	[
+		"{Anuza Sekisitsu-RIXY CHAMBER}"
+	],
+	[
+		"{Oliphu Sekisitsu-VIAPOIS CHAMBER}"
+	],
+	[
+		"{EMBER SPA}"
+	],
+	[
+		"{CELADON DEPT.}"
+	],
+	"C5",
+	"C6",
+	"C7",
+	[
+		"\/Deoxys\/"
+	],
+	[
+		"\/Mew Island\/"
+	],
+	"CA",
+	[
+		"\/Kryogre Cave\/"
+	],
+	"CC",
+	[
+		"\/Groudon Cave\/"
+	],
+	"CE",
+	"CF",
+	"D0",
+	"D1",
+	"D2",
+	[
+		"\/Ho-oh,Lugia\/"
+	],
+	"D4",
+	"D5",
+	"D6",
+	"D7",
+	"D8",
+	"D9",
+	"DA",
+	"DB",
+	"DC",
+	"DD",
+	"DE",
+	"DF",
+	"E0",
+	"E1",
+	"E2",
+	"E3",
+	"E4",
+	"E5",
+	"E6",
+	"E7",
+	"E8",
+	"E9",
+	"EA",
+	"EB",
+	"EC",
+	"ED",
+	"EE",
+	"EF",
+	"F0",
+	"F1",
+	"F2",
+	"F3",
+	"F4",
+	"F5",
+	"F6",
+	"F7",
+	"F8",
+	"F9",
+	"FA",
+	"FB",
+	"FC",
+	"FD",
+	"In-game Trade",
+	"Fateful encounter."
+]
