@@ -1,65 +1,84 @@
 
+import {GameData, DeviceData} from './data_handles';
 
 //region Structs
-// Defines the Game data needed to compile properly
-class Offsets {
-    constructor(
-        box,
-        trainer,
-        ribbon,
-        etc
-    ) {
-        this.box = box;
-        this.trainer = trainer;
-        this.ribbon = ribbon;
-    }
-}
-class GameData {
-    constructor(
-        gameID,
-        offsetSet,
-        mcode,
-        antiDMA
-    ) {
-        this.id = gameID;
-        this.offsets = offsetSet;
-        this.dma = antiDMA;
-        this.mcode = mcode;
-    }
-
-}
 
 // Defines a Trainer and all the data that goes along with that
 class Trainer {
 
 }
 
-// Defines the stats
+// Defines the EVs/IVs/Level/Experience
 class Stats {
-
+    constructor() {
+        this.level = 1;
+        this.exp = 0;
+        this.IVs = {
+            "hp": 0,
+            "attack": 0,
+            "defense": 0,
+            "special_attack": 0,
+            "special_defense": 0
+        };
+        this.EVs = {
+            "hp": 0,
+            "attack": 0,
+            "defense": 0,
+            "special_attack": 0,
+            "special_defense": 0
+        }
+    }
 }
 
 // Defines the moves and whatnot we'll be working with
 class MoveSet {
+    constructor() {
+        this.moves = [
+            {
+                "move": null,
+                "pp": null,
+                "pp_ups": null
+            },
+            {
+                "move": null,
+                "pp": null,
+                "pp_ups": null
+            },
+            {
+                "move": null,
+                "pp": null,
+                "pp_ups": null
+            },
+            {
+                "move": null,
+                "pp": null,
+                "pp_ups": null
+            }
+        ]
+    }
+
+    from_pokeman(p) {
+
+    }
 
 }
 
 // Defines the ribbons attached to our object
 class RibbonSet {
-
+    constructor( ribbons ) {
+        this.ribbons = ribbons;
+    }
 }
 
 //endregion
 
 class Pokemon {
     constructor(
-        game,
         trainer,
         stats,
         moves,
         ribbons
     ) {
-        this._game = game;
         this._trainer = trainer;
         this._stats = stats;
         this._moves = moves;
@@ -67,9 +86,6 @@ class Pokemon {
     }
 
     //region Boilerplate
-    get game() {
-        return this._game;
-    }
     get trainer() {
         return this._trainer;
     }
@@ -83,10 +99,6 @@ class Pokemon {
         return this._ribbons;
     }
 
-    set game(g) {
-        this._game = g;
-        // Potentially call some kind of update call for the React object we want bound in...
-    }
     set trainer(t) {
         this._trainer = t;
         // Potentially call some kind of update call for the React object we want bound in...
@@ -109,9 +121,27 @@ class Pokemon {
 }
 
 class PokemonForm {
-    constructor() {
+    constructor(
+        pokemon = null,
+        game = null,
+        device = null
+    ) {
+        if ( pokemon === null ) {
+            this.pokemon = new Pokemon(
+                new Trainer(),
+                new Stats(),
+                new MoveSet(),
+                new RibbonSet([])
+            );
+        }
+        if ( game === null ) {
+            this.game = new GameData(0);
+        }
+        if ( device === null ) {
+            this.device = new DeviceData(3);
+        }
         this.CodePanel = null;
-        this.CodeInfoPanel = null;
+        this.OptionsPanel = null;
         this.PokemonPanel = null;
         this.TrainerPanel = null;
         this.StatsPanel = null;
@@ -121,31 +151,31 @@ class PokemonForm {
 
     bindCodePanel(component) {
         this.CodePanel = component;
-        component.form = this;
+        return this;
     }
-    bindCodeInfoPanel(component) {
-        this.CodeInfoPanel = component;
-        component.form = this;
+    bindOptionsPanel(component) {
+        this.OptionsPanel = component;
+        return this;
     }
     bindPokemonPanel(component) {
         this.PokemonPanel = component;
-        component.form = this;
+        return this;
     }
     bindTrainerPanel(component) {
         this.TrainerPanel = component;
-        component.form = this;
+        return this;
     }
     bindStatsPanel(component) {
         this.StatsPanel = component;
-        component.form = this;
+        return this;
     }
     bindMovesPanel(component) {
         this.MovesPanel = component;
-        component.form = this;
+        return this;
     }
     bindRibbonsPanel(component) {
         this.RibbonsPanel = component;
-        component.form = this;
+        return this;
     }
 
     generate() {

@@ -57,17 +57,98 @@ function cleanHex(str) {
     return s;
 }
 
-function decToHex(dec) {
+function invertHex(str) {
+    let t = "";
+    for (const c of str.toUpperCase()) {
+        switch (c) {
+            case "0":
+                t += "F";
+                break;
+            case "1":
+                t += "E";
+                break;
+            case "2":
+                t += "D";
+                break;
+            case "3":
+                t += "C";
+                break;
+            case "4":
+                t += "B";
+                break;
+            case "5":
+                t += "A";
+                break;
+            case "6":
+                t += "9";
+                break;
+            case "7":
+                t += "8";
+                break;
+            case "8":
+                t += "7";
+                break;
+            case "9":
+                t += "6";
+                break;
+            case "A":
+                t += "5";
+                break;
+            case "B":
+                t += "4";
+                break;
+            case "C":
+                t += "3";
+                break;
+            case "D":
+                t += "2";
+                break;
+            case "E":
+                t += "1";
+                break;
+            case "F":
+                t += "0";
+                break;
+        }
+    }
+
+}
+
+function decToHex(dec, padding = null, twos = false) {
     let d;
+
     if (typeof dec === "string") {
         d = parseInt(dec, 10);
     } else {
         d = dec;
     }
-    return d.toString(16)
+
+    const s = Math.sign(d);
+    if (s === -1) {
+        if (twos) {
+            d = -(d + 1);
+        } else {
+            d *= s;
+        }
+    }
+
+    let t = d.toString(16);
+    if (padding !== null) {
+        t = d.padStart(padding, '0');
+    }
+
+    if (s === -1) {
+        if (twos) {
+            t = invertHex(t);
+        } else {
+            t = "-" + t;
+        }
+    }
+
+    return t;
 }
 
-function poketize(str) {
+function poketize(str, padding = null) {
     let t="";
     for (const c of str) {
         switch (c) {
@@ -308,10 +389,16 @@ function poketize(str) {
         }
     }
 
+    if (padding !== null) {
+        for (let i = t.length; i < 2 * padding; i += 2) {
+            t += "FF"
+        }
+    }
+
     return t;
 }
 
-function depoketize(str) {
+function depoketize(str, padding = null) {
     let t="";
     for (const c of str.toUpperCase()) {
         switch (c) {
@@ -535,6 +622,10 @@ function depoketize(str) {
         }
     }
 
+    if (padding !== null) {
+        t += (" ".repeat(padding - t.length));
+    }
+
     return t;
 }
 
@@ -554,9 +645,9 @@ function GADE(code, what, dir) {
     // make sure input is clean hex
     mx = cleanHex(mx);
     ta = mx.slice(0, 8);
-    tv = mx.slice(8, 16);
+    tv = mx.slice(8, 8 + 16);
 
-    // still don't know what 'what' is
+    // still don't know what 'what' is --> looks like it's version of AR
     if (dir === 'encrypt') {
         y = GAEncrypt(ta, tv, what);
     } else {
@@ -574,7 +665,7 @@ function GAE(Code, what) {
     return GADE(Code, what, 'encrypt');
 }
 
-function handleDecryptOverflow(tin) {
+function handleHexSign(tin) {
     let maxHex = 1 * "0xFFFFFFFF";
     let overflowHex = 1 * "0x100000000";
     let modHex = 1 * "0x07FFFFFF";
@@ -589,7 +680,20 @@ function handleDecryptOverflow(tin) {
     return t
 }
 
-function GBAEncDec(ar, vl, what, dir) {
+function encAddress(address, xkey) {
+    // BA2 = decToHex(r, 8);
+    // r = handleHexSign( xk ^ parseInt(BA2, 16) );
+    // BA2 = decToHex(r, 8);
+
+    return decToHex( xkey ^ address, 8 );
+}
+
+function signedHexInt(r, place = 5) {
+    const mod = 4**place;
+    return (r % mod) + Math.floor( r / mod );
+}
+
+function gbaEncDec(ar, vl, what, dir) {
     let tval;
     let tadd;
     let s0;
@@ -602,18 +706,18 @@ function GBAEncDec(ar, vl, what, dir) {
     let t2;
     let l;
 
-    r = 1 * "0xC6EF3720";
-    rsa = 1 * "0x9E3779B9";
-    if (what === "1") { // not sure what the 'what' means here...?
-        s0 = 1 * "0x09F4FBBD";
-        s1 = 1 * "0x9681884A";
-        s2 = 1 * "0x352027E9";
-        s3 = 1 * "0xF3DEE5A7";
+    r = parseInt("0xC6EF3720");
+    rsa = parseInt("0x9E3779B9");
+    if (what === "1") { // what is the cheat device version -- only applies to AR
+        s0 = parseInt("0x09F4FBBD");
+        s1 = parseInt("0x9681884A");
+        s2 = parseInt("0x352027E9");
+        s3 = parseInt("0xF3DEE5A7");
     } else {
-        s0 = 1 * "0x7AA9648F";
-        s1 = 1 * "0x7FAE6994";
-        s2 = 1 * "0xC0EFAAD5";
-        s3 = 1 * "0x42712C57";
+        s0 = parseInt("0x7AA9648F");
+        s1 = parseInt("0x7FAE6994");
+        s2 = parseInt("0xC0EFAAD5");
+        s3 = parseInt("0x42712C57");
     }
 
     tval = 1 * ("0x" + vl);
@@ -623,45 +727,48 @@ function GBAEncDec(ar, vl, what, dir) {
 
         // the two are just the opposite directions of one another but I didn't want to have to mess with thinking
         if (dir === "encrypt") {
-            r = handleDecryptOverflow(r + rsa);
-            t = handleDecryptOverflow(s0 + handleDecryptOverflow((tval << 4) & (maxHex)));
-            t2 = handleDecryptOverflow(tval + r);
-            t = handleDecryptOverflow(t ^ t2);
-            t2 = handleDecryptOverflow(s1 + handleDecryptOverflow((tval >> 5) & (modHex)));
-            t = handleDecryptOverflow(t ^ t2);
-            tadd = handleDecryptOverflow(tadd + t);
-            t = handleDecryptOverflow(s2 + handleDecryptOverflow((tadd << 4) & (maxHex)));
-            t2 = handleDecryptOverflow(tadd + r);
-            t = handleDecryptOverflow(t ^ t2);
-            t2 = handleDecryptOverflow(s3 + handleDecryptOverflow((tadd >> 5) & (modHex)));
-            t = handleDecryptOverflow(t ^ t2);
-            tval = handleDecryptOverflow(tval + t);
+            r = handleHexSign(r + rsa);
+            t = handleHexSign(s0 + handleHexSign((tval << 4) & (maxHex)));
+            t2 = handleHexSign(tval + r);
+            t = handleHexSign(t ^ t2);
+            t2 = handleHexSign(s1 + handleHexSign((tval >> 5) & (modHex)));
+            t = handleHexSign(t ^ t2);
+            tadd = handleHexSign(tadd + t);
+            t = handleHexSign(s2 + handleHexSign((tadd << 4) & (maxHex)));
+            t2 = handleHexSign(tadd + r);
+            t = handleHexSign(t ^ t2);
+            t2 = handleHexSign(s3 + handleHexSign((tadd >> 5) & (modHex)));
+            t = handleHexSign(t ^ t2);
+            tval = handleHexSign(tval + t);
         } else {
-            t = handleDecryptOverflow(s2 + handleDecryptOverflow((tadd << 4) & (maxHex)));
-            t2 = handleDecryptOverflow(tadd + r);
-            t = handleDecryptOverflow(t ^ t2);
-            t2 = handleDecryptOverflow(s3 + handleDecryptOverflow((tadd >> 5) & (modHex)));
-            t = handleDecryptOverflow(t ^ t2);
-            tval = handleDecryptOverflow(tval - t);
-            t = handleDecryptOverflow(s0 + handleDecryptOverflow((tval << 4) & (maxHex)));
-            t2 = handleDecryptOverflow(tval + r);
-            t = handleDecryptOverflow(t ^ t2);
-            t2 = handleDecryptOverflow(s1 + handleDecryptOverflow((tval >> 5) & (modHex)));
-            t = handleDecryptOverflow(t ^ t2);
-            tadd = handleDecryptOverflow(tadd - t);
-            r = handleDecryptOverflow(r - rsa);
+            t = handleHexSign(s2 + handleHexSign((tadd << 4) & (maxHex)));
+            t2 = handleHexSign(tadd + r);
+            t = handleHexSign(t ^ t2);
+            t2 = handleHexSign(s3 + handleHexSign((tadd >> 5) & (modHex)));
+            t = handleHexSign(t ^ t2);
+            tval = handleHexSign(tval - t);
+            t = handleHexSign(s0 + handleHexSign((tval << 4) & (maxHex)));
+            t2 = handleHexSign(tval + r);
+            t = handleHexSign(t ^ t2);
+            t2 = handleHexSign(s1 + handleHexSign((tval >> 5) & (modHex)));
+            t = handleHexSign(t ^ t2);
+            tadd = handleHexSign(tadd - t);
+            r = handleHexSign(r - rsa);
         }
     }
 
-    return decToHex(tadd) + decToHex(tval);
+    return (
+        decToHex(tadd, 8, true) +
+        decToHex(tval, 8, true)
+    );
 }
 
 function GADecrypt(ar, vl, what) {
-    return GBAEncDec(ar, vl, what, 'decrypt');
+    return gbaEncDec(ar, vl, what, 'decrypt');
 }
 
 function GAEncrypt(ar, vl, what) {
-    return GBAEncDec(ar, vl, what, 'encrypt');
+    return gbaEncDec(ar, vl, what, 'encrypt');
 }
 
 function ec(addr, dat, size, device) {
@@ -727,24 +834,32 @@ function ec(addr, dat, size, device) {
         tt = tt.slice(0, 8) + " " + tt.slice(8, 16);
     } else if (dev === "CB" || dev === "CB5") {
         al = addr.slice(1, 8);
+
         switch (size) {
             case 32:
+
                 addr1 = "8" + al;
                 dl = dat.slice(4, 8);
                 tt = addr1 + " " + dl + "\r\n";
-                a = (1 * ("0x" + addr)) + 2;
-                addr0 = decToHex(a);
+                a = parseInt(addr, 16) + 2;
+                addr0 = decToHex(a, 8);
                 al = addr0.slice(1, 8);
-                addr1 = "8" + al;
+
+                addr1 = tt + "8" + al;
+                padding = " ";
                 dh = dat.slice(0, 4);
-                tt += addr1 + " " + dh;
                 break;
             case 16:
+
                 addr1 = "8" + al;
+                padding = " ";
+                dh = dat;
                 break;
             case 8:
+
                 addr1 = "3" + al;
-                tt = addr1 + " 00" + dat;
+                padding = " 00";
+                dh = dat;
                 break;
         }
 
@@ -754,15 +869,92 @@ function ec(addr, dat, size, device) {
     return tt;
 }
 
-function getCode(pokeForm) {
+function pidBlockOrdering(pid) {
+    let t;
+    switch (Math.floor(pid % 24)) {
+        case 0:
+            t = "ABCD";
+            break;
+        case 1:
+            t = "ABDC";
+            break;
+        case 2:
+            t = "ACBD";
+            break;
+        case 3:
+            t = "ACDB";
+            break;
+        case 4:
+            t = "ADBC";
+            break;
+        case 5:
+            t = "ADCB";
+            break;
+        case 6:
+            t = "BACD";
+            break;
+        case 7:
+            t = "BADC";
+            break;
+        case 8:
+            t = "BCAD";
+            break;
+        case 9:
+            t = "BCDA";
+            break;
+        case 10:
+            t = "BDAC";
+            break;
+        case 11:
+            t = "BDCA";
+            break;
+        case 12:
+            t = "CABD";
+            break;
+        case 13:
+            t = "CADB";
+            break;
+        case 14:
+            t = "CBAD";
+            break;
+        case 15:
+            t = "CBDA";
+            break;
+        case 16:
+            t = "CDAB";
+            break;
+        case 17:
+            t = "CDBA";
+            break;
+        case 18:
+            t = "DABC";
+            break;
+        case 19:
+            t = "DACB";
+            break;
+        case 20:
+            t = "DBAC";
+            break;
+        case 21:
+            t = "DBCA";
+            break;
+        case 22:
+            t = "DCAB";
+            break;
+        case 23:
+            t = "DCBA";
+            break;
+    }
+    return t;
+}
+
+
+function encodeFormData(pokeForm) {
     let pokeman = pokeForm.pokemon;
-    let game = pokeForm.game;
-    let device = pokeForm.device;
     let trainer = pokeForm.trainer;
 
     let trainerID;
     let secretID;
-    let playerID;
     let randomPID;
     let shiny;
 
@@ -770,53 +962,55 @@ function getCode(pokeForm) {
     let unknownID;
 
     let playerGender = trainer.gender, nature = pokeman.nature;
-    let As = f.RA, Bs = f.RB, Cs = f.RC, Ds = f.RD;
 
-    let i;
     let foundPID = false;
 
-    let addrShift = 1 * "0x100000000";
-    let maxAddr = 1 * "0xFFFFFFFF";
+    let addrShift = parseInt("0x100000000");
+    let maxAddr = parseInt("0xFFFFFFFF");
 
-    let BA0, BA1, BA2;
-    let BB0, BB1, BB2;
-    let BC0, BC1, BC2;
-    let BD0, BD1, BD2;
-    let tt = " ", ts = " ", tg = 0, gt = 0, tn = 0, tpid = 0, tid = 0, xk = 0;
+    let blocks = {
+        "A": ["", "", ""],
+        "B": ["", "", ""],
+        "C": ["", "", ""],
+        "D": ["", "", ""]
+    };
+
+    let tt, ts = " ";
+    let tg = 0, gt = 0, tn = 0, tpid = 0, tid;
+    let xk;
 
     let r = 0, r1 = 0;
-    let S = " ";
-
-    let addr = 0;
     let cs = 0;
 
-    
     // ensure secretID and trainerID are in the right ranges
     secretID = trainer.SecretID;
-    if (secretID < 0 || secretID > 65565) {
+    if (secretID < 0 || secretID > 65565) { // over- or under-flowing?
         secretID = Math.round(Math.random() * 65535);
         trainer.SecretID = secretID;
     }
     trainerID = trainer.ID;
-    if (trainerID < 0 || trainerID > 65565) {
+    if (trainerID < 0 || trainerID > 65565) { // over- or under-flowing?
         trainerID = Math.round(Math.random() * 65535);
         trainer.ID = trainerID;
     }
     // compute 'true' trainer ID used to determine ownership
     tid = (secretID * 65536) + (trainerID);
-    
+    // basically decToHex(secretID, 8) + decToHex(trainerID, 8) ? --> no not exactly...
+    // it'll actually be decToHex(secretID, 5) + decToHex(secretID, 8)
+
     xk = 0;
     randomPID = pokeForm.randomPID;
-    shiny = pokeman.shiny;
-    // calculate the PlayerID we'll use in the code
+
     if (randomPID) {
+        // we gotta find an appropriate playerID that'll work with what we have
+        shiny = pokeman.shiny;
         if (shiny) {
-            gt = fGtest(f); // Gender pctage something...?
-            for (i = 0; i < 65536; i++) {
+            gt = pokeman.gender_test(); // Gender pctage something...?
+            for (let i = 0; i < 65536; i++) {
                 // just try a bunch of times I guess?
                 // Pick a random value less than the max player ID
                 r = Math.round(Math.random() * 65535);
-                // bit shift it by...something?
+                // use this to generate an appropriate 'XKey' which can bit XOR with the trainer to give the player ID
                 xk = (r * 65536) + ( r ^ (Math.round(Math.random() * 7)));
                 // reup if necessary
                 if (xk < 0) { xk += addrShift; }
@@ -857,8 +1051,8 @@ function getCode(pokeForm) {
                 }
             }
         } else {
-            gt = fGtest(f);
-            for (i = 0; i < 65536; i++) {
+            gt = pokeman.gender_test;
+            for (let i = 0; i < 65536; i++) {
                 tpid = (
                     Math.round(Math.random() * 65536) * Math.round(Math.random() * 65536)
                 ) + Math.round(Math.random() * 65512);
@@ -903,18 +1097,17 @@ function getCode(pokeForm) {
             pokeForm.clearCode();
             return;
         }
-        
+
     } else {
+        // we know the player ID so we don't need to calculate it
         tpid = pokeForm.playerID;
-        tn = Math.floor(tpid % 25);
+        tn = Math.floor(tpid % 25); // there are 25 natures
         if (tn < 0) { tn += 25; }
         nature.reinit(tn);
         tg = Math.floor(tpid % 256);
         if (tg < 0) { tg += 256; }
-        i = Math.floor(tpid % 65536);
-        r = (trainerID) ^ i;
-        i = Math.floor(tpid / 65536);
-        r1 = (secretID) ^ i;
+        r = (trainerID) ^ (Math.floor(tpid % 65536)); // lower half of the digit
+        r1 = (secretID) ^ Math.floor(tpid / 65536); // upper half of the digit
         xk = r ^ r1;
         shiny = (xk < 8);
         pokeman.shiny = shiny;
@@ -925,42 +1118,48 @@ function getCode(pokeForm) {
             U.options[r1].selected = true;
         }
     }
-    
+
     r1 = xk;
     if (r1 < 0) { r1 += addrShift; }
     if (r1 > (maxAddr)) { r1 -= addrShift; }
-    
+
     xk = r1;
     tg = Math.floor(tpid % 256);
-    gt = Gtest();
+    gt = pokeman.gender_test;
     if (tg >= gt) {
         tg = "F";
     } else {
         tg = "M";
     }
-    playerGender = tg;
+
     trainer.gender = tg;
     pokeForm.playerID = tpid;
-    pokeForm.XKey = decToHex(xk);
+    pokeForm.XKey = decToHex(xk, 8);
     ts = decToHex(tpid, 8);
-    pokeForm.setResultFlag(0, ts);
+    pokeForm.result_blocks[0] = ts;
     ts = decToHex(tid, 8);
-    pokeForm.setResultFlag(1, ts);
+    pokeForm.result_blocks[1] = ts;
     if (pokeman.egg) {
         pokeman.name = "EGG";
     }
-    // ???????
+
+    // So we encode the pokemon name first
     ts = poketize(pokeman.name, 10);
+    // but now we like implicitly reverse by taking slices???
     tt = ts.slice(6, 8);
     tt += ts.slice(4, 6);
     tt += ts.slice(2, 4);
     tt += ts.slice(0, 2);
-    pokeForm.setResultFlag(2, tt);
+    pokeForm.result_blocks[2] = tt;
+
+    // No idea what this is for
     tt = ts.slice(14, 16);
     tt += ts.slice(12, 14);
     tt += ts.slice(10, 12);
     tt += ts.slice(8, 10);
-    pokeForm.setResultFlag(3, tt);
+    pokeForm.result_blocks[3] = tt;
+
+    //And the font into is somehow concatenated on...?
     tt = pokeForm.font;
     // 0201 Japanese
     // 0202 USA
@@ -971,421 +1170,213 @@ function getCode(pokeForm) {
     // 0207 Spanish
     tt += ts.slice(18, 20);
     tt += ts.slice(16, 18);
-    D[4].value = tt;
+    pokeForm.result_blocks[4] = tt;
+
+    // Then we do the same odd process for the trainer name
     if (trainer.name === "") {
         trainer.name = "b3m2a1";
     }
-    ts = StrToPoke(f.TName.value, 7);
-    tt = ts.substring(6, 2);
-    tt += ts.substring(4, 2);
-    tt += ts.substring(2, 2);
-    tt += ts.substring(0, 2);
-    D[5].value = tt;
-    r = 0;
-    if (f.Circle.checked) {
-        r += 1;
-    }
-    if (f.Square.checked) {
-        r += 2;
-    }
-    if (f.Triangle.checked) {
-        r += 4;
-    }
-    if (f.Heart.checked) {
-        r += 8;
-    }
-    tt = DecToHex(r, 2);
-    tt += ts.substring(12, 2);
-    tt += ts.substring(10, 2);
-    tt += ts.substring(8, 2);
-    D[6].value = tt;
-    BA0 = "0" + f.Held.options[f.Held.selectedIndex].value + DecToHex(dex, 4);
-    As[0].value = BA0;
-    cs = 1 * dex;
-    r = 1 * ("0x0" + f.Held.options[f.Held.selectedIndex].value);
-    cs += r;
-    r = xk ^ (1 * ("0x" + BA0));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BA0 = DecToHex(r, 8);
-    r1 = f.Exp.value;
-    if (r1 < 0) {
-        f.Exp.value = 0;
-    }
-    S = PokeDex(f.Species.options[f.Species.selectedIndex].value);
-    r = FI(S, 21);
-    if (r1 > r) {
-        r1 = r;
-    }
-    BA1 = DecToHex(f.Exp.value, 8);
-    As[1].value = BA1;
-    cs += f.Exp.value % 65536;
-    cs += Math.floor(f.Exp.value / 65536);
-    r = xk ^ (1 * ("0x" + BA1));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BA1 = DecToHex(r, 8);
-    r = f.M1UPP.selectedIndex * 1;
-    if (f.Move2.selectedIndex != 0) {
-        r += f.M2UPP.selectedIndex * 4;
-    }
-    if (f.Move3.selectedIndex != 0) {
-        r += f.M3UPP.selectedIndex * 16;
-    }
-    if (f.Move4.selectedIndex != 0) {
-        r += f.M4UPP.selectedIndex * 64;
-    }
-    r1 = f.Happy.value;
-    if (r1 < 0) {
-        f.Happy.value = 0;
-    }
-    if (r1 > 255) {
-        f.Happy.value = 255;
-    }
-    r += f.Happy.value * 256;
-    As[2].value = DecToHex(r, 8);
-    cs += r % 65536;
-    cs += Math.floor(r / 65536);
-    BA2 = DecToHex(r, 8);
-    r = xk ^ (1 * ("0x" + BA2));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BA2 = DecToHex(r, 8);
-    BB0 = DecToHex(f.Move2.options[f.Move2.selectedIndex].value, 4) + DecToHex(f.Move1.options[f.Move1.selectedIndex].value, 4);
-    Bs[0].value = BB0;
-    cs += 1 * (f.Move1.options[f.Move1.selectedIndex].value);
-    cs += 1 * (f.Move2.options[f.Move2.selectedIndex].value);
-    r = xk ^ (1 * ("0x" + BB0));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BB0 = DecToHex(r, 8);
-    BB1 = DecToHex(f.Move4.options[f.Move4.selectedIndex].value, 4) + DecToHex(f.Move3.options[f.Move3.selectedIndex].value, 4);
-    Bs[1].value = BB1;
-    cs += 1 * (f.Move3.options[f.Move3.selectedIndex].value);
-    cs += 1 * (f.Move4.options[f.Move4.selectedIndex].value);
-    r = xk ^ (1 * ("0x" + BB1));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BB1 = DecToHex(r, 8);
-    r1 = f.M1PP.value;
-    if (r1 < 0) {
-        f.M1PP.value = 0;
-    }
-    if (r1 > 99) {
-        f.M1PP.value = 99;
-    }
-    r1 = f.M2PP.value;
-    if (r1 < 0) {
-        f.M2PP.value = 0;
-    }
-    if (r1 > 99) {
-        f.M2PP.value = 99;
-    }
-    r1 = f.M3PP.value;
-    if (r1 < 0) {
-        f.M3PP.value = 0;
-    }
-    if (r1 > 99) {
-        f.M3PP.value = 99;
-    }
-    r1 = f.M4PP.value;
-    if (r1 < 0) {
-        f.M4PP.value = 0;
-    }
-    if (r1 > 99) {
-        f.M4PP.value = 99;
-    }
-    if (f.Move4.selectedIndex != 0) {
-        BB2 = DecToHex(f.M4PP.value, 2);
-    } else {
-        BB2 = "00";
-    }
-    if (f.Move3.selectedIndex != 0) {
-        BB2 += DecToHex(f.M3PP.value, 2);
-    } else {
-        BB2 += "00";
-    }
-    if (f.Move2.selectedIndex != 0) {
-        BB2 += DecToHex(f.M2PP.value, 2);
-    } else {
-        BB2 += "00";
-    }
-    BB2 += DecToHex(f.M1PP.value, 2);
-    Bs[2].value = BB2;
-    cs += (1 * ("0x" + BB2)) % 65536;
-    cs += Math.floor((1 * ("0x" + BB2)) / 65536);
-    r = xk ^ (1 * ("0x" + BB2));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BB2 = DecToHex(r, 8);
-    BC0 = DecToHex(f.SpeEff.value, 2);
-    BC0 += DecToHex(f.DefEff.value, 2);
-    BC0 += DecToHex(f.AtkEff.value, 2);
-    BC0 += DecToHex(f.HPEff.value, 2);
-    Cs[0].value = BC0;
-    cs += (1 * ("0x" + BC0)) % 65536;
-    cs += Math.floor((1 * ("0x" + BC0)) / 65536);
-    r = xk ^ (1 * ("0x" + BC0));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BC0 = DecToHex(r, 8);
-    r = f.Beauty.value;
-    if (r < 0) {
-        r = 0;
-    }
-    if (r > 255) {
-        r = 255;
-    }
-    f.Beauty.value = r;
-    BC1 = DecToHex(f.Beauty.value, 2);
-    r = f.Cool.value;
-    if (r < 0) {
-        r = 0;
-    }
-    if (r > 255) {
-        r = 255;
-    }
-    f.Cool.value = r;
-    BC1 += DecToHex(f.Cool.value, 2);
-    BC1 += DecToHex(f.SpDEff.value, 2);
-    BC1 += DecToHex(f.SpAEff.value, 2);
-    Cs[1].value = BC1;
-    cs += (1 * ("0x" + BC1)) % 65536;
-    cs += Math.floor((1 * ("0x" + BC1)) / 65536);
-    r = xk ^ (1 * ("0x" + BC1));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BC1 = DecToHex(r, 8);
-    r = f.Luster.value;
-    if (r < 0) {
-        r = 0;
-    }
-    if (r > 255) {
-        r = 255;
-    }
-    f.Luster.value = r;
-    BC2 = DecToHex(f.Luster.value, 2);
-    r = f.Tough.value;
-    if (r < 0) {
-        r = 0;
-    }
-    if (r > 255) {
-        r = 255;
-    }
-    f.Tough.value = r;
-    BC2 += DecToHex(f.Tough.value, 2);
-    r = f.Smart.value;
-    if (r < 0) {
-        r = 0;
-    }
-    if (r > 255) {
-        r = 255;
-    }
-    f.Smart.value = r;
-    BC2 += DecToHex(f.Smart.value, 2);
-    r = f.Cute.value;
-    if (r < 0) {
-        r = 0;
-    }
-    if (r > 255) {
-        r = 255;
-    }
-    f.Cute.value = r;
-    BC2 += DecToHex(f.Cute.value, 2);
-    Cs[2].value = BC2;
-    cs += (1 * ("0x" + BC2)) % 65536;
-    cs += Math.floor((1 * ("0x" + BC2)) / 65536);
-    r = xk ^ (1 * ("0x" + BC2));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BC2 = DecToHex(r, 8);
-    r1 = f.Lvl.value;
-    if (r1 < 0) {
-        f.Lvl.value = 0;
-    }
-    if (r1 > 100) {
-        f.Lvl.value = 100;
-    }
-    r1 = parseInt(1 * ("0x" + f.Loc[f.Loc.selectedIndex].value), 10)
-    r = (f.Ball.selectedIndex + 1) * 134217728 + (f.Lvl.value) * 65536 + (r1) * 256;
-    if (f.Pokerus.selectedIndex == 1) {
-        r += 1;
-    }
-    if (f.Pokerus.selectedIndex == 2) {
-        r += 16;
-    }
-    if (f.TGender.selectedIndex == 1) {
-        r += 1 * "0x80000000";
-    }
-    r1 = f.OTFlag.selectedIndex;
-    r += r1 * 8388608;
-    BD0 = DecToHex(r, 8);
-    Ds[0].value = BD0;
-    cs += (1 * ("0x" + BD0)) % 65536;
-    cs += Math.floor((1 * ("0x" + BD0)) / 65536);
-    r = xk ^ (1 * ("0x" + BD0));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BD0 = DecToHex(r, 8);
-    r = (f.SpDDV.selectedIndex) * 33554432;
-    r += (f.SpADV.selectedIndex) * 1048576;
-    r += (f.SpeDV.selectedIndex) * 32768;
-    r += (f.DefDV.selectedIndex) * 1024;
-    r += (f.AtkDV.selectedIndex) * 32;
-    r += (f.HPDV.selectedIndex) * 1;
-    if (f.EFlag.checked) {
-        r += 1073741824;
-    }
-    if (f.Ability.selectedIndex == 1) {
-        r += 2147483648;
-    }
-    BD1 = DecToHex(r, 8);
-    Ds[1].value = BD1;
-    cs += (1 * ("0x" + BD1)) % 65536;
-    cs += Math.floor((1 * ("0x" + BD1)) / 65536);
-    r = xk ^ (1 * ("0x" + BD1));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BD1 = DecToHex(r, 8);
-    r = f.RCool.selectedIndex;
-    r += (f.RBeauty.selectedIndex) * 8;
-    r += (f.RCute.selectedIndex) * 64;
-    r += (f.RSmart.selectedIndex) * 512;
-    r += (f.RTough.selectedIndex) * 4096;
-    if (f.RChampion.checked) {
-        r += 32768;
-    }
-    if (f.RB50.checked) {
-        r += 65536;
-    }
-    if (f.RB100.checked) {
-        r += 131072;
-    }
-    if (f.RSketch.checked) {
-        r += 262144;
-    }
-    if (f.RHardWorker.checked) {
-        r += 524288;
-    }
-    if (f.RS0.checked) {
-        r += 1048576;
-    }
-    if (f.RS1.checked) {
-        r += 2097152;
-    }
-    if (f.RS2.checked) {
-        r += 4194304;
-    }
-    if (f.RS3.checked) {
-        r += 8388608;
-    }
-    if (f.RS4.checked) {
-        r += 16777216;
-    }
-    if (f.RS5.checked) {
-        r += 33554432;
-    }
-    if (f.RS6.checked) {
-        r += 67108864;
-    }
-    if (f.AltP.checked) {
-        r += 2147483648;
-    }
-    BD2 = DecToHex(r, 8);
-    Ds[2].value = BD2;
-    cs += (1 * ("0x" + BD2)) % 65536;
-    cs += Math.floor((1 * ("0x" + BD2)) / 65536);
-    r = xk ^ (1 * ("0x" + BD2));
-    if (r < 0) {
-        r += 1 * "0x100000000";
-    }
-    if (r > (1 * "0xFFFFFFFF")) {
-        r -= 1 * "0x100000000";
-    }
-    BD2 = DecToHex(r, 8);
-    cs = Math.floor(cs % 65536);
-    f.CS.value = DecToHex(cs, 4);
+    ts = poketize(trainer.name, 7);
+    tt = ts.slice(6, 6+2);
+    tt += ts.slice(4, 4+2);
+    tt += ts.slice(2, 2+2);
+    tt += ts.slice(0, 2);
+    pokeForm.result_blocks[5] = tt;
+
+    // Set the 'Marks'
+    r = (
+        (pokeForm.marks.Heart    ? 1 : 0 ) * (2**3) +
+        (pokeForm.marks.Triangle ? 1 : 0 ) * (2**2) +
+        (pokeForm.marks.Square   ? 1 : 0 ) * (2**1) +
+        (pokeForm.marks.Circle   ? 1 : 0 ) * (2**0)
+    );
+    tt = decToHex(r, 2);
+    tt += ts.slice(12, 12+2);
+    tt += ts.slice(10, 10+2);
+    tt += ts.slice(8,  8+2);
+    pokeForm.result_blocks[6]= tt;
+
+    //region Block A
+    // Encode pokemon ID and Held Item
+    blocks["A"][0] = (
+        decToHex(pokeman.item.index, 4) +
+        decToHex(dex, 4)
+    );
+    pokeForm.setSubResultFlag("As", 0, blocks["A"][0]);
+    blocks["A"][0] = encAddress(parseInt(blocks["A"][0], 16), xk);
+
+    // Encode current experience
+    r = pokeman.experience;
+    blocks["A"][1] = decToHex(r, 8);
+    pokeForm.setSubResultFlag('As', 1, blocks["A"][1]);
+    blocks["A"][1] = encAddress(r, xk);
+    cs += signedHexInt(r);
+
+    // Encode used pp and happiness?
+    r = (
+        pokeman.moves[0].pp_ups * (4 ** 0) +
+        pokeman.moves[1].pp_ups * (4 ** 1) +
+        pokeman.moves[2].pp_ups * (4 ** 2) +
+        pokeman.moves[3].pp_ups * (4 ** 3) +
+        pokeman.happiness       * (4 ** 4)
+    );
+    blocks["A"][2] = decToHex(r, 8);
+    pokeForm.setSubResultFlag('As', 2, blocks["A"][2]);
+    blocks["A"][2] = encAddress(r, xk);
+    cs += signedHexInt(r);
+    //endregion
+
+    //region Block B
+    // Encode moves
+    // Moves 1 and 2
+    blocks["B"][0] = (
+        decToHex(pokeman.moves[1].index, 4) +
+        decToHex(pokeman.moves[0].index, 4)
+    );
+    pokeForm.setSubResultFlag('Bs', 0, blocks["B"][0]);
+    blocks["B"][0] = encAddress(parseInt(blocks["B"][0], 16), xk);
+    // Moves 3 and 4
+    blocks["B"][1] = (
+        decToHex(pokeman.moves[3].index, 4) +
+        decToHex(pokeman.moves[2].index, 4)
+    );
+    pokeForm.setSubResultFlag('Bs', 1, blocks["B"][1]);
+    blocks["B"][1] = encAddress(parseInt(blocks["B"][1], 16), xk);
+    cs += (
+        pokeman.moves[0].index +
+        pokeman.moves[1].index +
+        pokeman.moves[2].index +
+        pokeman.moves[3].index
+    );
+
+    // Encode PP
+    blocks["B"][2] = (
+        decToHex(pokeman.moves[3].pp, 2) +
+        decToHex(pokeman.moves[2].pp, 2) +
+        decToHex(pokeman.moves[1].pp, 2) +
+        decToHex(pokeman.moves[0].pp, 2)
+    );
+    pokeForm.setSubResultFlag('Bs', 2, blocks["B"][2]);
+    r = parseInt(blocks["B"][2], 16);
+    blocks["B"][2] = decToHex(r, 8);
+    cs += signedHexInt(r);
+    //endregion
+
+    //region Block C
+    // Encode stats
+    blocks["C"][0] = (
+        decToHex(pokeman.EVs.speed, 2) +
+        decToHex(pokeman.EVs.defense, 2) +
+        decToHex(pokeman.EVs.attack, 2) +
+        decToHex(pokeman.EVs.hp, 2)
+    );
+    pokeForm.setSubResultFlag('Cs', 0, blocks["C"][0]);
+    r = parseInt(blocks["C"][0], 16);
+    blocks["C"][0] = encAddress(r, xk);
+    cs += signedHexInt(r);
+
+    // Encode some traits & EVs
+    blocks["C"][1] = (
+        decToHex(pokeman.traits.beauty, 2) +
+        decToHex(pokeman.traits.cool, 2) +
+        decToHex(pokeman.EVs.special_defense, 2) +
+        decToHex(pokeman.EVs.special_attack, 2)
+    );
+    pokeForm.setSubResultFlag('Cs', 1, blocks["C"][1]);
+    r = parseInt(blocks["C"][1], 16);
+    blocks["C"][1] = encAddress(r, xk);
+    cs += signedHexInt(r);
+
+    // Encode rest of traits
+    blocks["C"][2] = (
+        decToHex(pokeman.traits.luster, 2) +
+        decToHex(pokeman.traits.tough, 2) +
+        decToHex(pokeman.traits.smart, 2) +
+        decToHex(pokeman.traits.cute, 2)
+    );
+    pokeForm.setSubResultFlag('Cs', 2, blocks["C"][2]);
+    r = parseInt(blocks["C"][2], 16);
+    blocks["C"][2] = encAddress(r, xk);
+    cs += signedHexInt(r);
+    //endregion
+
+    //region Block D
+    // Encode meet loc, ball, etc.
+    let ot_game = pokeman.original_.game;
+    r = (
+        trainer.gender.flag          * 8  * (16 ** 7) +
+        (pokeman.ball.index + 1)     * 8  * (16 ** 6) +
+        ot_game.flag                 * 8  * (16 ** 5) +
+        pokeman.level                     * (16 ** 4) +
+        pokeman.meet_location.index       * (16 ** 2) +
+        pokeman.pokerus.flag         * 8  * (16 ** 0)
+    );
+    blocks["D"][0] = decToHex(r, 8);
+    pokeForm.setSubResultFlag('Ds', 0, blocks["D"][0]);
+    blocks["D"][0] = encAddress(r, xk);
+    cs += signedHexInt(r);
+
+    // Encode IVs and egg status and stuff
+    r = (
+        pokeman.ability.flag        * 2 * (32 ** 6) +
+        pokeman.egg.flag                * (32 ** 6) +
+        pokeman.IVs.special_defense     * (32 ** 5) +
+        pokeman.IVs.special_attack      * (32 ** 4) +
+        pokeman.IVs.speed               * (32 ** 3) +
+        pokeman.IVs.defense             * (32 ** 2) +
+        pokeman.IVs.attack              * (32 ** 1) +
+        pokeman.IVs.hp                  * (32 ** 0)
+    );
+    blocks["D"][1] = decToHex(r, 8);
+    pokeForm.setSubResultFlag('Ds', 1, blocks["D"][1]);
+    blocks["D"][1] = encAddress(r, xk);
+    cs += signedHexInt(r);
+
+    // Encode ribbons
+    r = (
+        pokeForm.ribbons.alt_p.flag        * (2 ** 31) +
+        pokeForm.ribbons.ribbon6.flag      * (2 ** 26) +
+        pokeForm.ribbons.ribbon5.flag      * (2 ** 25) +
+        pokeForm.ribbons.ribbon4.flag      * (2 ** 24) +
+        pokeForm.ribbons.ribbon3.flag      * (2 ** 23) +
+        pokeForm.ribbons.ribbon2.flag      * (2 ** 22) +
+        pokeForm.ribbons.ribbon1.flag      * (2 ** 21) +
+        pokeForm.ribbons.ribbon0.flag      * (2 ** 20) +
+        pokeForm.ribbons.hard_worker.flag  * (2 ** 19) +
+        pokeForm.ribbons.sketch.flag       * (2 ** 18) +
+        pokeForm.ribbons.b100.flag         * (2 ** 17) +
+        pokeForm.ribbons.b50.flag          * (2 ** 16) +
+        pokeForm.ribbons.champion.flag     * (2 ** 15) +
+        pokeForm.ribbons.tough.rank        * (2 ** 12) +
+        pokeForm.ribbons.smart.rank        * (2 **  9) +
+        pokeForm.ribbons.cute.rank         * (2 **  6) +
+        pokeForm.ribbons.beauty.rank       * (2 **  3) +
+        pokeForm.ribbons.cool.rank         * (2 **  0)
+    );
+    blocks["D"][2] = decToHex(r, 8);
+    pokeForm.setSubResultFlag('Ds', 2, blocks["D"][2]);
+    blocks["D"][2] = encAddress(r, xk);
+    cs += signedHexInt(r);
+    //endregion
+
+    // Export results
+    cs = decToHex(Math.floor(cs % 65536), 4);
+    pokeForm.some_handle = cs;
+
     ts = "0000" + DecToHex(cs, 4);
-    D[7].value = ts;
-    S = SetABCD();
-    for (let i = 0; i < 4; i++) {
-        r = i * 3 + 8;
-        if (S.substring(i, 1) == "A") {
-            D[r].value = BA0;
-            r += 1;
-            D[r].value = BA1;
-            r += 1;
-            D[r].value = BA2;
+    pokeForm.result_blocks[7] = ts;
+
+    pidBlockOrdering(tpid).forEach(
+        function(char, i) {
+            r = i * 3 + 8;
+            pokeForm.result_blocks[r] = blocks[char][0];
+            pokeForm.result_blocks[r + 1] = blocks[char][1];
+            pokeForm.result_blocks[r + 2] = blocks[char][2];
         }
-        if (S.substring(i, 1) == "B") {
-            D[r].value = BB0;
-            r += 1;
-            D[r].value = BB1;
-            r += 1;
-            D[r].value = BB2;
-        }
-        if (S.substring(i, 1) == "C") {
-            D[r].value = BC0;
-            r += 1;
-            D[r].value = BC1;
-            r += 1;
-            D[r].value = BC2;
-        }
-        if (S.substring(i, 1) == "D") {
-            D[r].value = BD0;
-            r += 1;
-            D[r].value = BD1;
-            r += 1;
-            D[r].value = BD2;
-        }
-    }
-    tt = fSetDNA(f);
+    );
+
 }
 
 export {
-    getCode
+    encodeFormData
 };
