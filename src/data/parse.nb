@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    386166,       6466]
-NotebookOptionsPosition[    373841,       6248]
-NotebookOutlinePosition[    374176,       6263]
-CellTagsIndexPosition[    374133,       6260]
+NotebookDataLength[    393123,       6672]
+NotebookOptionsPosition[    379939,       6442]
+NotebookOutlinePosition[    380278,       6457]
+CellTagsIndexPosition[    380235,       6454]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -346,7 +346,8 @@ Cell[BoxData[
  CellChangeTimes->{{3.780233447596698*^9, 3.780233580391193*^9}, {
    3.780233615917314*^9, 3.7802336524273033`*^9}, 3.780237236798485*^9, {
    3.780249167914321*^9, 3.780249189404133*^9}},
- CellLabel->"",ExpressionUUID->"ba1416f0-5242-4504-9047-4649d96c1f80"]
+ CellLabel->
+  "In[1345]:=",ExpressionUUID->"ba1416f0-5242-4504-9047-4649d96c1f80"]
 }, Open  ]]
 }, Closed]],
 
@@ -747,21 +748,24 @@ Cell[BoxData[
              "\[IndentingNewLine]", 
              RowBox[{"{", "\[IndentingNewLine]", 
               RowBox[{
-               RowBox[{"\"\<Atk\>\"", "\[Rule]", "\"\<Attack\>\""}], ",", 
+               RowBox[{"\"\<Atk\>\"", "\[Rule]", "\"\<attack\>\""}], ",", 
                "\[IndentingNewLine]", 
-               RowBox[{"\"\<Def\>\"", "\[Rule]", "\"\<Defense\>\""}], ",", 
+               RowBox[{"\"\<Def\>\"", "\[Rule]", "\"\<defense\>\""}], ",", 
                "\[IndentingNewLine]", 
-               RowBox[{"\"\<Spe\>\"", "\[Rule]", "\"\<Speed\>\""}], ",", 
+               RowBox[{"\"\<Spe\>\"", "\[Rule]", "\"\<speed\>\""}], ",", 
                "\[IndentingNewLine]", 
-               RowBox[{"\"\<SpA\>\"", "\[Rule]", "\"\<SpecialAttack\>\""}], 
+               RowBox[{"\"\<SpA\>\"", "\[Rule]", "\"\<special_attack\>\""}], 
                ",", "\[IndentingNewLine]", 
-               RowBox[{"\"\<SpD\>\"", "\[Rule]", "\"\<SpecialDefense\>\""}]}],
-               "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}], 
+               RowBox[{
+               "\"\<SpD\>\"", "\[Rule]", "\"\<special_defense\>\""}]}], 
+              "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}], 
            ",", "\[IndentingNewLine]", 
            RowBox[{"{", "\[IndentingNewLine]", 
             RowBox[{
              RowBox[{
-              RowBox[{"{", "a_", "}"}], "\[RuleDelayed]", "Null"}], ",", 
+              RowBox[{"{", "a_", "}"}], "\[RuleDelayed]", 
+              RowBox[{"{", 
+               RowBox[{"Null", ",", " ", "Null"}], "}"}]}], ",", 
              "\[IndentingNewLine]", 
              RowBox[{
               RowBox[{"{", 
@@ -781,76 +785,56 @@ Cell[BoxData[
   ";"}]], "Input",
  CellChangeTimes->{{3.780236859886204*^9, 3.780237190531403*^9}, {
   3.780249532188779*^9, 3.7802495424785023`*^9}, {3.7804153208076143`*^9, 
-  3.780415472587182*^9}},
+  3.780415472587182*^9}, {3.780602842992414*^9, 3.780602882339295*^9}},
  CellLabel->
-  "In[1009]:=",ExpressionUUID->"26744725-c2b1-4d54-b230-07fd8fb211f5"],
+  "In[1337]:=",ExpressionUUID->"26744725-c2b1-4d54-b230-07fd8fb211f5"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{
+ RowBox[{"ExportString", "[", "\[IndentingNewLine]", 
   RowBox[{
-   RowBox[{
+   RowBox[{"Dataset", "[", "\[IndentingNewLine]", 
     RowBox[{
-     RowBox[{"\"\<  \>\"", "<>", 
-      RowBox[{"ExportString", "[", 
-       RowBox[{"#", ",", " ", "\"\<JSON\>\"", ",", " ", 
-        RowBox[{"\"\<Compact\>\"", "\[Rule]", "True"}]}], "]"}]}], "&"}], "/@",
-     "natureDats"}], "//", 
-   RowBox[{
-    RowBox[{"StringRiffle", "[", 
-     RowBox[{"#", ",", " ", "\"\<,\\n\>\""}], "]"}], "&"}]}], "//", 
-  RowBox[{
-   RowBox[{"\"\<[\\n\>\"", "<>", "#", "<>", "\"\<\\n]\>\""}], 
-   "&"}]}]], "Input",
- CellChangeTimes->{{3.7804153615668097`*^9, 3.780415373262158*^9}, {
-  3.780415482732356*^9, 3.780415505057207*^9}},
+     RowBox[{
+      RowBox[{"AssociationThread", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Keys", "[", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Transpose", "[", "\[IndentingNewLine]", 
+         RowBox[{"Values", "/@", "#"}], "\[IndentingNewLine]", "]"}]}], 
+       "\[IndentingNewLine]", "]"}], "&"}], "@", "natureDats"}], 
+    "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+   "\"\<JSON\>\""}], "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.7806010400253*^9, 3.780601060157148*^9}},
  CellLabel->
-  "In[1012]:=",ExpressionUUID->"632f7e1e-1748-4750-bc0c-23279560da62"],
+  "In[1338]:=",ExpressionUUID->"88c38caf-a692-4bda-9899-fcab035094a3"],
 
-Cell[BoxData["\<\"[\\n  \
-{\\\"Name\\\":\\\"Hardy\\\",\\\"Modifiers\\\":null},\\n  \
-{\\\"Name\\\":\\\"Lonely\\\",\\\"Modifiers\\\":[\\\"Attack\\\",\\\"Defense\\\"\
-]},\\n  {\\\"Name\\\":\\\"Brave\\\",\\\"Modifiers\\\":[\\\"Attack\\\",\\\"\
-Speed\\\"]},\\n  \
-{\\\"Name\\\":\\\"Adament\\\",\\\"Modifiers\\\":[\\\"Attack\\\",\\\"\
-SpecialAttack\\\"]},\\n  \
-{\\\"Name\\\":\\\"Naughty\\\",\\\"Modifiers\\\":[\\\"Attack\\\",\\\"\
-SpecialDefense\\\"]},\\n  \
-{\\\"Name\\\":\\\"Bold\\\",\\\"Modifiers\\\":[\\\"Defense\\\",\\\"Attack\\\"]}\
-,\\n  {\\\"Name\\\":\\\"Docile\\\",\\\"Modifiers\\\":null},\\n  \
-{\\\"Name\\\":\\\"Relaxed\\\",\\\"Modifiers\\\":[\\\"Defense\\\",\\\"Speed\\\"\
-]},\\n  {\\\"Name\\\":\\\"Impish\\\",\\\"Modifiers\\\":[\\\"Defense\\\",\\\"\
-SpecialAttack\\\"]},\\n  \
-{\\\"Name\\\":\\\"Lax\\\",\\\"Modifiers\\\":[\\\"Defense\\\",\\\"\
-SpecialDefense\\\"]},\\n  \
-{\\\"Name\\\":\\\"Timid\\\",\\\"Modifiers\\\":[\\\"Speed\\\",\\\"Attack\\\"]},\
-\\n  {\\\"Name\\\":\\\"Hasty\\\",\\\"Modifiers\\\":[\\\"Speed\\\",\\\"Defense\
-\\\"]},\\n  {\\\"Name\\\":\\\"Serious\\\",\\\"Modifiers\\\":null},\\n  \
-{\\\"Name\\\":\\\"Jolly\\\",\\\"Modifiers\\\":[\\\"Speed\\\",\\\"\
-SpecialAttack\\\"]},\\n  \
-{\\\"Name\\\":\\\"Naive\\\",\\\"Modifiers\\\":[\\\"Speed\\\",\\\"\
-SpecialDefense\\\"]},\\n  \
-{\\\"Name\\\":\\\"Modest\\\",\\\"Modifiers\\\":[\\\"SpecialAttack\\\",\\\"\
-Attack\\\"]},\\n  \
-{\\\"Name\\\":\\\"Mild\\\",\\\"Modifiers\\\":[\\\"SpecialAttack\\\",\\\"\
-Defense\\\"]},\\n  \
-{\\\"Name\\\":\\\"Quiet\\\",\\\"Modifiers\\\":[\\\"SpecialAttack\\\",\\\"\
-Speed\\\"]},\\n  {\\\"Name\\\":\\\"Bashful\\\",\\\"Modifiers\\\":null},\\n  {\
-\\\"Name\\\":\\\"Rash\\\",\\\"Modifiers\\\":[\\\"SpecialAttack\\\",\\\"\
-SpecialDefense\\\"]},\\n  \
-{\\\"Name\\\":\\\"Calm\\\",\\\"Modifiers\\\":[\\\"SpecialDefense\\\",\\\"\
-Attack\\\"]},\\n  \
-{\\\"Name\\\":\\\"Gentle\\\",\\\"Modifiers\\\":[\\\"SpecialDefense\\\",\\\"\
-Defense\\\"]},\\n  \
-{\\\"Name\\\":\\\"Sassy\\\",\\\"Modifiers\\\":[\\\"SpecialDefense\\\",\\\"\
-Speed\\\"]},\\n  \
-{\\\"Name\\\":\\\"Careful\\\",\\\"Modifiers\\\":[\\\"SpecialDefense\\\",\\\"\
-SpecialAttack\\\"]},\\n  {\\\"Name\\\":\\\"Quirky\\\",\\\"Modifiers\\\":null}\
-\\n]\"\>"], "Output",
- CellChangeTimes->{{3.780415437578743*^9, 3.780415505515658*^9}},
+Cell[BoxData["\<\"{\\n\\t\\\"Name\\\": [\\\"Hardy\\\", \\\"Lonely\\\", \
+\\\"Brave\\\", \\\"Adament\\\", \\\"Naughty\\\", \\\"Bold\\\", \
+\\\"Docile\\\", \\\"Relaxed\\\", \\\"Impish\\\", \\\"Lax\\\", \\\"Timid\\\", \
+\\\"Hasty\\\", \\\"Serious\\\", \\\"Jolly\\\", \\\"Naive\\\", \\\"Modest\\\", \
+\\\"Mild\\\", \\\"Quiet\\\", \\\"Bashful\\\", \\\"Rash\\\", \\\"Calm\\\", \
+\\\"Gentle\\\", \\\"Sassy\\\", \\\"Careful\\\", \
+\\\"Quirky\\\"],\\n\\t\\\"Modifiers\\\": [[null, null], [\\\"attack\\\", \
+\\\"defense\\\"], [\\\"attack\\\", \\\"speed\\\"], [\\\"attack\\\", \
+\\\"special_attack\\\"], [\\\"attack\\\", \\\"special_defense\\\"], \
+[\\\"defense\\\", \\\"attack\\\"], [null, null], [\\\"defense\\\", \
+\\\"speed\\\"], [\\\"defense\\\", \\\"special_attack\\\"], [\\\"defense\\\", \
+\\\"special_defense\\\"], [\\\"speed\\\", \\\"attack\\\"], [\\\"speed\\\", \\\
+\"defense\\\"], [null, null], [\\\"speed\\\", \\\"special_attack\\\"], \
+[\\\"speed\\\", \\\"special_defense\\\"], [\\\"special_attack\\\", \\\"attack\
+\\\"], [\\\"special_attack\\\", \\\"defense\\\"], [\\\"special_attack\\\", \\\
+\"speed\\\"], [null, null], [\\\"special_attack\\\", \
+\\\"special_defense\\\"], [\\\"special_defense\\\", \\\"attack\\\"], \
+[\\\"special_defense\\\", \\\"defense\\\"], [\\\"special_defense\\\", \
+\\\"speed\\\"], [\\\"special_defense\\\", \\\"special_attack\\\"], [null, \
+null]]\\n}\"\>"], "Output",
+ CellChangeTimes->{
+  3.7806010608760853`*^9, {3.7806028553980083`*^9, 3.780602884154467*^9}},
  CellLabel->
-  "Out[1012]=",ExpressionUUID->"0da5244c-5a61-47e7-81cb-5ef72b94161b"]
+  "Out[1338]=",ExpressionUUID->"5e85e3e1-9c02-418c-be1e-442d8df97d54"]
 }, Open  ]]
 }, Open  ]]
 }, Closed]],
@@ -1895,252 +1879,188 @@ Cell["split", "Subsubsubsection",
   3.780406216481325*^9}},ExpressionUUID->"0a471f4e-d168-4d59-a7da-\
 99288df8af64"],
 
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"abilitySplit", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"abils", "//", 
+      RowBox[{"StringCases", "[", "\[IndentingNewLine]", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"\"\<if(m==1){\>\"", "~~", 
+           RowBox[{"core", ":", 
+            RowBox[{
+             RowBox[{"Except", "[", "\"\<}\>\"", "]"}], ".."}]}], "~~", 
+           "\"\<}\>\""}], "\[RuleDelayed]", "\[IndentingNewLine]", 
+          RowBox[{"StringJoin", "@@", "\[IndentingNewLine]", 
+           RowBox[{"StringCases", "[", 
+            RowBox[{"core", ",", " ", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"\"\<o=\\\"\>\"", "|", "\"\<o+=\\\"\>\""}], ")"}], "~~", 
+               RowBox[{"ab", ":", 
+                RowBox[{
+                 RowBox[{"Except", "[", "\"\<\\n\>\"", "]"}], ".."}]}], "~~", 
+               "\"\<\\\"\>\""}], "\[RuleDelayed]", "ab"}]}], 
+            "\[IndentingNewLine]", "]"}]}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"\"\<if(m==0){\>\"", "~~", 
+           RowBox[{"core", ":", 
+            RowBox[{
+             RowBox[{"Except", "[", "\"\<}\>\"", "]"}], ".."}]}], "~~", 
+           "\"\<}\>\""}], "\[RuleDelayed]", "\[IndentingNewLine]", 
+          RowBox[{"StringJoin", "@@", "\[IndentingNewLine]", 
+           RowBox[{"StringCases", "[", 
+            RowBox[{"core", ",", " ", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"\"\<o=\\\"\>\"", "|", "\"\<o+=\\\"\>\""}], ")"}], "~~", 
+               RowBox[{"ab", ":", 
+                RowBox[{
+                 RowBox[{"Except", "[", "\"\<\\n\>\"", "]"}], ".."}]}], "~~", 
+               "\"\<\\\"\>\""}], "\[RuleDelayed]", "ab"}]}], 
+            "\[IndentingNewLine]", "]"}]}]}]}], "\[IndentingNewLine]", "}"}], 
+       "\[IndentingNewLine]", "]"}]}], "//", 
+     RowBox[{
+      RowBox[{"Partition", "[", 
+       RowBox[{"#", ",", " ", "2"}], "]"}], "&"}]}], "//", 
+    RowBox[{"Map", "[", 
+     RowBox[{
+      RowBox[{"AssociationThread", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<ability\>\"", ",", " ", "\"\<description\>\""}], "}"}], 
+        ",", " ", "#"}], "]"}], "&"}], "]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.780406404958496*^9, 3.7804065064437532`*^9}, {
+  3.7806039945893927`*^9, 3.780603995189196*^9}, {3.780604038465447*^9, 
+  3.7806040407020473`*^9}},
+ CellLabel->
+  "In[1343]:=",ExpressionUUID->"322045d7-d8a3-4820-83c6-37603c4cb5fd"],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
   RowBox[{
    RowBox[{
-    RowBox[{"abils", "//", 
-     RowBox[{"StringCases", "[", "\[IndentingNewLine]", 
-      RowBox[{"{", "\[IndentingNewLine]", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"\"\<if(m==1){\>\"", "~~", 
-          RowBox[{"core", ":", 
-           RowBox[{
-            RowBox[{"Except", "[", "\"\<}\>\"", "]"}], ".."}]}], "~~", 
-          "\"\<}\>\""}], "\[RuleDelayed]", "\[IndentingNewLine]", 
-         RowBox[{"StringJoin", "@@", "\[IndentingNewLine]", 
-          RowBox[{"StringCases", "[", 
-           RowBox[{"core", ",", " ", "\[IndentingNewLine]", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{"\"\<o=\\\"\>\"", "|", "\"\<o+=\\\"\>\""}], ")"}], "~~", 
-              RowBox[{"ab", ":", 
-               RowBox[{
-                RowBox[{"Except", "[", "\"\<\\n\>\"", "]"}], ".."}]}], "~~", 
-              "\"\<\\\"\>\""}], "\[RuleDelayed]", "ab"}]}], 
-           "\[IndentingNewLine]", "]"}]}]}], ",", "\[IndentingNewLine]", 
-        RowBox[{
-         RowBox[{"\"\<if(m==0){\>\"", "~~", 
-          RowBox[{"core", ":", 
-           RowBox[{
-            RowBox[{"Except", "[", "\"\<}\>\"", "]"}], ".."}]}], "~~", 
-          "\"\<}\>\""}], "\[RuleDelayed]", "\[IndentingNewLine]", 
-         RowBox[{"StringJoin", "@@", "\[IndentingNewLine]", 
-          RowBox[{"StringCases", "[", 
-           RowBox[{"core", ",", " ", "\[IndentingNewLine]", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{"\"\<o=\\\"\>\"", "|", "\"\<o+=\\\"\>\""}], ")"}], "~~", 
-              RowBox[{"ab", ":", 
-               RowBox[{
-                RowBox[{"Except", "[", "\"\<\\n\>\"", "]"}], ".."}]}], "~~", 
-              "\"\<\\\"\>\""}], "\[RuleDelayed]", "ab"}]}], 
-           "\[IndentingNewLine]", "]"}]}]}]}], "\[IndentingNewLine]", "}"}], 
-      "\[IndentingNewLine]", "]"}]}], "//", 
     RowBox[{
-     RowBox[{"Partition", "[", 
-      RowBox[{"#", ",", " ", "2"}], "]"}], "&"}]}], "//", 
-   RowBox[{"Map", "[", 
-    RowBox[{
-     RowBox[{"AssociationThread", "[", 
+     RowBox[{"AssociationThread", "[", "\[IndentingNewLine]", 
       RowBox[{
-       RowBox[{"{", 
-        RowBox[{"\"\<ability\>\"", ",", " ", "\"\<description\>\""}], "}"}], 
-       ",", " ", "#"}], "]"}], "&"}], "]"}]}], "//", 
+       RowBox[{"Keys", "[", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Transpose", "[", "\[IndentingNewLine]", 
+        RowBox[{"Values", "/@", "#"}], "\[IndentingNewLine]", "]"}]}], 
+      "\[IndentingNewLine]", "]"}], "&"}], "@", "abilitySplit"}], "//", 
+   "Dataset"}], "//", 
   RowBox[{
    RowBox[{"ExportString", "[", 
     RowBox[{"#", ",", " ", "\"\<JSON\>\""}], "]"}], "&"}]}]], "Input",
- CellChangeTimes->{{3.780406404958496*^9, 3.7804065064437532`*^9}},
+ CellChangeTimes->{{3.780406404958496*^9, 3.7804065064437532`*^9}, {
+  3.7806039945893927`*^9, 3.7806040431548634`*^9}},
  CellLabel->
-  "In[873]:=",ExpressionUUID->"322045d7-d8a3-4820-83c6-37603c4cb5fd"],
+  "In[1344]:=",ExpressionUUID->"ecf1acc5-35e5-4530-ac13-9369e5879626"],
 
-Cell[BoxData["\<\"[\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Air Lock\\\",\\n\\t\\t\
-\\\"description\\\":\\\"Is not effected by \
-weather.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Arena Trap\\\",\\n\\t\
-\\t\\\"description\\\":\\\"The opponent cannot run nor switch. Flying-type \
-Pokemon and Pokemon with the Levitate special ability are \
-uneffected.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Battle \
-Armor\\\",\\n\\t\\t\\\"description\\\":\\\"The opponent's moves cannot \
-Critical Hit.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Blaze\\\",\\n\\t\
-\\t\\\"description\\\":\\\"When HP is below 1\\\\/3rd, Fire's power increases \
-to 1.5 times.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Cacophony\\\",\\\
-n\\t\\t\\\"description\\\":\\\"Uneffected by sound \
-moves.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Chlorophyll\\\",\\n\\t\\\
-t\\\"description\\\":\\\"When sunny, Speed \
-doubles.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Clear Body\\\",\\n\\t\
-\\t\\\"description\\\":\\\"Opponent's moves that lower ability values have no \
-effect.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Cloud \
-Nine\\\",\\n\\t\\t\\\"description\\\":\\\"Is not effected by \
-weather.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Color \
-Change\\\",\\n\\t\\t\\\"description\\\":\\\"Becomes the type of a damaging \
-move that hits \
-it.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Compoundeyes\\\",\\n\\t\\t\
-\\\"description\\\":\\\"Accuracy is raised to 30% in \
-battles.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Cute Charm\\\",\\n\\t\
-\\t\\\"description\\\":\\\"The opponent has a 30% chance of being induced \
-with ATTRACT when using a direct attack against this \
-Pokemon.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Damp\\\",\\n\\t\\t\\\"\
-description\\\":\\\"Neither side can use Explosion or \
-Selfdestruct.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Drizzle\\\",\\n\\\
-t\\t\\\"description\\\":\\\"Rain falls when the Pokemon enters battle.\\\"\\n\
-\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Drought\\\",\\n\\t\\t\\\"description\
-\\\":\\\"Sunlight shines when the Pokemon enters \
-battle.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Early \
-Bird\\\",\\n\\t\\t\\\"description\\\":\\\"SLEEP conditions lasts for half as \
-long.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Effect \
-Spore\\\",\\n\\t\\t\\\"description\\\":\\\"The opponent has a 10% chance of \
-being induced by PARALYE, POISON, or SLEEP when using a direct attack against \
-this Pokemon.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Flame \
-Body\\\",\\n\\t\\t\\\"description\\\":\\\"The opponent has a 30% chance of \
-being induced with BURN when using a direct attack against this \
-Pokemon.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Flash Fire\\\",\\n\\t\
-\\t\\\"description\\\":\\\"Activates when user is hit by a damaging Fire-type \
-move. Once activiated, user's Fire-type moves deal 1.5 times damage and user \
-is immune to damage from Fire-type \
-attacks.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Forecast\\\",\\n\\t\\\
-t\\\"description\\\":\\\"Its type and figure change with the \
-weather.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Guts\\\",\\n\\t\\t\\\"\
-description\\\":\\\"Attack raises to 1.5 times when induced with a \
-status.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Huge \
-Power\\\",\\n\\t\\t\\\"description\\\":\\\"Attack power is doubled in battle. \
-It will return to normal if special ability is \
-taken.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Hustle\\\",\\n\\t\\t\\\"\
-description\\\":\\\"Damage from physical attacks is 1.5 times, but average \
-accuracy is only 80%.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Hyper \
-Cutter\\\",\\n\\t\\t\\\"description\\\":\\\"Opponent cannot lower Attack \
-value.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Illuminate\\\",\\n\\t\\\
-t\\\"description\\\":\\\"If the Pokemon is in the lead spot, chance of \
-encountering a wild Pokemon \
-raises.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Immunity\\\",\\n\\t\\t\
-\\\"description\\\":\\\"Cannot be POISON \
-condition.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Inner Focus\\\",\\n\
-\\t\\t\\\"description\\\":\\\"Will not \
-flinch.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Insomnia\\\",\\n\\t\\t\
-\\\"description\\\":\\\"Cannot be SLEEP \
-condition.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Intimidate\\\",\\n\\\
-t\\t\\\"description\\\":\\\"Upon entering battle, the opponent's Attack \
-lowers one stage.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Keen \
-Eye\\\",\\n\\t\\t\\\"description\\\":\\\"Opponent cannot lower \
-accuracy.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Levitate\\\",\\n\\t\\\
-t\\\"description\\\":\\\"Damage dealing Ground-type moves have no effect.\\\"\
-\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Lightningrod\\\",\\n\\t\\t\\\"\
-description\\\":\\\"Electric type moves are drawn to \
-it.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Limber\\\",\\n\\t\\t\\\"\
-description\\\":\\\"Cannot be Paralyze condition.\\\"\\n\\t},\\n\\t{\\n\\t\\t\
-\\\"ability\\\":\\\"Liquid Ooze\\\",\\n\\t\\t\\\"description\\\":\\\"When the \
-opponent absorbs Hit Points, the opponent instead loses Hit \
-Points.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Magma Armor\\\",\\n\\t\
-\\t\\\"description\\\":\\\"Cannot be FREEZE \
-condition.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Magnet Pull\\\",\\n\
-\\t\\t\\\"description\\\":\\\"Steel types cannot run nor \
-switch.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Marvel \
-Scale\\\",\\n\\t\\t\\\"description\\\":\\\"Defense raises to 1.5 times when \
-induced with a status.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Minus\\\
-\",\\n\\t\\t\\\"description\\\":\\\"When battling with Plus, Special Attack \
-becomes 1.5 times.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Natural \
-Cure\\\",\\n\\t\\t\\\"description\\\":\\\"Status is healed when withdrawn \
-from battle.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"No \
-Ability\\\",\\n\\t\\t\\\"description\\\":\\\"No special \
-ability\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Oblivious\\\",\\n\\t\\\
-t\\\"description\\\":\\\"Cannot be Attract \
-condition.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Overgrow\\\",\\n\\t\
-\\t\\\"description\\\":\\\"When HP is below 1\\\\/3rd, Grass's power \
-increases to 1.5 times.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Own \
-Tempo\\\",\\n\\t\\t\\\"description\\\":\\\"Cannot be confusion condition.\\\"\
-\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Pickup\\\",\\n\\t\\t\\\"\
-description\\\":\\\"May find an item after \
-battle.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Plus\\\",\\n\\t\\t\\\"\
-description\\\":\\\"When battling with Minus, Special Attack becomes 1.5 \
-times.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Poison Point\\\",\\n\\t\
-\\t\\\"description\\\":\\\"The opponent has a 30% chance of being induced \
-with POISON when using a direct attack against this \
-Pokemon.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Pressure\\\",\\n\\t\\\
-t\\\"description\\\":\\\"When hit by a move, the opponent's PP lowers by 2 \
-rather than 1.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Pure Power\\\",\
-\\n\\t\\t\\\"description\\\":\\\"Attack power is doubled in battle. It will \
-return to normal if special ability is \
-taken.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Rain Dish\\\",\\n\\t\\t\
-\\\"description\\\":\\\"A little bit of HP is restored every turn that it is \
-raining.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Rock \
-Head\\\",\\n\\t\\t\\\"description\\\":\\\"Does not receive recoil damage from \
-moves such as Double-Edge and Volt \
-Tackle.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Rough \
-Skin\\\",\\n\\t\\t\\\"description\\\":\\\"The opponent is hurt by 1\\\\/16th \
-hit points of recoil when using a direct attack against this \
-Pokemon.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Run \
-Away\\\",\\n\\t\\t\\\"description\\\":\\\"Except for trainer battles, can \
-always run from battle.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Sand \
-Stream\\\",\\n\\t\\t\\\"description\\\":\\\"Sandstorm blows when the Pokemon \
-enters battle.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Sand \
-Veil\\\",\\n\\t\\t\\\"description\\\":\\\"During a sandstorm, evasion \
-rises.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Serene Grace\\\",\\n\\t\
-\\t\\\"description\\\":\\\"The chances of a move having an effect \
-doubles.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Shadow Tag\\\",\\n\\t\
-\\t\\\"description\\\":\\\"The opponent cannot run nor switch.\\\"\\n\\t},\\n\
-\\t{\\n\\t\\t\\\"ability\\\":\\\"Shed \
-Skin\\\",\\n\\t\\t\\\"description\\\":\\\"Every turn, it has a 1 in 3 chance \
-of healing from a status \
-condition.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Shell Armor\\\",\\n\
-\\t\\t\\\"description\\\":\\\"The opponent's moves cannot Critical \
-Hit.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Shield Dust\\\",\\n\\t\\t\
-\\\"description\\\":\\\"Opponent's move do not have an additional effect.\\\"\
-\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Soundproof\\\",\\n\\t\\t\\\"\
-description\\\":\\\"Uneffected by sound \
-moves.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Speed \
-Boost\\\",\\n\\t\\t\\\"description\\\":\\\"Speed increases by one stage each \
-turn.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Static\\\",\\n\\t\\t\\\"\
-description\\\":\\\"The opponent has a 30% chance of being induced with \
-PARALYE when using a direct attack against this \
-Pokemon.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Stench\\\",\\n\\t\\t\\\
-\"description\\\":\\\"If the Pokemon is in the lead spot, chance of \
-encountering a wild Pokemon \
-lowers.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Sticky Hold\\\",\\n\\t\
-\\t\\\"description\\\":\\\"Item cannot be \
-taken.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Sturdy\\\",\\n\\t\\t\\\"\
-description\\\":\\\"One-hit knock out moves have no \
-effect.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Suction \
-Cups\\\",\\n\\t\\t\\\"description\\\":\\\"Cannot be switched by the opponent \
-using Roar or Whirlwind.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Swarm\
-\\\",\\n\\t\\t\\\"description\\\":\\\"When HP is below 1\\\\/3rd, Bug's power \
-increases to 1.5 times.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Swift \
-Swim\\\",\\n\\t\\t\\\"description\\\":\\\"When rainy, Speed \
-doubles.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Synchronize\\\",\\n\\\
-t\\t\\\"description\\\":\\\"When the Pokemon becomes Poison, Paralyze, or \
-Burn, so does the \
-opponent.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Thick Fat\\\",\\n\\t\
-\\t\\\"description\\\":\\\"Fire and Ice-type moves deal 50% \
-damage.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Torrent\\\",\\n\\t\\t\\\
-\"description\\\":\\\"When HP is below 1\\\\/3rd, Water's power increases to \
-1.5 times.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Trace\\\",\\n\\t\\t\
-\\\"description\\\":\\\"Special ability becomes the same as that of the \
-opponent.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Truant\\\",\\n\\t\\t\
-\\\"description\\\":\\\"Cannot attack consecutively.\\\"\\n\\t},\\n\\t{\\n\\t\
-\\t\\\"ability\\\":\\\"Vital \
-Spirit\\\",\\n\\t\\t\\\"description\\\":\\\"Cannot be SLEEP condition.\\\"\\n\
-\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Volt \
-Absorb\\\",\\n\\t\\t\\\"description\\\":\\\"Healed by up to 1\\\\/4 maximum \
-Hit Points when hit with Electric-type \
-moves.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Water Absorb\\\",\\n\\t\
-\\t\\\"description\\\":\\\"Healed by up to 1\\\\/4 maximum Hit Points when \
-hit with Water-type \
-moves.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Water \
-Veil\\\",\\n\\t\\t\\\"description\\\":\\\"Cannot be BURN \
-condition.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"White Smoke\\\",\\n\
-\\t\\t\\\"description\\\":\\\"Opponent's moves that lower ability values have \
-no effect.\\\"\\n\\t},\\n\\t{\\n\\t\\t\\\"ability\\\":\\\"Wonder \
-Guard\\\",\\n\\t\\t\\\"description\\\":\\\"Only harmed by Super Effective \
-damage.\\\"\\n\\t}\\n]\"\>"], "Output",
- CellChangeTimes->{3.780406506781541*^9},
+Cell[BoxData["\<\"{\\n\\t\\\"ability\\\": [\\\"Air Lock\\\", \\\"Arena Trap\\\
+\", \\\"Battle Armor\\\", \\\"Blaze\\\", \\\"Cacophony\\\", \\\"Chlorophyll\\\
+\", \\\"Clear Body\\\", \\\"Cloud Nine\\\", \\\"Color Change\\\", \
+\\\"Compoundeyes\\\", \\\"Cute Charm\\\", \\\"Damp\\\", \\\"Drizzle\\\", \
+\\\"Drought\\\", \\\"Early Bird\\\", \\\"Effect Spore\\\", \\\"Flame \
+Body\\\", \\\"Flash Fire\\\", \\\"Forecast\\\", \\\"Guts\\\", \\\"Huge \
+Power\\\", \\\"Hustle\\\", \\\"Hyper Cutter\\\", \\\"Illuminate\\\", \
+\\\"Immunity\\\", \\\"Inner Focus\\\", \\\"Insomnia\\\", \\\"Intimidate\\\", \
+\\\"Keen Eye\\\", \\\"Levitate\\\", \\\"Lightningrod\\\", \\\"Limber\\\", \
+\\\"Liquid Ooze\\\", \\\"Magma Armor\\\", \\\"Magnet Pull\\\", \\\"Marvel \
+Scale\\\", \\\"Minus\\\", \\\"Natural Cure\\\", \\\"No Ability\\\", \
+\\\"Oblivious\\\", \\\"Overgrow\\\", \\\"Own Tempo\\\", \\\"Pickup\\\", \
+\\\"Plus\\\", \\\"Poison Point\\\", \\\"Pressure\\\", \\\"Pure Power\\\", \
+\\\"Rain Dish\\\", \\\"Rock Head\\\", \\\"Rough Skin\\\", \\\"Run Away\\\", \
+\\\"Sand Stream\\\", \\\"Sand Veil\\\", \\\"Serene Grace\\\", \\\"Shadow \
+Tag\\\", \\\"Shed Skin\\\", \\\"Shell Armor\\\", \\\"Shield Dust\\\", \
+\\\"Soundproof\\\", \\\"Speed Boost\\\", \\\"Static\\\", \\\"Stench\\\", \
+\\\"Sticky Hold\\\", \\\"Sturdy\\\", \\\"Suction Cups\\\", \\\"Swarm\\\", \
+\\\"Swift Swim\\\", \\\"Synchronize\\\", \\\"Thick Fat\\\", \\\"Torrent\\\", \
+\\\"Trace\\\", \\\"Truant\\\", \\\"Vital Spirit\\\", \\\"Volt Absorb\\\", \
+\\\"Water Absorb\\\", \\\"Water Veil\\\", \\\"White Smoke\\\", \\\"Wonder \
+Guard\\\"],\\n\\t\\\"description\\\": [\\\"Is not effected by weather.\\\", \
+\\\"The opponent cannot run nor switch. Flying-type Pokemon and Pokemon with \
+the Levitate special ability are uneffected.\\\", \\\"The opponent's moves \
+cannot Critical Hit.\\\", \\\"When HP is below 1/3rd, Fire's power increases \
+to 1.5 times.\\\", \\\"Uneffected by sound moves.\\\", \\\"When sunny, Speed \
+doubles.\\\", \\\"Opponent's moves that lower ability values have no \
+effect.\\\", \\\"Is not effected by weather.\\\", \\\"Becomes the type of a \
+damaging move that hits it.\\\", \\\"Accuracy is raised to 30% in \
+battles.\\\", \\\"The opponent has a 30% chance of being induced with ATTRACT \
+when using a direct attack against this Pokemon.\\\", \\\"Neither side can \
+use Explosion or Selfdestruct.\\\", \\\"Rain falls when the Pokemon enters \
+battle.\\\", \\\"Sunlight shines when the Pokemon enters battle.\\\", \
+\\\"SLEEP conditions lasts for half as long.\\\", \\\"The opponent has a 10% \
+chance of being induced by PARALYE, POISON, or SLEEP when using a direct \
+attack against this Pokemon.\\\", \\\"The opponent has a 30% chance of being \
+induced with BURN when using a direct attack against this Pokemon.\\\", \
+\\\"Activates when user is hit by a damaging Fire-type move. Once activiated, \
+user's Fire-type moves deal 1.5 times damage and user is immune to damage \
+from Fire-type attacks.\\\", \\\"Its type and figure change with the weather.\
+\\\", \\\"Attack raises to 1.5 times when induced with a status.\\\", \
+\\\"Attack power is doubled in battle. It will return to normal if special \
+ability is taken.\\\", \\\"Damage from physical attacks is 1.5 times, but \
+average accuracy is only 80%.\\\", \\\"Opponent cannot lower Attack \
+value.\\\", \\\"If the Pokemon is in the lead spot, chance of encountering a \
+wild Pokemon raises.\\\", \\\"Cannot be POISON condition.\\\", \\\"Will not \
+flinch.\\\", \\\"Cannot be SLEEP condition.\\\", \\\"Upon entering battle, \
+the opponent's Attack lowers one stage.\\\", \\\"Opponent cannot lower \
+accuracy.\\\", \\\"Damage dealing Ground-type moves have no effect.\\\", \
+\\\"Electric type moves are drawn to it.\\\", \\\"Cannot be Paralyze \
+condition.\\\", \\\"When the opponent absorbs Hit Points, the opponent \
+instead loses Hit Points.\\\", \\\"Cannot be FREEZE condition.\\\", \\\"Steel \
+types cannot run nor switch.\\\", \\\"Defense raises to 1.5 times when \
+induced with a status.\\\", \\\"When battling with Plus, Special Attack \
+becomes 1.5 times.\\\", \\\"Status is healed when withdrawn from battle.\\\", \
+\\\"No special ability\\\", \\\"Cannot be Attract condition.\\\", \\\"When HP \
+is below 1/3rd, Grass's power increases to 1.5 times.\\\", \\\"Cannot be \
+confusion condition.\\\", \\\"May find an item after battle.\\\", \\\"When \
+battling with Minus, Special Attack becomes 1.5 times.\\\", \\\"The opponent \
+has a 30% chance of being induced with POISON when using a direct attack \
+against this Pokemon.\\\", \\\"When hit by a move, the opponent's PP lowers \
+by 2 rather than 1.\\\", \\\"Attack power is doubled in battle. It will \
+return to normal if special ability is taken.\\\", \\\"A little bit of HP is \
+restored every turn that it is raining.\\\", \\\"Does not receive recoil \
+damage from moves such as Double-Edge and Volt Tackle.\\\", \\\"The opponent \
+is hurt by 1/16th hit points of recoil when using a direct attack against \
+this Pokemon.\\\", \\\"Except for trainer battles, can always run from \
+battle.\\\", \\\"Sandstorm blows when the Pokemon enters battle.\\\", \
+\\\"During a sandstorm, evasion rises.\\\", \\\"The chances of a move having \
+an effect doubles.\\\", \\\"The opponent cannot run nor switch.\\\", \
+\\\"Every turn, it has a 1 in 3 chance of healing from a status \
+condition.\\\", \\\"The opponent's moves cannot Critical Hit.\\\", \
+\\\"Opponent's move do not have an additional effect.\\\", \\\"Uneffected by \
+sound moves.\\\", \\\"Speed increases by one stage each turn.\\\", \\\"The \
+opponent has a 30% chance of being induced with PARALYE when using a direct \
+attack against this Pokemon.\\\", \\\"If the Pokemon is in the lead spot, \
+chance of encountering a wild Pokemon lowers.\\\", \\\"Item cannot be \
+taken.\\\", \\\"One-hit knock out moves have no effect.\\\", \\\"Cannot be \
+switched by the opponent using Roar or Whirlwind.\\\", \\\"When HP is below \
+1/3rd, Bug's power increases to 1.5 times.\\\", \\\"When rainy, Speed \
+doubles.\\\", \\\"When the Pokemon becomes Poison, Paralyze, or Burn, so does \
+the opponent.\\\", \\\"Fire and Ice-type moves deal 50% damage.\\\", \\\"When \
+HP is below 1/3rd, Water's power increases to 1.5 times.\\\", \\\"Special \
+ability becomes the same as that of the opponent.\\\", \\\"Cannot attack \
+consecutively.\\\", \\\"Cannot be SLEEP condition.\\\", \\\"Healed by up to \
+1/4 maximum Hit Points when hit with Electric-type moves.\\\", \\\"Healed by \
+up to 1/4 maximum Hit Points when hit with Water-type moves.\\\", \\\"Cannot \
+be BURN condition.\\\", \\\"Opponent's moves that lower ability values have \
+no effect.\\\", \\\"Only harmed by Super Effective damage.\\\"]\\n}\"\>"], \
+"Output",
+ CellChangeTimes->{3.7806040434713373`*^9},
  CellLabel->
-  "Out[873]=",ExpressionUUID->"51b01aad-e700-4e37-b535-3656d1ab7b68"]
+  "Out[1344]=",ExpressionUUID->"be846264-f9b2-4a72-81fb-4c046c60ef40"]
 }, Open  ]]
-}, Closed]]
-}, Open  ]],
+}, Open  ]]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2996,20 +2916,23 @@ Cell[BoxData[
               RowBox[{";;", "3"}], "]"}], "]"}]}], "\[IndentingNewLine]", 
            "]"}], ",", "\[IndentingNewLine]", 
           RowBox[{"<|", "\[IndentingNewLine]", 
-           RowBox[{"\"\<BaseStats\>\"", "\[Rule]", "\[IndentingNewLine]", 
-            RowBox[{"AssociationThread", "[", "\[IndentingNewLine]", 
-             RowBox[{
-              RowBox[{"{", 
-               RowBox[{
-               "\"\<HitPoints\>\"", ",", "\"\<Attack\>\"", ",", " ", 
-                "\"\<Defense\>\"", ",", "\"\<Speed\>\"", ",", 
-                "\"\<SpecialAttack\>\"", ",", "\"\<SpecialDefense\>\""}], 
-               "}"}], ",", "\[IndentingNewLine]", 
-              RowBox[{"sp", "[", 
-               RowBox[{"[", 
-                RowBox[{"4", ";;", "9"}], "]"}], "]"}]}], 
-             "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "|>"}], 
-          ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"\"\<Form\>\"", "\[Rule]", "Null"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"\"\<BaseStats\>\"", "\[Rule]", "\[IndentingNewLine]", 
+             RowBox[{"AssociationThread", "[", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                "\"\<HitPoints\>\"", ",", "\"\<Attack\>\"", ",", " ", 
+                 "\"\<Defense\>\"", ",", "\"\<Speed\>\"", ",", 
+                 "\"\<SpecialAttack\>\"", ",", "\"\<SpecialDefense\>\""}], 
+                "}"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"sp", "[", 
+                RowBox[{"[", 
+                 RowBox[{"4", ";;", "9"}], "]"}], "]"}]}], 
+              "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "|>"}],
+           ",", "\[IndentingNewLine]", 
           RowBox[{"<|", "\[IndentingNewLine]", 
            RowBox[{"\"\<EVs\>\"", "\[Rule]", "\[IndentingNewLine]", 
             RowBox[{"AssociationThread", "[", "\[IndentingNewLine]", 
@@ -3048,34 +2971,11 @@ Cell[BoxData[
   3.780407383876774*^9, 3.780407434563204*^9}, {3.780407471863409*^9, 
   3.780407593742742*^9}, {3.780407801288411*^9, 3.780407808923177*^9}, {
   3.780407851424357*^9, 3.780407863589477*^9}, {3.7804130337680798`*^9, 
-  3.780413036158437*^9}, {3.7804145050638113`*^9, 3.7804145393981647`*^9}},
+  3.780413036158437*^9}, {3.7804145050638113`*^9, 3.7804145393981647`*^9}, {
+  3.7806082347400227`*^9, 3.780608261702462*^9}, {3.7806083356287327`*^9, 
+  3.780608336384921*^9}},
  CellLabel->
-  "In[983]:=",ExpressionUUID->"c096afe2-fd41-4d42-9038-4a205bdb507e"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   RowBox[{"MemberQ", "[", 
-    RowBox[{"#", ",", " ", "50"}], "]"}], "&"}], "/@", "\[IndentingNewLine]", 
-  
-  RowBox[{"pokeDatsReal", "[", 
-   RowBox[{"[", 
-    RowBox[{"All", ",", " ", "\"\<Ability\>\""}], "]"}], "]"}]}]], "Input",
- CellChangeTimes->{{3.780456948719454*^9, 3.780456995614338*^9}},
- CellLabel->
-  "In[1241]:=",ExpressionUUID->"09f99843-62c0-4882-b911-ab57e2dab1d7"],
-
-Cell[BoxData[
- RowBox[{"Select", "[", "\[IndentingNewLine]", 
-  RowBox[{"pokeDatsReal", ",", "\[IndentingNewLine]", 
-   RowBox[{
-    RowBox[{"#Gender", "\[Equal]", "12"}], "&"}]}], "\[IndentingNewLine]", 
-  "]"}]], "Input",
- CellChangeTimes->{{3.780457007830701*^9, 3.780457022045928*^9}, {
-  3.780457323375368*^9, 3.780457352592362*^9}, {3.780457668522813*^9, 
-  3.7804576688521442`*^9}},
- CellLabel->
-  "In[1248]:=",ExpressionUUID->"06e75110-d17a-4707-a4bb-018dd697bc1d"],
+  "In[1366]:=",ExpressionUUID->"c096afe2-fd41-4d42-9038-4a205bdb507e"],
 
 Cell[BoxData[
  RowBox[{
@@ -3108,6 +3008,7 @@ Cell[BoxData[
         RowBox[{"If", "[", 
          RowBox[{
           RowBox[{
+           RowBox[{"StringQ", "[", "#", "]"}], "&&", 
            RowBox[{
             RowBox[{"StringLength", "[", "#", "]"}], "<", "4"}], "&&", 
            RowBox[{"(", 
@@ -3147,13 +3048,134 @@ Cell[BoxData[
   3.780407383876774*^9, 3.780407434563204*^9}, {3.780407471863409*^9, 
   3.780407593742742*^9}, {3.780407801288411*^9, 3.780407808923177*^9}, {
   3.780407851424357*^9, 3.780408146714253*^9}, {3.780409663147039*^9, 
-  3.7804096948695507`*^9}, {3.780414502506893*^9, 3.7804145188405123`*^9}},
+  3.7804096948695507`*^9}, {3.780414502506893*^9, 3.7804145188405123`*^9}, {
+  3.7806083410732727`*^9, 3.7806083445617123`*^9}},
  CellLabel->
-  "In[984]:=",ExpressionUUID->"6b2c7d49-c2a0-4852-bd5c-dae31ccd04ec"],
+  "In[1367]:=",ExpressionUUID->"6b2c7d49-c2a0-4852-bd5c-dae31ccd04ec"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"baseUnown", "=", "\[IndentingNewLine]", 
+   RowBox[{"pokeDatsReal", "//", 
+    RowBox[{"SelectFirst", "[", 
+     RowBox[{
+      RowBox[{"StringContainsQ", "[", 
+       RowBox[{"#Name", ",", " ", "\"\<Unown\>\""}], "]"}], "&"}], "]"}]}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.780606998988803*^9, 3.780607048973075*^9}, {
+  3.780608183906847*^9, 3.7806082056917467`*^9}},
+ CellLabel->
+  "In[1368]:=",ExpressionUUID->"efd6521f-2219-4f72-b995-4e3afba4e821"],
+
+Cell[BoxData[
+ RowBox[{"Map", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ReplacePart", "[", 
+     RowBox[{"baseUnown", ",", 
+      RowBox[{"\"\<Form\>\"", "->", "#"}]}], "]"}], "&"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Join", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"ToUpperCase", "@", 
+      RowBox[{"Alphabet", "[", "]"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<!\>\"", ",", " ", "\"\<?\>\""}], "}"}]}], 
+    "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]], "Input",
+ CellLabel->
+  "In[1381]:=",ExpressionUUID->"4935e6ce-697a-43b2-8fc0-1e8a8e41fd35"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Delete", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"SortBy", "[", 
+       RowBox[{
+        RowBox[{"{", "#NationalDex", "}"}], "&"}], "]"}], "@", 
+      "pokeDatsReal"}], ",", " ", "201"}], "]"}], "[", 
+   RowBox[{"[", 
+    RowBox[{";;", 
+     RowBox[{"-", "5"}]}], "]"}], "]"}], "[", 
+  RowBox[{"[", 
+   RowBox[{"-", "1"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.780608812765567*^9, 3.7806088375505123`*^9}},
+ CellLabel->
+  "In[1392]:=",ExpressionUUID->"d57c7db3-c418-4568-b075-87da4b7e85ef"],
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"pokeDatsRealForReal", "=", "\[IndentingNewLine]", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"dd", "=", 
+       RowBox[{
+        RowBox[{"Delete", "[", "201", "]"}], "@", 
+        RowBox[{
+         RowBox[{"SortBy", "[", 
+          RowBox[{
+           RowBox[{"{", "#NationalDex", "}"}], "&"}], "]"}], "@", 
+         "pokeDatsReal"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"SortBy", "[", 
+       RowBox[{
+        RowBox[{"{", "#NationalDex", "}"}], "&"}], "]"}], "@", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Join", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"dd", "[", 
+         RowBox[{"[", 
+          RowBox[{";;", 
+           RowBox[{"-", "5"}]}], "]"}], "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Map", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ReplacePart", "[", 
+            RowBox[{"baseUnown", ",", 
+             RowBox[{"\"\<Form\>\"", "->", "#"}]}], "]"}], "&"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Join", "[", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"ToUpperCase", "@", 
+             RowBox[{"Alphabet", "[", "]"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{"{", 
+             RowBox[{"\"\<!\>\"", ",", " ", "\"\<?\>\""}], "}"}]}], 
+           "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"MapThread", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ReplacePart", "[", 
+            RowBox[{"#", ",", " ", 
+             RowBox[{"\"\<Form\>\"", "\[Rule]", "#2"}]}], "]"}], "&"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"dd", "[", 
+             RowBox[{"[", 
+              RowBox[{
+               RowBox[{"-", "4"}], ";;"}], "]"}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{
+             "\"\<Attack\>\"", ",", "\[IndentingNewLine]", "\"\<Defense\>\"", 
+              ",", "\[IndentingNewLine]", "\"\<Speed\>\"", ",", 
+              "\[IndentingNewLine]", "\"\<Normal\>\""}], 
+             "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "}"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.780608352922683*^9, 3.780608537826727*^9}, {
+  3.780608597355641*^9, 3.7806086486860943`*^9}, {3.7806087608332148`*^9, 
+  3.780608762534731*^9}, {3.780608825995865*^9, 3.780608830453911*^9}, {
+  3.7806088840980797`*^9, 3.780608913524353*^9}},
+ CellLabel->
+  "In[1397]:=",ExpressionUUID->"ea88bbbe-1ad5-4a1b-bc05-85537745558f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"pokeDats2RealForReal", "=", "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"MapAt", "[", "\[IndentingNewLine]", 
      RowBox[{"Values", ",", "\[IndentingNewLine]", 
@@ -3166,12 +3188,8 @@ Cell[BoxData[
             RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", "\[IndentingNewLine]", 
           RowBox[{"Transpose", "[", "\[IndentingNewLine]", 
            RowBox[{"Values", "/@", "#"}], "\[IndentingNewLine]", "]"}]}], 
-         "\[IndentingNewLine]", "]"}], "&"}], "@", "\[IndentingNewLine]", 
-       RowBox[{
-        RowBox[{"SortBy", "[", 
-         RowBox[{
-          RowBox[{"#", "[", "\"\<National Dex\>\"", "]"}], "&"}], "]"}], "@", 
-        "pokeDatsReal"}]}], ",", "\[IndentingNewLine]", 
+         "\[IndentingNewLine]", "]"}], "&"}], "@", "pokeDatsRealForReal"}], 
+      ",", "\[IndentingNewLine]", 
       RowBox[{"{", "\[IndentingNewLine]", 
        RowBox[{
         RowBox[{"{", 
@@ -3185,17 +3203,21 @@ Cell[BoxData[
    3.780409358840934*^9, 3.780409422978614*^9}, {3.780409551268243*^9, 
    3.780409565081127*^9}, {3.7804097282641363`*^9, 3.780409775094919*^9}, {
    3.780409913292449*^9, 3.780409914466188*^9}, {3.7804130481700897`*^9, 
-   3.780413173840027*^9}, 3.780414547006118*^9, 3.780414588851173*^9},
+   3.780413173840027*^9}, 3.780414547006118*^9, 3.780414588851173*^9, {
+   3.780608391491599*^9, 3.780608405268602*^9}, 3.780608492004322*^9, {
+   3.7806086618259*^9, 3.780608662550012*^9}},
  CellLabel->
-  "In[986]:=",ExpressionUUID->"cfc3defa-10ce-45b1-8a7e-e3e6857a77b9"],
+  "In[1400]:=",ExpressionUUID->"cfc3defa-10ce-45b1-8a7e-e3e6857a77b9"],
 
 Cell[BoxData[
  RowBox[{"ExportString", "[", "\[IndentingNewLine]", 
-  RowBox[{"pokeDatsRealForReal", ",", "\[IndentingNewLine]", "\"\<JSON\>\""}],
-   "\[IndentingNewLine]", "]"}]], "Input",
- CellChangeTimes->{{3.780413185922377*^9, 3.780413190231288*^9}},
+  RowBox[{
+  "pokeDats2RealForReal", ",", "\[IndentingNewLine]", "\"\<JSON\>\""}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.780413185922377*^9, 3.780413190231288*^9}, 
+   3.780608667020062*^9},
  CellLabel->
-  "In[987]:=",ExpressionUUID->"b73ef5c6-69cd-4e6c-9137-f37a40210bcb"]
+  "In[1401]:=",ExpressionUUID->"b73ef5c6-69cd-4e6c-9137-f37a40210bcb"]
 }, Open  ]]
 }, Open  ]],
 
@@ -5086,7 +5108,7 @@ Cell[BoxData[
   3.780413275162163*^9, 3.780413346435008*^9}},
  CellLabel->
   "In[970]:=",ExpressionUUID->"613b6265-9565-4bb7-93a4-843daa7ed408"]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -6179,75 +6201,247 @@ ec4c7b7f145b"],
 Cell[BoxData[
  RowBox[{
   RowBox[{
-  "\"\<t=\\\"#\\\"+c;\n    if(c==\\\"00\\\"){t=\\\" \\\";}\n    \
-if(c==\\\"A1\\\"){t=\\\"0\\\";}\n    if(c==\\\"A2\\\"){t=\\\"1\\\";}\n    \
-if(c==\\\"A3\\\"){t=\\\"2\\\";}\n    if(c==\\\"A4\\\"){t=\\\"3\\\";}\n    \
-if(c==\\\"A5\\\"){t=\\\"4\\\";}\n    if(c==\\\"A6\\\"){t=\\\"5\\\";}\n    \
-if(c==\\\"A7\\\"){t=\\\"6\\\";}\n    if(c==\\\"A8\\\"){t=\\\"7\\\";}\n    \
-if(c==\\\"A9\\\"){t=\\\"8\\\";}\n    if(c==\\\"AA\\\"){t=\\\"9\\\";}\n    \
-if(c==\\\"AB\\\"){t=\\\"!\\\";}\n    if(c==\\\"AC\\\"){t=\\\"?\\\";}\n    \
-if(c==\\\"AD\\\"){t=\\\".\\\";}\n    if(c==\\\"AE\\\"){t=\\\"-\\\";}\n    \
-if(c=='B1'){t=\\\":\\\";}\n    if(c==\\\"B3\\\"){t=\\\";\\\";}\n    // $ \
-pokemoney\n    if(c==\\\"B7\\\"){t=\\\"$\\\";}\n    if(c==\\\"B8\\\"){t=\\\",\
-\\\";}\n    // * times sympol\n    if(c==\\\"B9\\\"){t=\\\"*\\\";}\n    \
-if(c==\\\"BA\\\"){t=\\\"/\\\";}\n    if(c==\\\"BB\\\"){t=\\\"A\\\";}\n    \
-if(c==\\\"BC\\\"){t=\\\"B\\\";}\n    if(c==\\\"BD\\\"){t=\\\"C\\\";}\n    \
-if(c==\\\"BE\\\"){t=\\\"D\\\";}\n    if(c==\\\"BF\\\"){t=\\\"E\\\";}\n    \
-if(c==\\\"C0\\\"){t=\\\"F\\\";}\n    if(c==\\\"C1\\\"){t=\\\"G\\\";}\n    \
-if(c==\\\"C2\\\"){t=\\\"H\\\";}\n    if(c==\\\"C3\\\"){t=\\\"I\\\";}\n    \
-if(c==\\\"C4\\\"){t=\\\"J\\\";}\n    if(c==\\\"C5\\\"){t=\\\"K\\\";}\n    \
-if(c==\\\"C6\\\"){t=\\\"L\\\";}\n    if(c==\\\"C7\\\"){t=\\\"M\\\";}\n    \
-if(c==\\\"C8\\\"){t=\\\"N\\\";}\n    if(c==\\\"C9\\\"){t=\\\"O\\\";}\n    \
-if(c==\\\"CA\\\"){t=\\\"P\\\";}\n    if(c==\\\"CB\\\"){t=\\\"Q\\\";}\n    \
-if(c==\\\"CC\\\"){t=\\\"R\\\";}\n    if(c==\\\"CD\\\"){t=\\\"S\\\";}\n    \
-if(c==\\\"CE\\\"){t=\\\"T\\\";}\n    if(c==\\\"CF\\\"){t=\\\"U\\\";}\n    \
-if(c==\\\"D0\\\"){t=\\\"V\\\";}\n    if(c==\\\"D1\\\"){t=\\\"W\\\";}\n    \
-if(c==\\\"D2\\\"){t=\\\"X\\\";}\n    if(c==\\\"D3\\\"){t=\\\"Y\\\";}\n    \
-if(c==\\\"D4\\\"){t=\\\"Z\\\";}\n    if(c==\\\"D5\\\"){t=\\\"a\\\";}\n    \
-if(c==\\\"D6\\\"){t=\\\"b\\\";}\n    if(c==\\\"D7\\\"){t=\\\"c\\\";}\n    \
-if(c==\\\"D8\\\"){t=\\\"d\\\";}\n    if(c==\\\"D9\\\"){t=\\\"e\\\";}\n    \
-if(c==\\\"DA\\\"){t=\\\"f\\\";}\n    if(c==\\\"DB\\\"){t=\\\"g\\\";}\n    \
-if(c==\\\"DC\\\"){t=\\\"h\\\";}\n    if(c==\\\"DD\\\"){t=\\\"i\\\";}\n    \
-if(c==\\\"DE\\\"){t=\\\"j\\\";}\n    if(c==\\\"DF\\\"){t=\\\"k\\\";}\n    \
-if(c==\\\"E0\\\"){t=\\\"l\\\";}\n    if(c==\\\"E1\\\"){t=\\\"m\\\";}\n    \
-if(c==\\\"E2\\\"){t=\\\"n\\\";}\n    if(c==\\\"E3\\\"){t=\\\"o\\\";}\n    \
-if(c==\\\"E4\\\"){t=\\\"p\\\";}\n    if(c==\\\"E5\\\"){t=\\\"q\\\";}\n    \
-if(c==\\\"E6\\\"){t=\\\"r\\\";}\n    if(c==\\\"E7\\\"){t=\\\"s\\\";}\n    \
-if(c==\\\"E8\\\"){t=\\\"t\\\";}\n    if(c==\\\"E9\\\"){t=\\\"u\\\";}\n    \
-if(c==\\\"EA\\\"){t=\\\"v\\\";}\n    if(c==\\\"EB\\\"){t=\\\"w\\\";}\n    \
-if(c==\\\"EC\\\"){t=\\\"x\\\";}\n    if(c==\\\"ED\\\"){t=\\\"y\\\";}\n    \
-if(c==\\\"EE\\\"){t=\\\"z\\\";}\>\"", "//", 
+  "\"\<if(n==0){t=\\\"ABCD\\\";}\n    if(n==1){t=\\\"ABDC\\\";}\n    \
+if(n==2){t=\\\"ACBD\\\";}\n    if(n==3){t=\\\"ACDB\\\";}\n    \
+if(n==4){t=\\\"ADBC\\\";}\n    if(n==5){t=\\\"ADCB\\\";}\n    \
+if(n==6){t=\\\"BACD\\\";}\n    if(n==7){t=\\\"BADC\\\";}\n    \
+if(n==8){t=\\\"BCAD\\\";}\n    if(n==9){t=\\\"BCDA\\\";}\n    \
+if(n==10){t=\\\"BDAC\\\";}\n    if(n==11){t=\\\"BDCA\\\";}\n    \
+if(n==12){t=\\\"CABD\\\";}\n    if(n==13){t=\\\"CADB\\\";}\n    \
+if(n==14){t=\\\"CBAD\\\";}\n    if(n==15){t=\\\"CBDA\\\";}\n    \
+if(n==16){t=\\\"CDAB\\\";}\n    if(n==17){t=\\\"CDBA\\\";}\n    \
+if(n==18){t=\\\"DABC\\\";}\n    if(n==19){t=\\\"DACB\\\";}\n    \
+if(n==20){t=\\\"DBAC\\\";}\n    if(n==21){t=\\\"DBCA\\\";}\n    \
+if(n==22){t=\\\"DCAB\\\";}\n    if(n==23){t=\\\"DCBA\\\";}\>\"", "//", 
    RowBox[{"StringCases", "[", 
     RowBox[{"{", "\[IndentingNewLine]", 
      RowBox[{
-      RowBox[{"\"\<if(c==\\\"\>\"", "~~", 
+      RowBox[{"\"\<if(n==\>\"", "~~", 
        RowBox[{"c", ":", 
         RowBox[{
-         RowBox[{"Except", "[", "\"\<\\\"\>\"", "]"}], ".."}]}], "~~", 
-       "\"\<\\\"){t=\\\"\>\"", "~~", 
+         RowBox[{"Except", "[", "\"\<)\>\"", "]"}], ".."}]}], "~~", 
+       "\"\<){t=\\\"\>\"", "~~", 
        RowBox[{"d", ":", 
         RowBox[{
          RowBox[{"Except", "[", "\"\<\\\"\>\"", "]"}], ".."}]}], "~~", 
        "\"\<\\\";}\>\""}], "\[RuleDelayed]", "\[IndentingNewLine]", 
       RowBox[{"TemplateApply", "[", "\[IndentingNewLine]", 
        RowBox[{
-       "\"\<case \\\"``\\\":\n  t+=\\\"``\\\";\n  break;\>\"", ",", 
+       "\"\<case ``:\n  t=\\\"``\\\";\n  break;\>\"", ",", 
         "\[IndentingNewLine]", 
         RowBox[{"{", 
-         RowBox[{"c", ",", " ", "d"}], "}"}]}], "\[IndentingNewLine]", 
-       "]"}]}], "\[IndentingNewLine]", "}"}], "]"}]}], "//", 
+         RowBox[{
+          RowBox[{"ToExpression", "@", "c"}], ",", " ", "d"}], "}"}]}], 
+       "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "}"}], "]"}]}], 
+  "//", 
   RowBox[{
    RowBox[{"StringRiffle", "[", 
     RowBox[{"#", ",", " ", "\"\<\\n\>\""}], "]"}], "&"}]}]], "Input",
  CellChangeTimes->{{3.7804618776688147`*^9, 3.780462004241983*^9}, {
-  3.780462081203308*^9, 3.7804620836011553`*^9}},
+   3.780462081203308*^9, 3.7804620836011553`*^9}, {3.780501297653755*^9, 
+   3.78050135318911*^9}, 3.780501386116478*^9},
  CellLabel->
-  "In[1251]:=",ExpressionUUID->"194d80ad-4a40-4535-a5c5-83f80007edb2"]
+  "In[1308]:=",ExpressionUUID->"194d80ad-4a40-4535-a5c5-83f80007edb2"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Map", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"TemplateApply", "[", "\[IndentingNewLine]", 
+      RowBox[{
+      "\"\<    get ``() {\n        return this.``.``;\n    }\>\"", ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "@", "#"}], "\[Equal]", "2"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Prepend", "[", 
+          RowBox[{"#", ",", " ", 
+           RowBox[{"#", "[", 
+            RowBox[{"[", 
+             RowBox[{"-", "1"}], "]"}], "]"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", "#"}], "\[IndentingNewLine]", 
+        "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}], "&"}], 
+    ",", "\[IndentingNewLine]", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<base_props\>\"", ",", " ", "\"\<national_dex\>\""}], 
+       "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<base_props\>\"", ",", "\"\<hoenn_dex\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<species\>\"", ",", "\"\<base_props\>\"", ",", "\"\<name\>\""}], 
+       "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<base_props\>\"", ",", "\"\<base_stats\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<ev_yields\>\"", ",", " ", "\"\<base_props\>\"", ",", 
+        "\"\<evs\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<exp_yield\>\"", ",", " ", "\"\<base_props\>\"", ",", 
+        "\"\<base_experience\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<base_props\>\"", ",", "\"\<catch_rate\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<base_props\>\"", ",", "\"\<type\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<base_props\>\"", ",", "\"\<ability\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<gender_group\>\"", ",", " ", "\"\<base_props\>\"", ",", 
+        "\"\<gender\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<base_props\>\"", ",", "\"\<experience_group\>\""}], "}"}],
+       ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<base_props\>\"", ",", "\"\<egg_group\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<possible_held_item\>\"", ",", " ", "\"\<base_props\>\"", ",", 
+        "\"\<held_item\>\""}], "}"}]}], "\[IndentingNewLine]", "}"}]}], 
+   "\[IndentingNewLine]", "]"}], "//", 
+  RowBox[{
+   RowBox[{"StringRiffle", "[", 
+    RowBox[{"#", ",", " ", "\"\<\\n\>\""}], "]"}], "&"}]}]], "Input",
+ CellChangeTimes->{{3.7805936866012*^9, 3.780593728840275*^9}, {
+  3.7805938697935753`*^9, 3.7805938972656507`*^9}, {3.7805940021205893`*^9, 
+  3.780594173090487*^9}},
+ CellLabel->
+  "In[1332]:=",ExpressionUUID->"908ab8b2-739b-47ac-8d3b-36c13f2f44cb"],
+
+Cell[BoxData["\<\"    get national_dex() {\\n        return \
+this.base_props.national_dex;\\n    }\\n    get hoenn_dex() {\\n        \
+return this.base_props.hoenn_dex;\\n    }\\n    get species() {\\n        \
+return this.base_props.name;\\n    }\\n    get base_stats() {\\n        \
+return this.base_props.base_stats;\\n    }\\n    get ev_yields() {\\n        \
+return this.base_props.evs;\\n    }\\n    get exp_yield() {\\n        return \
+this.base_props.base_experience;\\n    }\\n    get catch_rate() {\\n        \
+return this.base_props.catch_rate;\\n    }\\n    get type() {\\n        \
+return this.base_props.type;\\n    }\\n    get ability() {\\n        return \
+this.base_props.ability;\\n    }\\n    get gender_group() {\\n        return \
+this.base_props.gender;\\n    }\\n    get experience_group() {\\n        \
+return this.base_props.experience_group;\\n    }\\n    get egg_group() {\\n   \
+     return this.base_props.egg_group;\\n    }\\n    get possible_held_item() \
+{\\n        return this.base_props.held_item;\\n    }\"\>"], "Output",
+ CellChangeTimes->{3.780594173570335*^9},
+ CellLabel->
+  "Out[1332]=",ExpressionUUID->"120bebd1-7744-4b18-8104-f8b7a5080a51"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Thread", "[", 
+  RowBox[{"{", 
+   RowBox[{"\"\<base_props\>\"", ",", " ", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\"\<national_dex\>\"", " ", "\"\<hoenn_dex\>\""}], ",", 
+      "\"\<name\>\"", ",", "\"\<base_stats\>\"", ",", "\"\<evs\>\"", ",", 
+      "\"\<base_experience\>\"", ",", "\"\<catch_rate\>\"", ",", 
+      "\"\<type\>\"", ",", "\"\<ability\>\"", ",", "\"\<gender\>\"", ",", 
+      "\"\<experience_group\>\"", ",", "\"\<egg_group\>\"", ",", 
+      "\"\<held_item\>\""}], "}"}]}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.7805940046671257`*^9, 3.780594012424642*^9}},
+ CellLabel->
+  "In[1328]:=",ExpressionUUID->"4af5cc63-c94d-4105-a8cd-8a80e06533be"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", 
+     RowBox[{"\<\"hoenn_dex\"\>", " ", "\<\"national_dex\"\>"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"name\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"base_stats\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"evs\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"base_experience\"\>"}], "}"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"catch_rate\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"type\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"ability\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"gender\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"experience_group\"\>"}], "}"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"egg_group\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"base_props\"\>", ",", "\<\"held_item\"\>"}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.780594012856818*^9},
+ CellLabel->
+  "Out[1328]=",ExpressionUUID->"a3221de5-c251-4b61-a0c3-c7071f786c4c"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"\"\<_nat_dex(ds) {\n        return ds.NationalDex[this.index];\n    \
+}\n    get l_national_dex() {\n        return this._nat_dex(this.ds);\n    }\n\
+    get national_dex() {\n        return this._load_db().then(this._nat_dex);\
+\n    }\n\n    _hoenn_dex(ds) {\n        return ds.HoennDex[this.index];\n    \
+}\n    get l_hoenn_dex() {\n        return this._hoenn_dex(this.ds);\n    }\n \
+   get hoenn_dex() {\n        return this._load_db().then((ds) => (\n         \
+   this._hoenn_dex(ds)\n        ));\n    }\n\n    get name() {\n        \
+return this._load_db().then((ds) => (\n            ds.Name[this.index]\n      \
+  ));\n    }\n\n    get base_stats() {\n        return \
+this._load_db().then((ds) => (\n            ds.BaseStats[this.index]\n        \
+));\n    }\n\n    get evs() {\n        return this._load_db().then((ds) => (\n\
+            ds.EVs[this.index]\n        ));\n    }\n\n    get \
+base_experience() {\n        return this._load_db().then((ds) => (\n          \
+  ds.BaseExperience[this.index]\n        ));\n    }\n\n    get catch_rate() {\
+\n        return this._load_db().then((ds) => (\n            \
+ds.CatchRate[this.index]\n        ));\n    }\n\n    get type() {\n        \
+return this._load_db().then((ds) => (\n            ds.Type[this.index]\n      \
+  ));\n    }\n\n    get ability() {\n        return this._load_db().then((ds) \
+=> (\n            ds.Ability[this.index]\n        ));\n    }\n\n    get \
+gender() {\n        return this._load_db().then((ds) => (\n            \
+ds.Gender[this.index]\n        ));\n    }\n\n    get experience_group() {\n   \
+     return this._load_db().then((ds) => (\n            \
+ds.ExperienceGroup[this.index]\n        ));\n    }\n\n    get egg_group() {\n \
+       return this._load_db().then((ds) => (\n            \
+ds.EggGroup[this.index]\n        ));\n    }\n\n    get held_item() {\n        \
+return this._load_db().then((ds) => (\n            ds.HeldItem[this.index]\n  \
+      ));\n    }\>\"", "//", 
+  RowBox[{"StringCases", "[", 
+   RowBox[{
+    RowBox[{"\"\<get \>\"", "~~", 
+     RowBox[{"meeh", ":", 
+      RowBox[{"(", 
+       RowBox[{"LetterCharacter", "~~", 
+        RowBox[{
+         RowBox[{"Except", "[", "\"\<(\>\"", "]"}], ".."}]}], ")"}]}], "~~", 
+     "\"\<(\>\""}], "\[RuleDelayed]", "\[IndentingNewLine]", "meeh"}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.780593940748176*^9, 3.780593977801258*^9}},
+ CellLabel->
+  "In[1327]:=",ExpressionUUID->"36f13fe4-1a3d-45bc-92a5-1ea5eea67abb"]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{808, 755},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowMargins->{{-831, Automatic}, {Automatic, 47}},
 FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
 StyleDefinitions->"Default.nb"
 ]
@@ -6276,196 +6470,208 @@ Cell[2193, 71, 18232, 261, 8137, "Input",ExpressionUUID->"7c1f94aa-7d49-42c3-a35
 }, Closed]],
 Cell[CellGroupData[{
 Cell[20462, 337, 212, 4, 26, "Subsubsubsection",ExpressionUUID->"32ca50b7-bc1a-4475-a794-7a3ee18e1418"],
-Cell[20677, 343, 328, 5, 30, "Input",ExpressionUUID->"ba1416f0-5242-4504-9047-4649d96c1f80"]
+Cell[20677, 343, 341, 6, 30, "Input",ExpressionUUID->"ba1416f0-5242-4504-9047-4649d96c1f80"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[21054, 354, 210, 4, 37, "Subsubsection",ExpressionUUID->"7f9688ab-e1e8-4868-8051-3d75fabcfe08"],
+Cell[21067, 355, 210, 4, 37, "Subsubsection",ExpressionUUID->"7f9688ab-e1e8-4868-8051-3d75fabcfe08"],
 Cell[CellGroupData[{
-Cell[21289, 362, 188, 4, 32, "Subsubsubsection",ExpressionUUID->"92b19223-18f3-4cbf-87ae-a7a905d034de"],
-Cell[21480, 368, 15813, 220, 5407, "Input",ExpressionUUID->"71d5342e-c1fc-4491-af29-a5cf73bd8476"]
+Cell[21302, 363, 188, 4, 32, "Subsubsubsection",ExpressionUUID->"92b19223-18f3-4cbf-87ae-a7a905d034de"],
+Cell[21493, 369, 15813, 220, 5407, "Input",ExpressionUUID->"71d5342e-c1fc-4491-af29-a5cf73bd8476"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[37330, 593, 212, 4, 26, "Subsubsubsection",ExpressionUUID->"f0d1f875-3d40-442d-bb63-19c1c68e6d96"],
-Cell[37545, 599, 1186, 26, 115, "Input",ExpressionUUID->"0c2447de-0a88-48e1-851f-cb3fab345d97"],
-Cell[38734, 627, 1821, 46, 199, InheritFromParent,ExpressionUUID->"162bbe30-76bd-4013-934a-d667183ea801"]
+Cell[37343, 594, 212, 4, 26, "Subsubsubsection",ExpressionUUID->"f0d1f875-3d40-442d-bb63-19c1c68e6d96"],
+Cell[37558, 600, 1186, 26, 115, "Input",ExpressionUUID->"0c2447de-0a88-48e1-851f-cb3fab345d97"],
+Cell[38747, 628, 1821, 46, 199, InheritFromParent,ExpressionUUID->"162bbe30-76bd-4013-934a-d667183ea801"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[40604, 679, 206, 4, 37, "Subsubsection",ExpressionUUID->"df8b48f2-b837-4d6d-a6e3-a3e512e368f4"],
+Cell[40617, 680, 206, 4, 37, "Subsubsection",ExpressionUUID->"df8b48f2-b837-4d6d-a6e3-a3e512e368f4"],
 Cell[CellGroupData[{
-Cell[40835, 687, 158, 3, 32, "Subsubsubsection",ExpressionUUID->"b3700781-b7ff-4545-9ccc-715becc1613a"],
-Cell[40996, 692, 1022, 17, 241, "Input",ExpressionUUID->"66a9e2bc-fc84-4cf1-8f23-0d3fe3f2998a"]
+Cell[40848, 688, 158, 3, 32, "Subsubsubsection",ExpressionUUID->"b3700781-b7ff-4545-9ccc-715becc1613a"],
+Cell[41009, 693, 1022, 17, 241, "Input",ExpressionUUID->"66a9e2bc-fc84-4cf1-8f23-0d3fe3f2998a"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[42055, 714, 212, 4, 26, "Subsubsubsection",ExpressionUUID->"272fa203-3ac0-4a1c-b11e-ceb9f11ae12a"],
-Cell[42270, 720, 3043, 65, 577, InheritFromParent,ExpressionUUID->"26744725-c2b1-4d54-b230-07fd8fb211f5"],
+Cell[42068, 715, 212, 4, 26, "Subsubsubsection",ExpressionUUID->"272fa203-3ac0-4a1c-b11e-ceb9f11ae12a"],
+Cell[42283, 721, 3186, 68, 577, InheritFromParent,ExpressionUUID->"26744725-c2b1-4d54-b230-07fd8fb211f5"],
 Cell[CellGroupData[{
-Cell[45338, 789, 706, 19, 52, "Input",ExpressionUUID->"632f7e1e-1748-4750-bc0c-23279560da62"],
-Cell[46047, 810, 2364, 42, 581, "Output",ExpressionUUID->"0da5244c-5a61-47e7-81cb-5ef72b94161b"]
+Cell[45494, 793, 841, 18, 241, "Input",ExpressionUUID->"88c38caf-a692-4bda-9899-fcab035094a3"],
+Cell[46338, 813, 1576, 23, 329, "Output",ExpressionUUID->"5e85e3e1-9c02-418c-be1e-442d8df97d54"]
 }, Open  ]]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[48472, 859, 158, 3, 37, "Subsubsection",ExpressionUUID->"76f58a14-6ffa-4e3b-910b-7a3238972aa4"],
+Cell[47975, 843, 158, 3, 37, "Subsubsection",ExpressionUUID->"76f58a14-6ffa-4e3b-910b-7a3238972aa4"],
 Cell[CellGroupData[{
-Cell[48655, 866, 160, 3, 32, "Subsubsubsection",ExpressionUUID->"093c6a04-3604-4015-a042-cb46681c7c1a"],
-Cell[48818, 871, 18315, 250, 7549, "Input",ExpressionUUID->"cacf7eb7-a9b2-4712-ab12-896712bbaf85"]
+Cell[48158, 850, 160, 3, 32, "Subsubsubsection",ExpressionUUID->"093c6a04-3604-4015-a042-cb46681c7c1a"],
+Cell[48321, 855, 18315, 250, 7549, "Input",ExpressionUUID->"cacf7eb7-a9b2-4712-ab12-896712bbaf85"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[67170, 1126, 159, 3, 26, "Subsubsubsection",ExpressionUUID->"820f2cb7-3637-4197-a7e1-db2c82f8f091"],
+Cell[66673, 1110, 159, 3, 26, "Subsubsubsection",ExpressionUUID->"820f2cb7-3637-4197-a7e1-db2c82f8f091"],
 Cell[CellGroupData[{
-Cell[67354, 1133, 244, 5, 30, "Input",ExpressionUUID->"1ef43cbc-3ae3-4ff7-b9b2-e51c520d176f"],
-Cell[67601, 1140, 9438, 125, 7511, "Output",ExpressionUUID->"a4561eb9-22b0-4759-9c39-d00cfef76edf"]
-}, Open  ]]
-}, Closed]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[77100, 1272, 158, 3, 45, "Subsubsection",ExpressionUUID->"0c14cd15-a3d7-4442-831d-6dbc4c7acfd9"],
-Cell[CellGroupData[{
-Cell[77283, 1279, 160, 3, 32, "Subsubsubsection",ExpressionUUID->"8ae4f9f1-e684-4cd7-870e-df5f537a8fdc"],
-Cell[77446, 1284, 17613, 241, 7444, "Input",ExpressionUUID->"c7fe85ee-2ee5-4a3d-879e-50fd515cb1d1"]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[95096, 1530, 161, 3, 26, "Subsubsubsection",ExpressionUUID->"31bec18c-2592-49f0-9d4c-225a2837a4d0"],
-Cell[95260, 1535, 243, 6, 30, "Input",ExpressionUUID->"9514146a-44df-44b4-b098-65553237e8f1"]
-}, Closed]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[95552, 1547, 158, 3, 45, "Subsubsection",ExpressionUUID->"6973c1fe-3f9a-49a3-8371-224b0211478b"],
-Cell[CellGroupData[{
-Cell[95735, 1554, 158, 3, 32, "Subsubsubsection",ExpressionUUID->"b69d7b2c-a998-433a-a181-b6775d32e411"],
-Cell[95896, 1559, 4928, 69, 1333, "Input",ExpressionUUID->"7bfeea07-e3db-4b68-b306-8ecd27f3a82f"]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[100861, 1633, 159, 3, 26, "Subsubsubsection",ExpressionUUID->"56abcc60-953b-489e-822e-0a9759d46f07"],
-Cell[101023, 1638, 315, 7, 30, "Input",ExpressionUUID->"53fc0cb8-3f7a-4a83-8fd4-9be94012ee29"],
-Cell[CellGroupData[{
-Cell[101363, 1649, 186, 3, 30, "Input",ExpressionUUID->"71e66e14-40dd-4d05-94da-2cdff63f4faf"],
-Cell[101552, 1654, 3315, 45, 1337, "Output",ExpressionUUID->"fc9a9063-99c5-434f-a129-7f6f4c20d79e"]
+Cell[66857, 1117, 244, 5, 30, "Input",ExpressionUUID->"1ef43cbc-3ae3-4ff7-b9b2-e51c520d176f"],
+Cell[67104, 1124, 9438, 125, 7511, "Output",ExpressionUUID->"a4561eb9-22b0-4759-9c39-d00cfef76edf"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[104928, 1706, 162, 3, 45, "Subsubsection",ExpressionUUID->"d55c097a-3ab0-4ab6-be9c-f4d10f098c1f"],
+Cell[76603, 1256, 158, 3, 45, "Subsubsection",ExpressionUUID->"0c14cd15-a3d7-4442-831d-6dbc4c7acfd9"],
 Cell[CellGroupData[{
-Cell[105115, 1713, 160, 3, 32, "Subsubsubsection",ExpressionUUID->"eaafa46e-f894-4317-8e7b-19b2b4fbb3cf"],
-Cell[105278, 1718, 12334, 169, 8179, "Input",ExpressionUUID->"65539851-d67b-4c71-80ae-afd327c42ea5"]
+Cell[76786, 1263, 160, 3, 32, "Subsubsubsection",ExpressionUUID->"8ae4f9f1-e684-4cd7-870e-df5f537a8fdc"],
+Cell[76949, 1268, 17613, 241, 7444, "Input",ExpressionUUID->"c7fe85ee-2ee5-4a3d-879e-50fd515cb1d1"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[117649, 1892, 159, 3, 26, "Subsubsubsection",ExpressionUUID->"0a471f4e-d168-4d59-a7da-99288df8af64"],
+Cell[94599, 1514, 161, 3, 26, "Subsubsubsection",ExpressionUUID->"31bec18c-2592-49f0-9d4c-225a2837a4d0"],
+Cell[94763, 1519, 243, 6, 30, "Input",ExpressionUUID->"9514146a-44df-44b4-b098-65553237e8f1"]
+}, Closed]]
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[117833, 1899, 2528, 60, 325, "Input",ExpressionUUID->"322045d7-d8a3-4820-83c6-37603c4cb5fd"],
-Cell[120364, 1961, 12177, 178, 7175, "Output",ExpressionUUID->"51b01aad-e700-4e37-b535-3656d1ab7b68"]
+Cell[95055, 1531, 158, 3, 45, "Subsubsection",ExpressionUUID->"6973c1fe-3f9a-49a3-8371-224b0211478b"],
+Cell[CellGroupData[{
+Cell[95238, 1538, 158, 3, 32, "Subsubsubsection",ExpressionUUID->"b69d7b2c-a998-433a-a181-b6775d32e411"],
+Cell[95399, 1543, 4928, 69, 1333, "Input",ExpressionUUID->"7bfeea07-e3db-4b68-b306-8ecd27f3a82f"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[100364, 1617, 159, 3, 26, "Subsubsubsection",ExpressionUUID->"56abcc60-953b-489e-822e-0a9759d46f07"],
+Cell[100526, 1622, 315, 7, 30, "Input",ExpressionUUID->"53fc0cb8-3f7a-4a83-8fd4-9be94012ee29"],
+Cell[CellGroupData[{
+Cell[100866, 1633, 186, 3, 30, "Input",ExpressionUUID->"71e66e14-40dd-4d05-94da-2cdff63f4faf"],
+Cell[101055, 1638, 3315, 45, 1337, "Output",ExpressionUUID->"fc9a9063-99c5-434f-a129-7f6f4c20d79e"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[132602, 2146, 150, 2, 45, "Subsubsection",ExpressionUUID->"f864e326-edba-40d1-b5b3-c3bad19f8068"],
+Cell[104431, 1690, 162, 3, 45, "Subsubsection",ExpressionUUID->"d55c097a-3ab0-4ab6-be9c-f4d10f098c1f"],
 Cell[CellGroupData[{
-Cell[132777, 2152, 160, 3, 32, "Subsubsubsection",ExpressionUUID->"904b2a98-81e7-4ebb-a41d-33836d11507e"],
-Cell[132940, 2157, 285, 8, 104, "Text",ExpressionUUID->"e6ab1451-6f86-4f29-8558-f30c3ac08f3b"],
-Cell[133228, 2167, 42407, 789, 24664, "Input",ExpressionUUID->"b326bd30-ff65-4a4a-80db-7e50da30e48d"]
+Cell[104618, 1697, 160, 3, 32, "Subsubsubsection",ExpressionUUID->"eaafa46e-f894-4317-8e7b-19b2b4fbb3cf"],
+Cell[104781, 1702, 12334, 169, 8179, "Input",ExpressionUUID->"65539851-d67b-4c71-80ae-afd327c42ea5"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[175672, 2961, 159, 3, 26, "Subsubsubsection",ExpressionUUID->"9900f852-7a32-4252-956b-8f31aba6deae"],
-Cell[175834, 2966, 4406, 86, 997, "Input",ExpressionUUID->"c096afe2-fd41-4d42-9038-4a205bdb507e"],
-Cell[180243, 3054, 419, 11, 52, "Input",ExpressionUUID->"09f99843-62c0-4882-b911-ab57e2dab1d7"],
-Cell[180665, 3067, 473, 10, 94, "Input",ExpressionUUID->"06e75110-d17a-4707-a4bb-018dd697bc1d"],
-Cell[181141, 3079, 3267, 72, 514, "Input",ExpressionUUID->"6b2c7d49-c2a0-4852-bd5c-dae31ccd04ec"],
-Cell[184411, 3153, 1689, 36, 325, "Input",ExpressionUUID->"cfc3defa-10ce-45b1-8a7e-e3e6857a77b9"],
-Cell[186103, 3191, 338, 6, 94, "Input",ExpressionUUID->"b73ef5c6-69cd-4e6c-9137-f37a40210bcb"]
+Cell[117152, 1876, 159, 3, 26, "Subsubsubsection",ExpressionUUID->"0a471f4e-d168-4d59-a7da-99288df8af64"],
+Cell[117314, 1881, 2613, 60, 304, "Input",ExpressionUUID->"322045d7-d8a3-4820-83c6-37603c4cb5fd"],
+Cell[CellGroupData[{
+Cell[119952, 1945, 815, 20, 136, "Input",ExpressionUUID->"ecf1acc5-35e5-4530-ac13-9369e5879626"],
+Cell[120770, 1967, 6884, 92, 1589, "Output",ExpressionUUID->"be846264-f9b2-4a72-81fb-4c046c60ef40"]
+}, Open  ]]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[127715, 2066, 150, 2, 37, "Subsubsection",ExpressionUUID->"f864e326-edba-40d1-b5b3-c3bad19f8068"],
+Cell[CellGroupData[{
+Cell[127890, 2072, 160, 3, 32, "Subsubsubsection",ExpressionUUID->"904b2a98-81e7-4ebb-a41d-33836d11507e"],
+Cell[128053, 2077, 285, 8, 104, "Text",ExpressionUUID->"e6ab1451-6f86-4f29-8558-f30c3ac08f3b"],
+Cell[128341, 2087, 42407, 789, 24664, "Input",ExpressionUUID->"b326bd30-ff65-4a4a-80db-7e50da30e48d"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[170785, 2881, 159, 3, 26, "Subsubsubsection",ExpressionUUID->"9900f852-7a32-4252-956b-8f31aba6deae"],
+Cell[170947, 2886, 4643, 91, 1018, "Input",ExpressionUUID->"c096afe2-fd41-4d42-9038-4a205bdb507e"],
+Cell[175593, 2979, 3375, 74, 535, "Input",ExpressionUUID->"6b2c7d49-c2a0-4852-bd5c-dae31ccd04ec"],
+Cell[178971, 3055, 494, 12, 52, "Input",ExpressionUUID->"efd6521f-2219-4f72-b995-4e3afba4e821"],
+Cell[179468, 3069, 643, 16, 157, "Input",ExpressionUUID->"4935e6ce-697a-43b2-8fc0-1e8a8e41fd35"],
+Cell[180114, 3087, 552, 17, 30, "Input",ExpressionUUID->"d57c7db3-c418-4568-b075-87da4b7e85ef"],
+Cell[180669, 3106, 2843, 67, 556, "Input",ExpressionUUID->"ea88bbbe-1ad5-4a1b-bc05-85537745558f"],
+Cell[183515, 3175, 1646, 34, 304, "Input",ExpressionUUID->"cfc3defa-10ce-45b1-8a7e-e3e6857a77b9"],
+Cell[185164, 3211, 369, 8, 94, "Input",ExpressionUUID->"b73ef5c6-69cd-4e6c-9137-f37a40210bcb"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[186490, 3203, 161, 3, 45, "Subsubsection",ExpressionUUID->"095fa951-a620-4dba-b1a0-126e0ae12fc9"],
+Cell[185582, 3225, 161, 3, 45, "Subsubsection",ExpressionUUID->"095fa951-a620-4dba-b1a0-126e0ae12fc9"],
 Cell[CellGroupData[{
-Cell[186676, 3210, 159, 3, 32, "Subsubsubsection",ExpressionUUID->"fd2ae93f-feb6-4077-b407-00716e385e51"],
-Cell[186838, 3215, 42109, 595, 17944, "Input",ExpressionUUID->"0015e0d3-9c46-4c15-a36d-700249234b63"]
+Cell[185768, 3232, 159, 3, 32, "Subsubsubsection",ExpressionUUID->"fd2ae93f-feb6-4077-b407-00716e385e51"],
+Cell[185930, 3237, 42109, 595, 17944, "Input",ExpressionUUID->"0015e0d3-9c46-4c15-a36d-700249234b63"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[228984, 3815, 183, 3, 26, "Subsubsubsection",ExpressionUUID->"e2d73eb4-dcba-4052-9727-aeeb6fd22d0f"],
-Cell[229170, 3820, 1690, 35, 241, "Input",ExpressionUUID->"57deb104-90f0-4165-97bf-f21f6b963dac"],
-Cell[230863, 3857, 1308, 32, 262, "Input",ExpressionUUID->"389f101c-d3ef-4bee-ad12-c7e918b18ee6"],
-Cell[232174, 3891, 713, 16, 178, "Input",ExpressionUUID->"e15b9531-ee0c-43a2-9316-d549ef6612c7"],
+Cell[228076, 3837, 183, 3, 26, "Subsubsubsection",ExpressionUUID->"e2d73eb4-dcba-4052-9727-aeeb6fd22d0f"],
+Cell[228262, 3842, 1690, 35, 241, "Input",ExpressionUUID->"57deb104-90f0-4165-97bf-f21f6b963dac"],
+Cell[229955, 3879, 1308, 32, 262, "Input",ExpressionUUID->"389f101c-d3ef-4bee-ad12-c7e918b18ee6"],
+Cell[231266, 3913, 713, 16, 178, "Input",ExpressionUUID->"e15b9531-ee0c-43a2-9316-d549ef6612c7"],
 Cell[CellGroupData[{
-Cell[232912, 3911, 1034, 23, 136, "Input",ExpressionUUID->"3a346e72-4b2a-4b9a-b428-a4a079bbb7a5"],
-Cell[233949, 3936, 39923, 539, 9128, "Output",ExpressionUUID->"b9158fb2-ee3b-49d8-8e9b-2f0a8883f12f"]
+Cell[232004, 3933, 1034, 23, 136, "Input",ExpressionUUID->"3a346e72-4b2a-4b9a-b428-a4a079bbb7a5"],
+Cell[233041, 3958, 39923, 539, 9128, "Output",ExpressionUUID->"b9158fb2-ee3b-49d8-8e9b-2f0a8883f12f"]
 }, Open  ]]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[273933, 4482, 158, 3, 37, "Subsubsection",ExpressionUUID->"e08043ec-2e2f-4e2f-b309-af388583d52a"],
+Cell[273025, 4504, 158, 3, 37, "Subsubsection",ExpressionUUID->"e08043ec-2e2f-4e2f-b309-af388583d52a"],
 Cell[CellGroupData[{
-Cell[274116, 4489, 160, 3, 32, "Subsubsubsection",ExpressionUUID->"44242f39-948e-4daa-b196-7d5c6760b34b"],
-Cell[274279, 4494, 38820, 530, 14584, "Input",ExpressionUUID->"c50b6dbd-d54e-49be-8258-13780ee47f10"]
+Cell[273208, 4511, 160, 3, 32, "Subsubsubsection",ExpressionUUID->"44242f39-948e-4daa-b196-7d5c6760b34b"],
+Cell[273371, 4516, 38820, 530, 14584, "Input",ExpressionUUID->"c50b6dbd-d54e-49be-8258-13780ee47f10"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[313136, 5029, 159, 3, 26, "Subsubsubsection",ExpressionUUID->"8f189a3f-87d8-453a-a01a-5568e1fa51c6"],
-Cell[313298, 5034, 1489, 35, 241, "Input",ExpressionUUID->"53ffc54f-5000-43c4-8c7c-43dd331e232a"],
-Cell[314790, 5071, 742, 16, 115, "Input",ExpressionUUID->"613b6265-9565-4bb7-93a4-843daa7ed408"]
-}, Closed]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[315581, 5093, 163, 3, 45, "Subsubsection",ExpressionUUID->"f837b51f-7012-497d-9127-f7198caa1510"],
-Cell[CellGroupData[{
-Cell[315769, 5100, 157, 3, 32, "Subsubsubsection",ExpressionUUID->"61183550-8832-4f42-b692-a2ed23d4fb71"],
-Cell[CellGroupData[{
-Cell[315951, 5107, 163, 3, 30, "Subsubsubsubsection",ExpressionUUID->"026c96fd-d9a6-4515-bdbd-da55d2c574be"],
-Cell[316117, 5112, 2015, 31, 682, "Input",ExpressionUUID->"274aec7b-20af-4acb-bb38-4503f8fda593"]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[318169, 5148, 162, 3, 24, "Subsubsubsubsection",ExpressionUUID->"e859c375-1b0b-4221-9420-a601a774a345"],
-Cell[318334, 5153, 675, 14, 367, "Input",ExpressionUUID->"39623d9c-bf1e-4172-8ea0-b2f8bbe09c70"]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[319046, 5172, 164, 3, 24, "Subsubsubsubsection",ExpressionUUID->"3e44f3b6-7c5e-48eb-8759-78ba41313d9b"],
-Cell[319213, 5177, 13764, 217, 4231, InheritFromParent,ExpressionUUID->"de4da7b8-d55f-4d03-885b-0727de72c5d6"]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[333014, 5399, 165, 3, 24, "Subsubsubsubsection",ExpressionUUID->"d19911d5-8fdf-4efa-9df9-7d7c950db64b"],
-Cell[333182, 5404, 645, 14, 157, "Input",ExpressionUUID->"14d3ac7f-4167-42c5-b57c-6dfe0afad69f"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[333864, 5423, 162, 3, 30, "Subsubsubsubsection",ExpressionUUID->"8999a9fd-ec53-4af0-8f67-64f4f1e28a1e"],
-Cell[334029, 5428, 713, 13, 346, "Input",ExpressionUUID->"fd498a48-5b99-42e7-a7b8-ad9db2fc3ed4"]
+Cell[312228, 5051, 159, 3, 26, "Subsubsubsection",ExpressionUUID->"8f189a3f-87d8-453a-a01a-5568e1fa51c6"],
+Cell[312390, 5056, 1489, 35, 241, "Input",ExpressionUUID->"53ffc54f-5000-43c4-8c7c-43dd331e232a"],
+Cell[313882, 5093, 742, 16, 115, "Input",ExpressionUUID->"613b6265-9565-4bb7-93a4-843daa7ed408"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[334791, 5447, 159, 3, 32, "Subsubsubsection",ExpressionUUID->"395416f8-9e8c-45c6-9f46-aa9e3c00f83b"],
+Cell[314673, 5115, 163, 3, 45, "Subsubsection",ExpressionUUID->"f837b51f-7012-497d-9127-f7198caa1510"],
 Cell[CellGroupData[{
-Cell[334975, 5454, 161, 3, 30, "Subsubsubsubsection",ExpressionUUID->"0934f289-b6bf-492b-b0a9-41fdb61950cd"],
-Cell[335139, 5459, 1101, 27, 199, "Input",ExpressionUUID->"40c1df83-6b28-4ab6-8641-cc3052567a96"]
+Cell[314861, 5122, 157, 3, 32, "Subsubsubsection",ExpressionUUID->"61183550-8832-4f42-b692-a2ed23d4fb71"],
+Cell[CellGroupData[{
+Cell[315043, 5129, 163, 3, 30, "Subsubsubsubsection",ExpressionUUID->"026c96fd-d9a6-4515-bdbd-da55d2c574be"],
+Cell[315209, 5134, 2015, 31, 682, "Input",ExpressionUUID->"274aec7b-20af-4acb-bb38-4503f8fda593"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[336277, 5491, 166, 3, 24, "Subsubsubsubsection",ExpressionUUID->"5146e5cd-1e72-4277-918c-a8a413001c59"],
-Cell[336446, 5496, 1299, 30, 241, "Input",ExpressionUUID->"0a755eb7-a34d-4683-a497-c1f86209b191"],
-Cell[337748, 5528, 540, 10, 52, "Input",ExpressionUUID->"53c64b80-869d-4fd4-bbb5-4b78686d10d3"],
-Cell[338291, 5540, 8865, 215, 1480, "Input",ExpressionUUID->"c74dc333-455f-4c66-876a-08d812d93bab"],
-Cell[347159, 5757, 748, 19, 73, "Input",ExpressionUUID->"0ff69ebc-d6fd-450a-8039-b9a701a0aaee"]
+Cell[317261, 5170, 162, 3, 24, "Subsubsubsubsection",ExpressionUUID->"e859c375-1b0b-4221-9420-a601a774a345"],
+Cell[317426, 5175, 675, 14, 367, "Input",ExpressionUUID->"39623d9c-bf1e-4172-8ea0-b2f8bbe09c70"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[347944, 5781, 166, 3, 24, "Subsubsubsubsection",ExpressionUUID->"f7003304-d544-4997-b92e-f67cf258808d"],
-Cell[348113, 5786, 2203, 49, 409, "Input",ExpressionUUID->"2661c8a1-22b0-4bae-96ba-d7d4c25b93b5"]
+Cell[318138, 5194, 164, 3, 24, "Subsubsubsubsection",ExpressionUUID->"3e44f3b6-7c5e-48eb-8759-78ba41313d9b"],
+Cell[318305, 5199, 13764, 217, 4231, InheritFromParent,ExpressionUUID->"de4da7b8-d55f-4d03-885b-0727de72c5d6"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[332106, 5421, 165, 3, 24, "Subsubsubsubsection",ExpressionUUID->"d19911d5-8fdf-4efa-9df9-7d7c950db64b"],
+Cell[332274, 5426, 645, 14, 157, "Input",ExpressionUUID->"14d3ac7f-4167-42c5-b57c-6dfe0afad69f"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[350353, 5840, 164, 3, 30, "Subsubsubsubsection",ExpressionUUID->"c67d109a-7176-4846-ad59-f4ddfdd20843"],
-Cell[350520, 5845, 1984, 41, 430, "Input",ExpressionUUID->"148305c7-000c-474c-ac57-04c525c6059a"]
+Cell[332956, 5445, 162, 3, 30, "Subsubsubsubsection",ExpressionUUID->"8999a9fd-ec53-4af0-8f67-64f4f1e28a1e"],
+Cell[333121, 5450, 713, 13, 346, "Input",ExpressionUUID->"fd498a48-5b99-42e7-a7b8-ad9db2fc3ed4"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[333883, 5469, 159, 3, 32, "Subsubsubsection",ExpressionUUID->"395416f8-9e8c-45c6-9f46-aa9e3c00f83b"],
+Cell[CellGroupData[{
+Cell[334067, 5476, 161, 3, 30, "Subsubsubsubsection",ExpressionUUID->"0934f289-b6bf-492b-b0a9-41fdb61950cd"],
+Cell[334231, 5481, 1101, 27, 199, "Input",ExpressionUUID->"40c1df83-6b28-4ab6-8641-cc3052567a96"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[352541, 5891, 163, 3, 24, "Subsubsubsubsection",ExpressionUUID->"38af7314-092d-4fba-a6cc-5ed7e309521b"],
-Cell[352707, 5896, 2183, 45, 451, "Input",ExpressionUUID->"3f3a6c73-d5e6-4b9a-8530-0c1faa75da62"],
-Cell[354893, 5943, 679, 16, 157, "Input",ExpressionUUID->"95ac04d8-beed-40be-8b41-9d3147a280dd"],
+Cell[335369, 5513, 166, 3, 24, "Subsubsubsubsection",ExpressionUUID->"5146e5cd-1e72-4277-918c-a8a413001c59"],
+Cell[335538, 5518, 1299, 30, 241, "Input",ExpressionUUID->"0a755eb7-a34d-4683-a497-c1f86209b191"],
+Cell[336840, 5550, 540, 10, 52, "Input",ExpressionUUID->"53c64b80-869d-4fd4-bbb5-4b78686d10d3"],
+Cell[337383, 5562, 8865, 215, 1480, "Input",ExpressionUUID->"c74dc333-455f-4c66-876a-08d812d93bab"],
+Cell[346251, 5779, 748, 19, 73, "Input",ExpressionUUID->"0ff69ebc-d6fd-450a-8039-b9a701a0aaee"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[355597, 5963, 366, 7, 94, "Input",ExpressionUUID->"34b1741a-a2c5-40e2-8c97-5003758dff61"],
-Cell[355966, 5972, 13617, 193, 3038, "Output",ExpressionUUID->"b4d91e63-362b-4624-9707-372a7c44c15d"]
+Cell[347036, 5803, 166, 3, 24, "Subsubsubsubsection",ExpressionUUID->"f7003304-d544-4997-b92e-f67cf258808d"],
+Cell[347205, 5808, 2203, 49, 409, "Input",ExpressionUUID->"2661c8a1-22b0-4bae-96ba-d7d4c25b93b5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[349445, 5862, 164, 3, 30, "Subsubsubsubsection",ExpressionUUID->"c67d109a-7176-4846-ad59-f4ddfdd20843"],
+Cell[349612, 5867, 1984, 41, 430, "Input",ExpressionUUID->"148305c7-000c-474c-ac57-04c525c6059a"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[351633, 5913, 163, 3, 24, "Subsubsubsubsection",ExpressionUUID->"38af7314-092d-4fba-a6cc-5ed7e309521b"],
+Cell[351799, 5918, 2183, 45, 451, "Input",ExpressionUUID->"3f3a6c73-d5e6-4b9a-8530-0c1faa75da62"],
+Cell[353985, 5965, 679, 16, 157, "Input",ExpressionUUID->"95ac04d8-beed-40be-8b41-9d3147a280dd"],
+Cell[CellGroupData[{
+Cell[354689, 5985, 366, 7, 94, "Input",ExpressionUUID->"34b1741a-a2c5-40e2-8c97-5003758dff61"],
+Cell[355058, 5994, 13617, 193, 3038, "Output",ExpressionUUID->"b4d91e63-362b-4624-9707-372a7c44c15d"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[369656, 6173, 156, 3, 37, "Subsubsection",ExpressionUUID->"13551dd7-e23c-4f47-a81e-ec4c7b7f145b"],
-Cell[369815, 6178, 3998, 66, 1774, "Input",ExpressionUUID->"194d80ad-4a40-4535-a5c5-83f80007edb2"]
+Cell[368748, 6195, 156, 3, 37, "Subsubsection",ExpressionUUID->"13551dd7-e23c-4f47-a81e-ec4c7b7f145b"],
+Cell[368907, 6200, 2043, 43, 682, "Input",ExpressionUUID->"194d80ad-4a40-4535-a5c5-83f80007edb2"],
+Cell[CellGroupData[{
+Cell[370975, 6247, 3135, 76, 577, "Input",ExpressionUUID->"908ab8b2-739b-47ac-8d3b-36c13f2f44cb"],
+Cell[374113, 6325, 1184, 16, 833, "Output",ExpressionUUID->"120bebd1-7744-4b18-8104-f8b7a5080a51"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[375334, 6346, 698, 14, 73, "Input",ExpressionUUID->"4af5cc63-c94d-4105-a8cd-8a80e06533be"],
+Cell[376035, 6362, 1333, 33, 98, "Output",ExpressionUUID->"a3221de5-c251-4b61-a0c3-c7071f786c4c"]
+}, Open  ]],
+Cell[377383, 6398, 2528, 40, 1879, "Input",ExpressionUUID->"36f13fe4-1a3d-45bc-92a5-1ea5eea67abb"]
 }, Open  ]]
 }, Open  ]]
 }

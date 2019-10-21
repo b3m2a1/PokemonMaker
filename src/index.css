@@ -31,21 +31,28 @@
 }
 
 .code-panel-body {
-    padding: 0px;
+    padding: 0;
+}
+.options-panel-body {
+    padding: 0;
 }
 
-.tab-content {
+.code-panel-body .tab-content {
     border-top: solid 1px lightgray;
     border-bottom: solid 1px lightgray;
     width: 100%;
-    margin-bottom: .75rem;
+}
+.options-panel-body .tab-content {
+    border-top: solid 1px lightgray;
+    width: 100%;
+    padding: .75rem;
 }
 
-.text-tab {
+.tab-content .form-group {
+    margin: 0;
     /*border-top: solid 1px lightgray;*/
-
-    margin-top: .75rem;
-    padding-top: 15px;
+    /*margin-top: .75rem;*/
+    /*padding-top: 15px;*/
 }
 
 .main-footer {

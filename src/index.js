@@ -7,7 +7,7 @@ import Banner from "./core/banner";
 import FooterPanel from "./core/footer";
 import CodePanel from "./core/code_panel";
 import OptionsPanel from "./core/options_panel";
-import PokemonForm from "./core/core";
+import PokemonForm from "./core/pokemon_form";
 
 var mainForm = new PokemonForm();
 
@@ -75,12 +75,9 @@ ReactDOM.render(
     document.getElementById('options_panel')
 );
 
-
-
 ReactDOM.render(
     <FooterPanel
         body={<p className="text-light"> PokemonMaker by kpdavatar restyled and extended by b3m2a1 </p>}
     />,
     document.getElementById('footer')
 );
-

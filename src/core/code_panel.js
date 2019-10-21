@@ -36,12 +36,15 @@ class ResultsPanel extends React.Component {
                     <Col sm="2">
                         <Form.Check
                             type="checkbox"
-                            id={this.props.id + "_useRandomPID"}
+                            // id={this.props.id + "_useRandomPID"}
                             label="Random PID"
                         />
                     </Col>
                     <Col sm="10">
-                        <Form.Control id={this.props.id + "_PID"} defaultValue={this.props.attrs['PID']}/>
+                        <Form.Control
+                            // id={this.props.id + "_PID"}
+                            defaultValue={this.props.attrs['PID']}
+                        />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId={this.props.id + "_XKey"}>
@@ -57,9 +60,7 @@ class ResultsPanel extends React.Component {
                     (block, i) => (
                         <Form.Group as={Row} controlId={this.props.id + "_block" + toString(i)}>
                             <Col sm="2">
-                                <Form.Label column={true} sm="2">
-                                    {"Block " + toString(i) + ":"}
-                                </Form.Label>
+                                {"Block " + toString(i) + ":"}
                             </Col>
                             <Col sm="10">
                                 <Form.Control plaintext readOnly defaultValue={block}/>
@@ -76,16 +77,19 @@ class CodePanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            form: ('form' in props) ? props.form.bindCodePanel(this): null,
+            form: ('form' in props) ? props.form.bindCodePanel(this) : null,
             code: ('code' in props) ? props.code : "",
             log: ('log' in props) ? props.log : "",
             blocks: ('blocks' in props) ? props.blocks : [],
             attrs: ('attrs' in props) ? props.attrs : {},
             _devices: null,
+            _games: null,
             open: true
         };
         this.handleCodeChange = this.handleCodeChange.bind(this);
         this.handleLogChange = this.handleLogChange.bind(this);
+        this.handleGameChange = this.handleGameChange.bind(this);
+        this.handleDeviceChange = this.handleDeviceChange.bind(this);
     }
 
     setForm(form) {
@@ -117,18 +121,42 @@ class CodePanel extends React.Component {
         this.setCode(event.target.value);
     }
 
+    handleGameChange(event) {
+        this.state.form.game.index = event.target.value;
+    }
+
+    handleDeviceChange(event) {
+        this.state.form.game.device = event.target.value;
+    }
+
     toggleOpen() {
-        this.setState({open:!this.state.open})
+        this.setState({open: !this.state.open})
     }
 
     getDeviceList() {
         this.state.form.device.list.then(
-            (data)=>this.setState(
+            (data) => this.setState(
                 {
                     _devices: data.map(
                         (dev, i) => (
                             <option value={i} key={i}>
                                 {dev}
+                            </option>
+                        )
+                    )
+                }
+            )
+        )
+    }
+
+    getGameList() {
+        this.state.form.game.object_list.then(
+            (data) => this.setState(
+                {
+                    _games: data.map(
+                        (dat, i) => (
+                            <option value={i} key={i}>
+                                {dat.name + " " + dat.region}
                             </option>
                         )
                     )
@@ -167,22 +195,18 @@ class CodePanel extends React.Component {
                                     </Nav>
                                     <Tab.Content>
                                         <Tab.Pane eventKey="code" title="Code">
-                                            <Card.Body className="bg-white">
-                                                <OutputTextArea
-                                                    id="CodePane"
-                                                    text={this.state.code}
-                                                    handler={this.handleCodeChange}
-                                                />
-                                            </Card.Body>
+                                            <OutputTextArea
+                                                id="CodePane"
+                                                text={this.state.code}
+                                                handler={this.handleCodeChange}
+                                            />
                                         </Tab.Pane>
                                         <Tab.Pane eventKey="log" title="Log">
-                                            <Card.Body className="bg-white">
-                                                <OutputTextArea
-                                                    id="LogPane"
-                                                    text={this.state.log}
-                                                    handler={this.handleLogChange}
-                                                />
-                                            </Card.Body>
+                                            <OutputTextArea
+                                                id="LogPane"
+                                                text={this.state.log}
+                                                handler={this.handleLogChange}
+                                            />
                                         </Tab.Pane>
                                         <Tab.Pane eventKey="blocks" title="Blocks">
                                             <Card.Body className="bg-white">
@@ -193,25 +217,43 @@ class CodePanel extends React.Component {
                                 </Tab.Container>
                             </Col>
                         </Row>
-                        <Row noGutters>
+                        <Row noGutters className={"p-3"}>
                             <Col>
-                                <Card.Body>
-                                    <Button onClick={() => (this.state.form.generate())}>Generate Code</Button>
-                                </Card.Body>
+                                <Button onClick={() => (this.state.form.generate())}>Generate Code</Button>
                             </Col>
                             <Col>
-                                <Form.Group as={Col} controlId="device">
-                                    <Form.Label column={true}>Device</Form.Label>
-                                    <Form.Control as="select" value={this.state.form.device.index}>
+                                <Form.Group as={Col} controlId="game">
+                                    <Form.Control as="select" value={this.state.form.game.index}
+                                                  onChange={this.handleGameChange}>
                                         {
                                             ('form' in this.state) ? (
-                                                (this.state._devices === null ) ? (
-                                                    this.getDeviceList()
-                                                ): this.state._devices
+                                                (this.state._games === null) ? (
+                                                    this.getGameList()
+                                                ) : this.state._games
                                             ) : null
 
                                         }
                                     </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group as={Col} controlId="device">
+                                    <Form.Control as="select" value={this.state.form.device.index}
+                                                  onChange={this.handleDeviceChange}>
+                                        {
+                                            ('form' in this.state) ? (
+                                                (this.state._devices === null) ? (
+                                                    this.getDeviceList()
+                                                ) : this.state._devices
+                                            ) : null
+
+                                        }
+                                    </Form.Control>
+                                    <Form.Check
+                                        type="checkbox"
+                                        // id={this.props.id + "_useRandomPID"}
+                                        label="Add Master Code"
+                                    />
                                 </Form.Group>
                             </Col>
                         </Row>

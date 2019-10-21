@@ -1,27 +1,4 @@
-[
-  {"Name":"Hardy","Modifiers":null},
-  {"Name":"Lonely","Modifiers":["Attack","Defense"]},
-  {"Name":"Brave","Modifiers":["Attack","Speed"]},
-  {"Name":"Adament","Modifiers":["Attack","SpecialAttack"]},
-  {"Name":"Naughty","Modifiers":["Attack","SpecialDefense"]},
-  {"Name":"Bold","Modifiers":["Defense","Attack"]},
-  {"Name":"Docile","Modifiers":null},
-  {"Name":"Relaxed","Modifiers":["Defense","Speed"]},
-  {"Name":"Impish","Modifiers":["Defense","SpecialAttack"]},
-  {"Name":"Lax","Modifiers":["Defense","SpecialDefense"]},
-  {"Name":"Timid","Modifiers":["Speed","Attack"]},
-  {"Name":"Hasty","Modifiers":["Speed","Defense"]},
-  {"Name":"Serious","Modifiers":null},
-  {"Name":"Jolly","Modifiers":["Speed","SpecialAttack"]},
-  {"Name":"Naive","Modifiers":["Speed","SpecialDefense"]},
-  {"Name":"Modest","Modifiers":["SpecialAttack","Attack"]},
-  {"Name":"Mild","Modifiers":["SpecialAttack","Defense"]},
-  {"Name":"Quiet","Modifiers":["SpecialAttack","Speed"]},
-  {"Name":"Bashful","Modifiers":null},
-  {"Name":"Rash","Modifiers":["SpecialAttack","SpecialDefense"]},
-  {"Name":"Calm","Modifiers":["SpecialDefense","Attack"]},
-  {"Name":"Gentle","Modifiers":["SpecialDefense","Defense"]},
-  {"Name":"Sassy","Modifiers":["SpecialDefense","Speed"]},
-  {"Name":"Careful","Modifiers":["SpecialDefense","SpecialAttack"]},
-  {"Name":"Quirky","Modifiers":null}
-]
+{
+	"Name": ["Hardy", "Lonely", "Brave", "Adament", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky"],
+	"Modifiers": [[null, null], ["attack", "defense"], ["attack", "speed"], ["attack", "special_attack"], ["attack", "special_defense"], ["defense", "attack"], [null, null], ["defense", "speed"], ["defense", "special_attack"], ["defense", "special_defense"], ["speed", "attack"], ["speed", "defense"], [null, null], ["speed", "special_attack"], ["speed", "special_defense"], ["special_attack", "attack"], ["special_attack", "defense"], ["special_attack", "speed"], [null, null], ["special_attack", "special_defense"], ["special_defense", "attack"], ["special_defense", "defense"], ["special_defense", "speed"], ["special_defense", "special_attack"], [null, null]]
+}
