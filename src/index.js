@@ -3,10 +3,10 @@ import React from "react";
 
 import "./index.css";
 
-import Banner from "./core/banner";
-import FooterPanel from "./core/footer";
-import CodePanel from "./core/code_panel";
-import OptionsPanel from "./core/options_panel";
+import Banner from "./interface/banner";
+import FooterPanel from "./interface/footer";
+import CodePanel from "./interface/code_panel";
+import OptionsPanel from "./interface/options_panel";
 import PokemonForm from "./core/pokemon_form";
 
 var mainForm = new PokemonForm();

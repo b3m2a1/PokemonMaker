@@ -1,15 +1,12 @@
 import React from 'react';
-import {
-    Form,
-    Row, Col
-} from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
+import { InputField, ListSelector } from './elements';
 
 class PokemonPanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             pokemon: props.form.pokemon,
-            index: props.form.pokemon.index,
             base_data: props.form.pokemon.base_data,
 
             pokeman_list: null,
@@ -18,19 +15,52 @@ class PokemonPanel extends React.Component {
             loc_list: null,
             item_list: null
         };
-        // Bind the object to the handlers it'll need
-        this.handleIndexChange = this.handleIndexChange.bind(this);
-        this.handleNameChange = this.handleNameChange.bind(this);
-        this.handleAbilityChange = this.handleAbilityChange.bind(this);
-        this.handleNatureChange = this.handleNatureChange.bind(this);
-        this.handleLevelMetChange = this.handleLevelMetChange.bind(this);
-        this.handleBallChange = this.handleBallChange.bind(this);
-        this.handleItemChange = this.handleItemChange.bind(this);
+
         this.updateBaseData = this.updateBaseData.bind(this);
+        this.ready = this.ready.bind(this);
+
+        // we can use the ListSelector stuff to move most of this into the render call
+        this.index = new ListSelector(this, props.form.pokemon, 'index',
+            { default_value: 0, ready: this.ready }
+            );
+        this.nickname = new InputField(this, props.form.pokemon, 'name',
+            { default_value: "", ready: this.ready, validator: (v) => v.slice(0, 10) }
+            );
+        this.ability = new BoundField(this, props.form.pokemon, 'ability_index',
+            { default_value: 0, ready: this.ready }
+            );
+        this.level_met = new BoundField(this, props.form.pokemon, 'level_met',
+            { default_value: 24, ready: this.ready }
+            );
+
+        this.nature = new BoundField(this, props.form.pokemon.nature, 'nature_index',
+            { accessor_field : "index", default_value: 24, ready: this.ready }
+            );
+        this.ball = new BoundField(this, props.form.pokemon.ball, 'ball_index',
+            { accessor_field : "index", default_value: 4, ready: this.ready }
+            );
+        this.item = new BoundField(this, props.form.pokemon.item, 'item_index',
+            { accessor_field : "index", default_value: 0, ready: this.ready }
+            );
+        this.location = new BoundField(this, props.form.pokemon.location, 'loc_index',
+            { accessor_field : "index", default_value: 0, ready: this.ready }
+            );
+
+        this.pokemans_list = new BoundField(this, props.form.pokemon.data, 'pokeman_list',
+            {
+                getter : () => (
+                    (this.state.pokeman_list === null) ? (this.getPokemanList()) : this.state.pokeman_list
+                )
+            }
+            )
 
         // because we want to write on pokemon directly rather than managing both the backend and front-end data,
         // so we also need so set some hooks to call into setState
-        this.state.pokemon.update_hooks["base_data"].method = this.updateBaseData;
+        // this.state.pokemon.update_hooks["base_data"].method = this.updateBaseData;
+    }
+
+    ready() {
+        return this.state.pokemon.loaded;
     }
 
     getPokemanList() {
@@ -50,19 +80,20 @@ class PokemonPanel extends React.Component {
     }
 
     getAbilityList() {
-        this.state.pokemon.ability.data.list.then(
-            (data) => this.setState(
-                {
-                    ability_list: data.map(
-                        (dat, i) => (
-                            <option value={i} key={i}>
-                                {dat}
-                            </option>
-                        )
-                    )
-                }
-            )
-        )
+        if (this.state.pokemon.abilities.length === 2) {
+            return <>
+                <option value={0} key={0}>
+                    {this.state.pokemon.abilities[0].name}
+                </option>
+                <option value={1} key={1}>
+                    {this.state.pokemon.abilities[1].name}
+                </option>
+            </>
+        } else {
+            return <option value={0} key={0}>
+                {this.state.pokemon.abilities[0].name}
+            </option>
+        }
     }
 
     getNatureList() {
@@ -115,42 +146,12 @@ class PokemonPanel extends React.Component {
 
     //region UpdateHooks
     updateBaseData(value, field, ...obj) {
-        this.setState({
-            index: this.state.pokemon.index,
-            base_data: Object.assign({}, this.state.pokemon.base_data)
-        })
+        // this.setState({
+        //     base_data: Object.assign({}, this.state.pokemon.base_data)
+        // })
     }
 
     //endregion
-
-    //region Change Handlers
-    handleIndexChange(event) {
-        this.state.pokemon.index = event.target.value;
-    }
-    handleNameChange(event) {
-        this.state.pokemon.name = event.target.value.slice(0, 10);
-    }
-    handleAbilityChange(event) {
-        this.state.pokemon.ability.index = event.target.value;
-    }
-    handleNatureChange(event) {
-        this.state.pokemon.nature.index = event.target.value;
-    }
-    handleItemChange(event) {
-        this.state.pokemon.item.index = event.target.value;
-    }
-    handleBallChange(event) {
-        this.state.pokemon.ball.index = event.target.value;
-    }
-    handleLevelMetChange(event) {
-        this.state.pokemon.level_met = event.target.value;
-    }
-
-    //
-
-    ready() {
-        return this.state.pokemon.loaded;
-    }
 
     render() {
 
@@ -161,12 +162,11 @@ class PokemonPanel extends React.Component {
                         <Form.Group as={Row}>
                             <Form.Label column={true} sm="4">Species:</Form.Label>
                             <Col sm="8">
-                                <Form.Control as="select" value={this.state.pokemon.index}
-                                              onChange={this.handleIndexChange}>
+                                <Form.Control as="select"
+                                              value={this.index.value}
+                                              onChange={this.index.change}>
                                     {
-                                        (this.state.pokeman_list === null) ? (
-                                            this.getPokemanList()
-                                        ) : this.state.pokeman_list
+                                        this.pokemans_list.value
                                     }
                                 </Form.Control>
                             </Col>
@@ -200,8 +200,8 @@ class PokemonPanel extends React.Component {
                             <Form.Label column={true} sm="4">Name:</Form.Label>
                             <Col sm="8">
                                 <Form.Control as="input"
-                                              value={this.ready() ? this.state.pokemon.name : ""}
-                                              onChange={this.handleNameChange}
+                                              value={this.nickname.value}
+                                              onChange={this.nickname.change}
                                 />
                             </Col>
                         </Form.Group>
@@ -214,13 +214,13 @@ class PokemonPanel extends React.Component {
                             <Form.Label column={true} sm="4">Ability:</Form.Label>
                             <Col sm="8">
                                 <Form.Control as="select"
-                                              value={this.ready() ? this.state.pokemon.ability.index : 0}
+                                              value={this.ready() ? this.state.pokemon.ability_index : 0}
                                               onChange={this.handleAbilityChange}
                                 >
                                     {
-                                        (this.state.ability_list === null) ? (
+                                        this.ready() ? (
                                             this.getAbilityList()
-                                        ) : this.state.ability_list
+                                        ) : null
                                     }
                                 </Form.Control>
                             </Col>
@@ -289,8 +289,8 @@ class PokemonPanel extends React.Component {
                 <Row>
                     <Col>
                         <Form.Control as="select"
-                                      value={this.state.pokemon.location}
-                                      onChange={this.handleIndexChange}
+                                      value={this.ready() ? this.state.pokemon.location.index : 0}
+                                      onChange={this.handleLocationChange}
                         >
                             {
                                 (this.state.loc_list === null) ? (

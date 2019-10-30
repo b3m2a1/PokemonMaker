@@ -5,77 +5,10 @@ import {
     NatureData, AbilityData, TypeData,
     LocationData, BallData, ItemData
 } from './data_handles';
-
-
-// Two utility classes for hooking up with the actual interface -- we'll be using a callback type system to do this
-class UpdateHook {
-    constructor({
-                    method = null,
-                    defaults = null
-                } = {}
-    ) {
-        this.method = method;
-        this.defaults = (defaults === null) ? [] : [...defaults];
-    }
-    bind(...args) {
-        this.defaults = [...this.defaults, ...args];
-        return this;
-    }
-    apply(...args) {
-        if (this.method !== null) {
-            this.method(...args);
-        }
-    }
-}
-
-class DataHandler {
-    constructor(
-        index,
-        data_type,
-        {
-            update_hook = null
-        } = {}
-    ) {
-        const hook = (update_hook === null) ? new UpdateHook({defaults : [this]}) : update_hook;
-        this.props = null;
-        this._data_handler = data_type;
-        this._data = new data_type(index);
-        this.update_hook = hook;
-        this._load_base_data = this._load_base_data.bind(this);
-        this.load_base_data();
-    }
-
-    //region Load Data
-    load_base_data() {
-        return this._data.object.then(this._load_base_data);
-    }
-    _load_base_data(
-        data
-    ) {
-        this.props = data;
-    }
-    //endregion
-
-    get index() {
-        return this._data.index;
-    }
-    get data() {
-        return this._data;
-    }
-    set index(i) {
-        this._data.index = i;
-        if (this._data.ds === null) {
-            this._data.object.then(d => [
-                this._load_base_data(d),
-                this.update_hook.apply(i, 'index', this)
-            ])
-        } else {
-            this._load_base_data(this._data.l_object);
-            this.update_hook.apply(i, 'index', this);
-        }
-    }
-
-}
+import {
+    UpdateHook,
+    DataHandler
+} from "./utilities";
 
 //region Structs
 // Defines a common "Identifier" structure with a name, gender, ID, etc.
@@ -525,7 +458,7 @@ class Pokemon {
             identifier = null,
             trainer = null,
             nature = 24,
-            ability = 0,
+            ability_index = 0,
             stats = null,
             moves = null,
             ribbons = null,
@@ -555,7 +488,11 @@ class Pokemon {
             new Type(0, {update_hook : this.update_hooks['base_data']}),
             new Type(0, {update_hook : this.update_hooks['base_data']})
         ];
-        this._ability = new Ability(ability, {update_hook : this.update_hooks['base_data']});
+        this._abilities = [
+            new Ability(0, {update_hook : this.update_hooks['base_data']}),
+            new Ability(0, {update_hook : this.update_hooks['base_data']})
+        ];
+        this._ability_index = 0;
         this._nature = new Nature(nature, {update_hook : this.update_hooks['base_data']});
         this._item = new Item(held_item, {update_hook : this.update_hooks['base_data']});
         this._ball = new Ball(ball_used, {update_hook : this.update_hooks['base_data']});
@@ -614,8 +551,16 @@ class Pokemon {
         }
 
         this._types[0].index = this.base_props.type[0];
-        this._types[1].index = this.base_props.type[1];
-        this._ability.index = this.base_props.ability[0];
+        if ( this.base_props.type.length === 2 ) {
+            this._types[1].index = this.base_props.type[1];
+        } else {
+            this._types[1].index = 17; // last type...maybe this shouldn't be hard coded?
+        }
+
+        this._abilities[0].index = this.base_props.ability[0];
+        if ( this.base_props.ability.length === 2 ) {
+            this._abilities[1].index = this.base_props.ability[1];
+        }
 
         this.loaded = true;
     }
@@ -650,7 +595,10 @@ class Pokemon {
         return this._nature;
     }
     get ability() {
-        return this._ability;
+        return this._abilities[this._ability_index];
+    }
+    get abilities() {
+        return (this.base_props.ability.length === 2) ? this._abilities : this._abilities.slice(0, 1);
     }
     get ball() {
         return this._ball;
@@ -797,6 +745,10 @@ class Pokemon {
         this._identifier.gender = g;
     }
 
+    set ability_index(i) {
+        this._ability_index = i;
+        this.update_hooks['base_data'].apply(i, 'ability_index', this);
+    }
     set level_met(l) {
         this._level_met = l;
         this.update_hooks['base_data'].apply(l, 'level_met', this);
